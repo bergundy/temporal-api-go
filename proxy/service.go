@@ -163,6 +163,10 @@ func (s *workflowServiceProxyServer) PollActivityTaskQueue(ctx context.Context, 
 	return s.client.PollActivityTaskQueue(ctx, req)
 }
 
+func (s *workflowServiceProxyServer) PollNexusTaskQueue(ctx context.Context, req *workflowservice.PollNexusTaskQueueRequest) (*workflowservice.PollNexusTaskQueueResponse, error) {
+	return s.client.PollNexusTaskQueue(ctx, req)
+}
+
 func (s *workflowServiceProxyServer) PollWorkflowExecutionUpdate(ctx context.Context, req *workflowservice.PollWorkflowExecutionUpdateRequest) (*workflowservice.PollWorkflowExecutionUpdateResponse, error) {
 	return s.client.PollWorkflowExecutionUpdate(ctx, req)
 }
@@ -221,6 +225,10 @@ func (s *workflowServiceProxyServer) RespondActivityTaskFailed(ctx context.Conte
 
 func (s *workflowServiceProxyServer) RespondActivityTaskFailedById(ctx context.Context, req *workflowservice.RespondActivityTaskFailedByIdRequest) (*workflowservice.RespondActivityTaskFailedByIdResponse, error) {
 	return s.client.RespondActivityTaskFailedById(ctx, req)
+}
+
+func (s *workflowServiceProxyServer) RespondNexusTaskCompleted(ctx context.Context, req *workflowservice.RespondNexusTaskCompletedRequest) (*workflowservice.RespondNexusTaskCompletedResponse, error) {
+	return s.client.RespondNexusTaskCompleted(ctx, req)
 }
 
 func (s *workflowServiceProxyServer) RespondQueryTaskCompleted(ctx context.Context, req *workflowservice.RespondQueryTaskCompletedRequest) (*workflowservice.RespondQueryTaskCompletedResponse, error) {

@@ -36,6 +36,7 @@ import (
 
 	proto "github.com/gogo/protobuf/proto"
 	github_com_gogo_protobuf_sortkeys "github.com/gogo/protobuf/sortkeys"
+	types "github.com/gogo/protobuf/types"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -92,6 +93,220 @@ func (m *HeaderValues) GetElements() []string {
 	return nil
 }
 
+type Payload struct {
+	Headers map[string]*HeaderValues `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Body    []byte                   `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+}
+
+func (m *Payload) Reset()      { *m = Payload{} }
+func (*Payload) ProtoMessage() {}
+func (*Payload) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{1}
+}
+func (m *Payload) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Payload) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Payload.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Payload) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Payload.Merge(m, src)
+}
+func (m *Payload) XXX_Size() int {
+	return m.Size()
+}
+func (m *Payload) XXX_DiscardUnknown() {
+	xxx_messageInfo_Payload.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Payload proto.InternalMessageInfo
+
+func (m *Payload) GetHeaders() map[string]*HeaderValues {
+	if m != nil {
+		return m.Headers
+	}
+	return nil
+}
+
+func (m *Payload) GetBody() []byte {
+	if m != nil {
+		return m.Body
+	}
+	return nil
+}
+
+type Failure struct {
+	Message  string            `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Metadata map[string]string `protobuf:"bytes,2,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Details  *types.Struct     `protobuf:"bytes,3,opt,name=details,proto3" json:"details,omitempty"`
+}
+
+func (m *Failure) Reset()      { *m = Failure{} }
+func (*Failure) ProtoMessage() {}
+func (*Failure) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{2}
+}
+func (m *Failure) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Failure) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Failure.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Failure) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Failure.Merge(m, src)
+}
+func (m *Failure) XXX_Size() int {
+	return m.Size()
+}
+func (m *Failure) XXX_DiscardUnknown() {
+	xxx_messageInfo_Failure.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Failure proto.InternalMessageInfo
+
+func (m *Failure) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
+func (m *Failure) GetMetadata() map[string]string {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
+func (m *Failure) GetDetails() *types.Struct {
+	if m != nil {
+		return m.Details
+	}
+	return nil
+}
+
+type HandlerError struct {
+	// TODO: valid status codes
+	StatusCode int32    `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
+	Failure    *Failure `protobuf:"bytes,2,opt,name=failure,proto3" json:"failure,omitempty"`
+}
+
+func (m *HandlerError) Reset()      { *m = HandlerError{} }
+func (*HandlerError) ProtoMessage() {}
+func (*HandlerError) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{3}
+}
+func (m *HandlerError) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *HandlerError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_HandlerError.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *HandlerError) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HandlerError.Merge(m, src)
+}
+func (m *HandlerError) XXX_Size() int {
+	return m.Size()
+}
+func (m *HandlerError) XXX_DiscardUnknown() {
+	xxx_messageInfo_HandlerError.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_HandlerError proto.InternalMessageInfo
+
+func (m *HandlerError) GetStatusCode() int32 {
+	if m != nil {
+		return m.StatusCode
+	}
+	return 0
+}
+
+func (m *HandlerError) GetFailure() *Failure {
+	if m != nil {
+		return m.Failure
+	}
+	return nil
+}
+
+type UnsuccessfulOperationError struct {
+	// TODO: enum??
+	OperationState string   `protobuf:"bytes,1,opt,name=operation_state,json=operationState,proto3" json:"operation_state,omitempty"`
+	Failure        *Failure `protobuf:"bytes,2,opt,name=failure,proto3" json:"failure,omitempty"`
+}
+
+func (m *UnsuccessfulOperationError) Reset()      { *m = UnsuccessfulOperationError{} }
+func (*UnsuccessfulOperationError) ProtoMessage() {}
+func (*UnsuccessfulOperationError) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{4}
+}
+func (m *UnsuccessfulOperationError) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *UnsuccessfulOperationError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_UnsuccessfulOperationError.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *UnsuccessfulOperationError) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnsuccessfulOperationError.Merge(m, src)
+}
+func (m *UnsuccessfulOperationError) XXX_Size() int {
+	return m.Size()
+}
+func (m *UnsuccessfulOperationError) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnsuccessfulOperationError.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnsuccessfulOperationError proto.InternalMessageInfo
+
+func (m *UnsuccessfulOperationError) GetOperationState() string {
+	if m != nil {
+		return m.OperationState
+	}
+	return ""
+}
+
+func (m *UnsuccessfulOperationError) GetFailure() *Failure {
+	if m != nil {
+		return m.Failure
+	}
+	return nil
+}
+
 // A request to start an operation.
 type StartOperationRequest struct {
 	// Type of operation to start.
@@ -107,7 +322,7 @@ type StartOperationRequest struct {
 func (m *StartOperationRequest) Reset()      { *m = StartOperationRequest{} }
 func (*StartOperationRequest) ProtoMessage() {}
 func (*StartOperationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c46b498fdef87267, []int{1}
+	return fileDescriptor_c46b498fdef87267, []int{5}
 }
 func (m *StartOperationRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -175,7 +390,7 @@ type CancelOperationRequest struct {
 func (m *CancelOperationRequest) Reset()      { *m = CancelOperationRequest{} }
 func (*CancelOperationRequest) ProtoMessage() {}
 func (*CancelOperationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c46b498fdef87267, []int{2}
+	return fileDescriptor_c46b498fdef87267, []int{6}
 }
 func (m *CancelOperationRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -231,7 +446,7 @@ type Request struct {
 func (m *Request) Reset()      { *m = Request{} }
 func (*Request) ProtoMessage() {}
 func (*Request) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c46b498fdef87267, []int{3}
+	return fileDescriptor_c46b498fdef87267, []int{7}
 }
 func (m *Request) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -313,19 +528,288 @@ func (*Request) XXX_OneofWrappers() []interface{} {
 	}
 }
 
+type StartOperationResponseSync struct {
+	Payload *Payload `protobuf:"bytes,1,opt,name=payload,proto3" json:"payload,omitempty"`
+}
+
+func (m *StartOperationResponseSync) Reset()      { *m = StartOperationResponseSync{} }
+func (*StartOperationResponseSync) ProtoMessage() {}
+func (*StartOperationResponseSync) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{8}
+}
+func (m *StartOperationResponseSync) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StartOperationResponseSync) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StartOperationResponseSync.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StartOperationResponseSync) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StartOperationResponseSync.Merge(m, src)
+}
+func (m *StartOperationResponseSync) XXX_Size() int {
+	return m.Size()
+}
+func (m *StartOperationResponseSync) XXX_DiscardUnknown() {
+	xxx_messageInfo_StartOperationResponseSync.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StartOperationResponseSync proto.InternalMessageInfo
+
+func (m *StartOperationResponseSync) GetPayload() *Payload {
+	if m != nil {
+		return m.Payload
+	}
+	return nil
+}
+
+type StartOperationResponseAsync struct {
+	OperationId string `protobuf:"bytes,1,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+}
+
+func (m *StartOperationResponseAsync) Reset()      { *m = StartOperationResponseAsync{} }
+func (*StartOperationResponseAsync) ProtoMessage() {}
+func (*StartOperationResponseAsync) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{9}
+}
+func (m *StartOperationResponseAsync) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StartOperationResponseAsync) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StartOperationResponseAsync.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StartOperationResponseAsync) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StartOperationResponseAsync.Merge(m, src)
+}
+func (m *StartOperationResponseAsync) XXX_Size() int {
+	return m.Size()
+}
+func (m *StartOperationResponseAsync) XXX_DiscardUnknown() {
+	xxx_messageInfo_StartOperationResponseAsync.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StartOperationResponseAsync proto.InternalMessageInfo
+
+func (m *StartOperationResponseAsync) GetOperationId() string {
+	if m != nil {
+		return m.OperationId
+	}
+	return ""
+}
+
+type StartOperationResponseFailure struct {
+	// Types that are valid to be assigned to Variant:
+	//
+	//	*StartOperationResponseFailure_HandlerError
+	//	*StartOperationResponseFailure_OperationError
+	Variant isStartOperationResponseFailure_Variant `protobuf_oneof:"variant"`
+}
+
+func (m *StartOperationResponseFailure) Reset()      { *m = StartOperationResponseFailure{} }
+func (*StartOperationResponseFailure) ProtoMessage() {}
+func (*StartOperationResponseFailure) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{10}
+}
+func (m *StartOperationResponseFailure) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StartOperationResponseFailure) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StartOperationResponseFailure.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StartOperationResponseFailure) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StartOperationResponseFailure.Merge(m, src)
+}
+func (m *StartOperationResponseFailure) XXX_Size() int {
+	return m.Size()
+}
+func (m *StartOperationResponseFailure) XXX_DiscardUnknown() {
+	xxx_messageInfo_StartOperationResponseFailure.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StartOperationResponseFailure proto.InternalMessageInfo
+
+type isStartOperationResponseFailure_Variant interface {
+	isStartOperationResponseFailure_Variant()
+	Equal(interface{}) bool
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type StartOperationResponseFailure_HandlerError struct {
+	HandlerError *HandlerError `protobuf:"bytes,1,opt,name=handler_error,json=handlerError,proto3,oneof" json:"handler_error,omitempty"`
+}
+type StartOperationResponseFailure_OperationError struct {
+	OperationError *UnsuccessfulOperationError `protobuf:"bytes,2,opt,name=operation_error,json=operationError,proto3,oneof" json:"operation_error,omitempty"`
+}
+
+func (*StartOperationResponseFailure_HandlerError) isStartOperationResponseFailure_Variant()   {}
+func (*StartOperationResponseFailure_OperationError) isStartOperationResponseFailure_Variant() {}
+
+func (m *StartOperationResponseFailure) GetVariant() isStartOperationResponseFailure_Variant {
+	if m != nil {
+		return m.Variant
+	}
+	return nil
+}
+
+func (m *StartOperationResponseFailure) GetHandlerError() *HandlerError {
+	if x, ok := m.GetVariant().(*StartOperationResponseFailure_HandlerError); ok {
+		return x.HandlerError
+	}
+	return nil
+}
+
+func (m *StartOperationResponseFailure) GetOperationError() *UnsuccessfulOperationError {
+	if x, ok := m.GetVariant().(*StartOperationResponseFailure_OperationError); ok {
+		return x.OperationError
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*StartOperationResponseFailure) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*StartOperationResponseFailure_HandlerError)(nil),
+		(*StartOperationResponseFailure_OperationError)(nil),
+	}
+}
+
+type StartOperationResponse struct {
+	// Types that are valid to be assigned to Variant:
+	//
+	//	*StartOperationResponse_SyncSuccess
+	//	*StartOperationResponse_AsyncSuccess
+	//	*StartOperationResponse_Failure
+	Variant isStartOperationResponse_Variant `protobuf_oneof:"variant"`
+}
+
+func (m *StartOperationResponse) Reset()      { *m = StartOperationResponse{} }
+func (*StartOperationResponse) ProtoMessage() {}
+func (*StartOperationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c46b498fdef87267, []int{11}
+}
+func (m *StartOperationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *StartOperationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_StartOperationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *StartOperationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StartOperationResponse.Merge(m, src)
+}
+func (m *StartOperationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *StartOperationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_StartOperationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StartOperationResponse proto.InternalMessageInfo
+
+type isStartOperationResponse_Variant interface {
+	isStartOperationResponse_Variant()
+	Equal(interface{}) bool
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type StartOperationResponse_SyncSuccess struct {
+	SyncSuccess *StartOperationResponseSync `protobuf:"bytes,1,opt,name=sync_success,json=syncSuccess,proto3,oneof" json:"sync_success,omitempty"`
+}
+type StartOperationResponse_AsyncSuccess struct {
+	AsyncSuccess *StartOperationResponseAsync `protobuf:"bytes,2,opt,name=async_success,json=asyncSuccess,proto3,oneof" json:"async_success,omitempty"`
+}
+type StartOperationResponse_Failure struct {
+	Failure *StartOperationResponseFailure `protobuf:"bytes,3,opt,name=failure,proto3,oneof" json:"failure,omitempty"`
+}
+
+func (*StartOperationResponse_SyncSuccess) isStartOperationResponse_Variant()  {}
+func (*StartOperationResponse_AsyncSuccess) isStartOperationResponse_Variant() {}
+func (*StartOperationResponse_Failure) isStartOperationResponse_Variant()      {}
+
+func (m *StartOperationResponse) GetVariant() isStartOperationResponse_Variant {
+	if m != nil {
+		return m.Variant
+	}
+	return nil
+}
+
+func (m *StartOperationResponse) GetSyncSuccess() *StartOperationResponseSync {
+	if x, ok := m.GetVariant().(*StartOperationResponse_SyncSuccess); ok {
+		return x.SyncSuccess
+	}
+	return nil
+}
+
+func (m *StartOperationResponse) GetAsyncSuccess() *StartOperationResponseAsync {
+	if x, ok := m.GetVariant().(*StartOperationResponse_AsyncSuccess); ok {
+		return x.AsyncSuccess
+	}
+	return nil
+}
+
+func (m *StartOperationResponse) GetFailure() *StartOperationResponseFailure {
+	if x, ok := m.GetVariant().(*StartOperationResponse_Failure); ok {
+		return x.Failure
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*StartOperationResponse) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*StartOperationResponse_SyncSuccess)(nil),
+		(*StartOperationResponse_AsyncSuccess)(nil),
+		(*StartOperationResponse_Failure)(nil),
+	}
+}
+
 type Response struct {
-	// HTTP status code.
-	StatusCode int32 `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
-	// HTTP response headers.
-	Headers map[string]*HeaderValues `protobuf:"bytes,2,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// HTTP response body.
-	Body []byte `protobuf:"bytes,3,opt,name=body,proto3" json:"body,omitempty"`
+	// Types that are valid to be assigned to Variant:
+	//
+	//	*Response_StartOperation
+	Variant isResponse_Variant `protobuf_oneof:"variant"`
 }
 
 func (m *Response) Reset()      { *m = Response{} }
 func (*Response) ProtoMessage() {}
 func (*Response) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c46b498fdef87267, []int{4}
+	return fileDescriptor_c46b498fdef87267, []int{12}
 }
 func (m *Response) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -354,35 +838,57 @@ func (m *Response) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Response proto.InternalMessageInfo
 
-func (m *Response) GetStatusCode() int32 {
-	if m != nil {
-		return m.StatusCode
-	}
-	return 0
+type isResponse_Variant interface {
+	isResponse_Variant()
+	Equal(interface{}) bool
+	MarshalTo([]byte) (int, error)
+	Size() int
 }
 
-func (m *Response) GetHeaders() map[string]*HeaderValues {
+type Response_StartOperation struct {
+	StartOperation *StartOperationResponse `protobuf:"bytes,1,opt,name=start_operation,json=startOperation,proto3,oneof" json:"start_operation,omitempty"`
+}
+
+func (*Response_StartOperation) isResponse_Variant() {}
+
+func (m *Response) GetVariant() isResponse_Variant {
 	if m != nil {
-		return m.Headers
+		return m.Variant
 	}
 	return nil
 }
 
-func (m *Response) GetBody() []byte {
-	if m != nil {
-		return m.Body
+func (m *Response) GetStartOperation() *StartOperationResponse {
+	if x, ok := m.GetVariant().(*Response_StartOperation); ok {
+		return x.StartOperation
 	}
 	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Response) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Response_StartOperation)(nil),
+	}
 }
 
 func init() {
 	proto.RegisterType((*HeaderValues)(nil), "temporal.api.nexus.v1.HeaderValues")
+	proto.RegisterType((*Payload)(nil), "temporal.api.nexus.v1.Payload")
+	proto.RegisterMapType((map[string]*HeaderValues)(nil), "temporal.api.nexus.v1.Payload.HeadersEntry")
+	proto.RegisterType((*Failure)(nil), "temporal.api.nexus.v1.Failure")
+	proto.RegisterMapType((map[string]string)(nil), "temporal.api.nexus.v1.Failure.MetadataEntry")
+	proto.RegisterType((*HandlerError)(nil), "temporal.api.nexus.v1.HandlerError")
+	proto.RegisterType((*UnsuccessfulOperationError)(nil), "temporal.api.nexus.v1.UnsuccessfulOperationError")
 	proto.RegisterType((*StartOperationRequest)(nil), "temporal.api.nexus.v1.StartOperationRequest")
 	proto.RegisterType((*CancelOperationRequest)(nil), "temporal.api.nexus.v1.CancelOperationRequest")
 	proto.RegisterType((*Request)(nil), "temporal.api.nexus.v1.Request")
 	proto.RegisterMapType((map[string]*HeaderValues)(nil), "temporal.api.nexus.v1.Request.HeadersEntry")
+	proto.RegisterType((*StartOperationResponseSync)(nil), "temporal.api.nexus.v1.StartOperationResponseSync")
+	proto.RegisterType((*StartOperationResponseAsync)(nil), "temporal.api.nexus.v1.StartOperationResponseAsync")
+	proto.RegisterType((*StartOperationResponseFailure)(nil), "temporal.api.nexus.v1.StartOperationResponseFailure")
+	proto.RegisterType((*StartOperationResponse)(nil), "temporal.api.nexus.v1.StartOperationResponse")
 	proto.RegisterType((*Response)(nil), "temporal.api.nexus.v1.Response")
-	proto.RegisterMapType((map[string]*HeaderValues)(nil), "temporal.api.nexus.v1.Response.HeadersEntry")
 }
 
 func init() {
@@ -390,42 +896,63 @@ func init() {
 }
 
 var fileDescriptor_c46b498fdef87267 = []byte{
-	// 546 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x54, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0xf5, 0x3a, 0x2d, 0x6d, 0x26, 0x11, 0xad, 0x56, 0x2a, 0x58, 0x11, 0x2c, 0x69, 0x7a, 0x89,
-	0xa0, 0x38, 0x4a, 0xb9, 0x80, 0x39, 0xb5, 0x55, 0x51, 0x7a, 0x00, 0x2a, 0x83, 0x82, 0xe8, 0x25,
-	0xda, 0xd8, 0xab, 0x62, 0xd5, 0xf1, 0x1a, 0xef, 0x26, 0x22, 0x37, 0x0e, 0x7c, 0x00, 0x9f, 0x81,
-	0xf8, 0x02, 0x3e, 0x81, 0x63, 0x8e, 0x3d, 0x12, 0xe7, 0x52, 0x71, 0x2a, 0x7f, 0x80, 0xbc, 0x8e,
-	0xe3, 0x44, 0x4a, 0x0e, 0x1c, 0xb8, 0xed, 0xce, 0x9b, 0x79, 0x33, 0xf3, 0x66, 0x76, 0x61, 0x4f,
-	0xb2, 0x5e, 0xc8, 0x23, 0xea, 0x37, 0x68, 0xe8, 0x35, 0x02, 0xf6, 0xa9, 0x2f, 0x1a, 0x83, 0x66,
-	0xa3, 0xc7, 0x84, 0xa0, 0x17, 0xcc, 0x0c, 0x23, 0x2e, 0x39, 0xde, 0xc9, 0x9c, 0x4c, 0x1a, 0x7a,
-	0xa6, 0x72, 0x32, 0x07, 0xcd, 0xda, 0x43, 0x28, 0xb7, 0x18, 0x75, 0x59, 0xd4, 0xa6, 0x7e, 0x9f,
-	0x09, 0x5c, 0x81, 0x4d, 0xe6, 0xb3, 0x1e, 0x0b, 0xa4, 0x30, 0x50, 0xb5, 0x50, 0x2f, 0xda, 0xb3,
-	0x7b, 0xed, 0x0b, 0x82, 0x9d, 0x37, 0x92, 0x46, 0xf2, 0x75, 0xc8, 0x22, 0x2a, 0x3d, 0x1e, 0xd8,
-	0xec, 0x63, 0x9f, 0x09, 0x89, 0xef, 0x41, 0x91, 0x67, 0x36, 0x03, 0x55, 0x51, 0xbd, 0x68, 0xe7,
-	0x06, 0x7c, 0x1f, 0x20, 0x4a, 0x1d, 0x3b, 0x9e, 0x6b, 0xe8, 0x29, 0x3c, 0xb5, 0x9c, 0xba, 0x49,
-	0x4a, 0x87, 0xfa, 0x7e, 0x97, 0x3a, 0x97, 0x46, 0x41, 0x81, 0xb3, 0x3b, 0xc6, 0xb0, 0xd6, 0xe5,
-	0xee, 0xd0, 0x58, 0xab, 0xa2, 0x7a, 0xd9, 0x56, 0xe7, 0xda, 0x7b, 0xb8, 0x73, 0x4c, 0x03, 0x87,
-	0xf9, 0xff, 0x58, 0xc6, 0x2e, 0x94, 0x67, 0x97, 0xbc, 0x90, 0xd2, 0xcc, 0x76, 0xea, 0xd6, 0xfe,
-	0xe8, 0xb0, 0x91, 0x91, 0x9d, 0xc0, 0xc6, 0x07, 0xa5, 0x4c, 0x2a, 0x44, 0xe9, 0xe0, 0x91, 0xb9,
-	0x54, 0x42, 0x73, 0x1a, 0x60, 0xa6, 0x3a, 0x8a, 0x93, 0x40, 0x46, 0x43, 0x3b, 0x8b, 0xc5, 0xef,
-	0x60, 0x4b, 0x24, 0x9a, 0x75, 0xf2, 0xca, 0x92, 0xc4, 0xa5, 0x83, 0xfd, 0x15, 0x74, 0x4b, 0x15,
-	0x6e, 0x69, 0xf6, 0x6d, 0xb1, 0x00, 0xe0, 0x73, 0xd8, 0x76, 0x94, 0x0c, 0x73, 0xcc, 0x05, 0xc5,
-	0xfc, 0x78, 0x05, 0xf3, 0x72, 0xd5, 0x5a, 0x9a, 0xbd, 0xe5, 0x2c, 0x22, 0x95, 0x4e, 0xb6, 0x15,
-	0x69, 0x37, 0x78, 0x1b, 0x0a, 0x97, 0x6c, 0x38, 0x95, 0x34, 0x39, 0xe2, 0x67, 0xb0, 0x3e, 0x48,
-	0x36, 0x66, 0xda, 0xcc, 0xde, 0x8a, 0x94, 0xf3, 0xbb, 0x65, 0xa7, 0x11, 0x96, 0xfe, 0x14, 0x1d,
-	0x15, 0x61, 0x63, 0x40, 0x23, 0x8f, 0x06, 0xb2, 0x76, 0x8d, 0x60, 0xd3, 0x66, 0x22, 0xe4, 0x81,
-	0x60, 0xf8, 0x01, 0x94, 0x84, 0xa4, 0xb2, 0x2f, 0x3a, 0x0e, 0x77, 0x99, 0x4a, 0xb8, 0x6e, 0x43,
-	0x6a, 0x3a, 0xe6, 0x2e, 0xc3, 0x2f, 0xf2, 0xa9, 0xe8, 0x6a, 0x2a, 0xfb, 0x2b, 0xa7, 0x92, 0x52,
-	0xae, 0x18, 0x4b, 0xb6, 0x58, 0x85, 0x7c, 0xb1, 0xfe, 0x7f, 0xd7, 0x3f, 0xd0, 0x68, 0x4c, 0xb4,
-	0xab, 0x31, 0xd1, 0x6e, 0xc6, 0x04, 0x7d, 0x8e, 0x09, 0xfa, 0x16, 0x13, 0xf4, 0x33, 0x26, 0x68,
-	0x14, 0x13, 0xf4, 0x2b, 0x26, 0xe8, 0x3a, 0x26, 0xda, 0x4d, 0x4c, 0xd0, 0xd7, 0x09, 0xd1, 0x46,
-	0x13, 0xa2, 0x5d, 0x4d, 0x88, 0x06, 0x86, 0xc7, 0x97, 0x27, 0x3a, 0x2a, 0xbf, 0x4c, 0xdf, 0xf8,
-	0x59, 0xf2, 0xc4, 0xcf, 0xd0, 0xf9, 0xee, 0xc5, 0x9c, 0xa7, 0xc7, 0x17, 0xfe, 0x83, 0xe7, 0xea,
-	0xf0, 0x5d, 0xbf, 0xfb, 0x76, 0xea, 0xe0, 0x71, 0xf3, 0x30, 0xf4, 0xcc, 0x57, 0x8a, 0xac, 0xdd,
-	0xfc, 0xad, 0x57, 0x72, 0xc4, 0xb2, 0x0e, 0x43, 0xcf, 0xb2, 0x14, 0x66, 0x59, 0xed, 0x66, 0xf7,
-	0x96, 0xfa, 0x45, 0x9e, 0xfc, 0x0d, 0x00, 0x00, 0xff, 0xff, 0xe9, 0xcd, 0x8a, 0xf3, 0x6c, 0x04,
-	0x00, 0x00,
+	// 890 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0x4f, 0x6f, 0xdc, 0x44,
+	0x14, 0xf7, 0x6c, 0x5a, 0x36, 0xfb, 0x76, 0xd3, 0x54, 0x23, 0xda, 0xae, 0x96, 0xd6, 0xa4, 0xee,
+	0x81, 0x88, 0x3f, 0x5e, 0x6d, 0xe0, 0x50, 0xb6, 0x17, 0x92, 0x2a, 0xc8, 0x45, 0x2a, 0x44, 0x5e,
+	0x58, 0x68, 0x85, 0xb4, 0x9a, 0xd8, 0x93, 0xc4, 0xaa, 0xe3, 0x31, 0x9e, 0xf1, 0x8a, 0x3d, 0xc1,
+	0x81, 0x0f, 0xc0, 0xc7, 0xa8, 0xf8, 0x04, 0x7c, 0x01, 0x24, 0x8e, 0x39, 0x70, 0xe8, 0x05, 0x89,
+	0x6c, 0x2e, 0x88, 0x53, 0xf9, 0x06, 0xc8, 0x33, 0x63, 0xaf, 0xb7, 0xb1, 0xab, 0x46, 0xa8, 0x37,
+	0xfb, 0xcd, 0x7b, 0xbf, 0xdf, 0x7b, 0xbf, 0x79, 0xef, 0xd9, 0x70, 0x47, 0xd0, 0xe3, 0x98, 0x25,
+	0x24, 0xec, 0x93, 0x38, 0xe8, 0x47, 0xf4, 0xfb, 0x94, 0xf7, 0xa7, 0x83, 0xfe, 0x31, 0xe5, 0x9c,
+	0x1c, 0x52, 0x3b, 0x4e, 0x98, 0x60, 0xf8, 0x5a, 0xee, 0x64, 0x93, 0x38, 0xb0, 0xa5, 0x93, 0x3d,
+	0x1d, 0xf4, 0x6e, 0x1e, 0x32, 0x76, 0x18, 0xd2, 0xbe, 0x74, 0xda, 0x4f, 0x0f, 0xfa, 0x5c, 0x24,
+	0xa9, 0x27, 0x54, 0x90, 0xf5, 0x2e, 0x74, 0x1c, 0x4a, 0x7c, 0x9a, 0x8c, 0x49, 0x98, 0x52, 0x8e,
+	0x7b, 0xb0, 0x4a, 0x43, 0x7a, 0x4c, 0x23, 0xc1, 0xbb, 0x68, 0x63, 0x65, 0xb3, 0xe5, 0x16, 0xef,
+	0xd6, 0x6f, 0x08, 0x9a, 0x7b, 0x64, 0x16, 0x32, 0xe2, 0xe3, 0x5d, 0x68, 0x1e, 0xc9, 0x38, 0xe5,
+	0xd6, 0xde, 0x7a, 0xcf, 0xae, 0xa4, 0xb7, 0x75, 0x80, 0xad, 0x58, 0xf8, 0x6e, 0x24, 0x92, 0x99,
+	0x9b, 0xc7, 0x62, 0x0c, 0x97, 0xf6, 0x99, 0x3f, 0xeb, 0x36, 0x36, 0xd0, 0x66, 0xc7, 0x95, 0xcf,
+	0xbd, 0x49, 0x9e, 0x92, 0x72, 0xc6, 0x57, 0x61, 0xe5, 0x09, 0x9d, 0x75, 0xd1, 0x06, 0xda, 0x6c,
+	0xb9, 0xd9, 0x23, 0xfe, 0x18, 0x2e, 0x4f, 0xb3, 0x74, 0x65, 0x58, 0x7b, 0xeb, 0x4e, 0x0d, 0x75,
+	0xb9, 0x30, 0x57, 0x45, 0x0c, 0x1b, 0x77, 0x91, 0xf5, 0x27, 0x82, 0xe6, 0xa7, 0x24, 0x08, 0xd3,
+	0x84, 0xe2, 0x2e, 0x34, 0xb5, 0x8a, 0x9a, 0x20, 0x7f, 0xc5, 0x0e, 0xac, 0x1e, 0x53, 0x41, 0x7c,
+	0x22, 0x48, 0xb7, 0x21, 0x4b, 0x7c, 0xbf, 0x86, 0x47, 0x63, 0xd9, 0x0f, 0xb5, 0xbb, 0xaa, 0xb1,
+	0x88, 0xc6, 0x03, 0x68, 0xfa, 0x54, 0x90, 0x20, 0xe4, 0xdd, 0x15, 0x99, 0xf0, 0x0d, 0x5b, 0xdd,
+	0x89, 0x9d, 0xdf, 0x89, 0x3d, 0x92, 0x77, 0xe2, 0xe6, 0x7e, 0xbd, 0x7b, 0xb0, 0xb6, 0x84, 0x56,
+	0x21, 0xc2, 0x9b, 0x65, 0x11, 0x5a, 0xe5, 0xfa, 0x02, 0xe8, 0x38, 0x24, 0xf2, 0x43, 0x9a, 0xec,
+	0x26, 0x09, 0x4b, 0xf0, 0xdb, 0xd0, 0xe6, 0x82, 0x88, 0x94, 0x4f, 0x3c, 0xe6, 0xab, 0x3a, 0x2f,
+	0xbb, 0xa0, 0x4c, 0xf7, 0x99, 0x4f, 0xf1, 0x5d, 0x68, 0x1e, 0xa8, 0x1a, 0xb4, 0xa2, 0xe6, 0xcb,
+	0x2b, 0x75, 0x73, 0x77, 0xeb, 0x07, 0xe8, 0x7d, 0x15, 0xf1, 0xd4, 0xf3, 0x28, 0xe7, 0x07, 0x69,
+	0xf8, 0x45, 0x4c, 0x13, 0x22, 0x02, 0x16, 0x29, 0xe2, 0x77, 0x60, 0x9d, 0xe5, 0x96, 0x49, 0xc6,
+	0x97, 0x8b, 0x7c, 0xa5, 0x30, 0x8f, 0x32, 0xeb, 0xff, 0x48, 0xe0, 0x27, 0x04, 0xd7, 0x46, 0x82,
+	0x24, 0xa2, 0xa0, 0x76, 0xe9, 0x77, 0x29, 0xe5, 0x02, 0xdf, 0x84, 0x56, 0xc1, 0xa2, 0x69, 0x17,
+	0x06, 0x7c, 0x0b, 0x20, 0x51, 0x8e, 0x93, 0xc0, 0xd7, 0x12, 0xb6, 0xb4, 0xe5, 0x81, 0x9f, 0x8d,
+	0x81, 0x47, 0xc2, 0x70, 0x9f, 0x78, 0x4f, 0xe4, 0x9d, 0xb5, 0xdc, 0xe2, 0xbd, 0xe8, 0xd9, 0x4b,
+	0x8b, 0x9e, 0xb5, 0x1e, 0xc1, 0xf5, 0xfb, 0x24, 0xf2, 0x68, 0x78, 0xc1, 0x34, 0x6e, 0x43, 0x67,
+	0xa1, 0x50, 0x91, 0x48, 0xbb, 0xb0, 0x3d, 0xf0, 0xad, 0x7f, 0x1b, 0xd0, 0xcc, 0xc1, 0x5e, 0x79,
+	0xea, 0x74, 0x40, 0xcd, 0xd4, 0x7d, 0x0d, 0xeb, 0x3c, 0xd3, 0x6c, 0xb2, 0xc8, 0x4c, 0xc9, 0x5e,
+	0xd7, 0xe1, 0x95, 0x0a, 0x3b, 0x86, 0x7b, 0x85, 0x2f, 0x1d, 0xe0, 0xc7, 0x70, 0xd5, 0x93, 0x32,
+	0x94, 0x90, 0x55, 0xcb, 0x7f, 0x50, 0x83, 0x5c, 0xad, 0x9a, 0x63, 0xb8, 0xeb, 0xde, 0xf2, 0xc9,
+	0x6b, 0x5f, 0x0b, 0x3b, 0x2d, 0x68, 0x4e, 0x49, 0x12, 0x90, 0x48, 0x58, 0x63, 0xe8, 0xbd, 0x58,
+	0x32, 0x8f, 0x59, 0xc4, 0xe9, 0x68, 0x16, 0x79, 0x59, 0xb7, 0xc6, 0x6a, 0xab, 0x49, 0xf6, 0xfa,
+	0x6e, 0xd5, 0xbb, 0xcf, 0xcd, 0xdd, 0xad, 0x4f, 0xe0, 0xad, 0x6a, 0xdc, 0x6d, 0x9e, 0x01, 0xbf,
+	0xd8, 0x0d, 0xe8, 0x7c, 0x37, 0xfc, 0x81, 0xe0, 0x56, 0x35, 0x44, 0xbe, 0xd1, 0x3e, 0x83, 0xb5,
+	0x23, 0x35, 0xfd, 0x13, 0x9a, 0x4d, 0xa1, 0xce, 0xb1, 0x56, 0x8d, 0xd2, 0xa6, 0x70, 0x0c, 0xb7,
+	0x73, 0x54, 0xde, 0x1c, 0xdf, 0x96, 0x07, 0x58, 0xa1, 0x29, 0x6d, 0x07, 0x35, 0x68, 0xf5, 0xcb,
+	0x20, 0xeb, 0x16, 0xb6, 0x64, 0x29, 0x0b, 0xfe, 0xb4, 0x01, 0xd7, 0xab, 0xcb, 0xc2, 0x63, 0xe8,
+	0x64, 0xe2, 0x4c, 0x34, 0xb0, 0x2e, 0x67, 0xf0, 0x8a, 0x9d, 0xba, 0xb8, 0x36, 0xc7, 0x70, 0xdb,
+	0x19, 0xd0, 0x48, 0xe1, 0xe0, 0x47, 0xb0, 0x46, 0x96, 0x80, 0x55, 0x65, 0x5b, 0x17, 0x02, 0x96,
+	0xf7, 0x96, 0xc9, 0x46, 0xca, 0xd0, 0x7b, 0x8b, 0x75, 0xa6, 0xba, 0xff, 0xa3, 0x0b, 0x81, 0xea,
+	0x9b, 0x74, 0x8c, 0x62, 0xcd, 0x95, 0xa5, 0x62, 0xb0, 0x5a, 0x68, 0xf3, 0xcd, 0xf9, 0x41, 0x46,
+	0x2f, 0x1d, 0xb7, 0x6a, 0xc2, 0xf3, 0x93, 0x5c, 0x22, 0xdc, 0xf9, 0x15, 0x9d, 0x9c, 0x9a, 0xc6,
+	0xb3, 0x53, 0xd3, 0x78, 0x7e, 0x6a, 0xa2, 0x1f, 0xe7, 0x26, 0x7a, 0x3a, 0x37, 0xd1, 0xef, 0x73,
+	0x13, 0x9d, 0xcc, 0x4d, 0xf4, 0xd7, 0xdc, 0x44, 0x7f, 0xcf, 0x4d, 0xe3, 0xf9, 0xdc, 0x44, 0x3f,
+	0x9f, 0x99, 0xc6, 0xc9, 0x99, 0x69, 0x3c, 0x3b, 0x33, 0x0d, 0xe8, 0x06, 0xac, 0x3a, 0x89, 0x9d,
+	0xce, 0x43, 0xf5, 0x89, 0xdd, 0xcb, 0xbe, 0x7e, 0x7b, 0xe8, 0xf1, 0xed, 0xc3, 0x92, 0x67, 0xc0,
+	0x96, 0xfe, 0x71, 0xee, 0xc9, 0x87, 0x5f, 0x1a, 0x37, 0xbe, 0xd4, 0x0e, 0x01, 0xb3, 0xb7, 0xe3,
+	0xc0, 0xfe, 0x5c, 0x82, 0x8d, 0x07, 0xff, 0x34, 0x7a, 0x8b, 0x93, 0xe1, 0x70, 0x3b, 0x0e, 0x86,
+	0x43, 0x79, 0x36, 0x1c, 0x8e, 0x07, 0xfb, 0x6f, 0xc8, 0x0f, 0xec, 0x87, 0xff, 0x05, 0x00, 0x00,
+	0xff, 0xff, 0x48, 0x1b, 0x74, 0x0e, 0x40, 0x09, 0x00, 0x00,
 }
 
 func (this *HeaderValues) Equal(that interface{}) bool {
@@ -454,6 +981,127 @@ func (this *HeaderValues) Equal(that interface{}) bool {
 		if this.Elements[i] != that1.Elements[i] {
 			return false
 		}
+	}
+	return true
+}
+func (this *Payload) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*Payload)
+	if !ok {
+		that2, ok := that.(Payload)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if len(this.Headers) != len(that1.Headers) {
+		return false
+	}
+	for i := range this.Headers {
+		if !this.Headers[i].Equal(that1.Headers[i]) {
+			return false
+		}
+	}
+	if !bytes.Equal(this.Body, that1.Body) {
+		return false
+	}
+	return true
+}
+func (this *Failure) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*Failure)
+	if !ok {
+		that2, ok := that.(Failure)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Message != that1.Message {
+		return false
+	}
+	if len(this.Metadata) != len(that1.Metadata) {
+		return false
+	}
+	for i := range this.Metadata {
+		if this.Metadata[i] != that1.Metadata[i] {
+			return false
+		}
+	}
+	if !this.Details.Equal(that1.Details) {
+		return false
+	}
+	return true
+}
+func (this *HandlerError) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*HandlerError)
+	if !ok {
+		that2, ok := that.(HandlerError)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.StatusCode != that1.StatusCode {
+		return false
+	}
+	if !this.Failure.Equal(that1.Failure) {
+		return false
+	}
+	return true
+}
+func (this *UnsuccessfulOperationError) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*UnsuccessfulOperationError)
+	if !ok {
+		that2, ok := that.(UnsuccessfulOperationError)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.OperationState != that1.OperationState {
+		return false
+	}
+	if !this.Failure.Equal(that1.Failure) {
+		return false
 	}
 	return true
 }
@@ -603,6 +1251,234 @@ func (this *Request_CancelOperation) Equal(that interface{}) bool {
 	}
 	return true
 }
+func (this *StartOperationResponseSync) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponseSync)
+	if !ok {
+		that2, ok := that.(StartOperationResponseSync)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.Payload.Equal(that1.Payload) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponseAsync) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponseAsync)
+	if !ok {
+		that2, ok := that.(StartOperationResponseAsync)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.OperationId != that1.OperationId {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponseFailure) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponseFailure)
+	if !ok {
+		that2, ok := that.(StartOperationResponseFailure)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if that1.Variant == nil {
+		if this.Variant != nil {
+			return false
+		}
+	} else if this.Variant == nil {
+		return false
+	} else if !this.Variant.Equal(that1.Variant) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponseFailure_HandlerError) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponseFailure_HandlerError)
+	if !ok {
+		that2, ok := that.(StartOperationResponseFailure_HandlerError)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.HandlerError.Equal(that1.HandlerError) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponseFailure_OperationError) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponseFailure_OperationError)
+	if !ok {
+		that2, ok := that.(StartOperationResponseFailure_OperationError)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.OperationError.Equal(that1.OperationError) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponse)
+	if !ok {
+		that2, ok := that.(StartOperationResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if that1.Variant == nil {
+		if this.Variant != nil {
+			return false
+		}
+	} else if this.Variant == nil {
+		return false
+	} else if !this.Variant.Equal(that1.Variant) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponse_SyncSuccess) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponse_SyncSuccess)
+	if !ok {
+		that2, ok := that.(StartOperationResponse_SyncSuccess)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.SyncSuccess.Equal(that1.SyncSuccess) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponse_AsyncSuccess) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponse_AsyncSuccess)
+	if !ok {
+		that2, ok := that.(StartOperationResponse_AsyncSuccess)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.AsyncSuccess.Equal(that1.AsyncSuccess) {
+		return false
+	}
+	return true
+}
+func (this *StartOperationResponse_Failure) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*StartOperationResponse_Failure)
+	if !ok {
+		that2, ok := that.(StartOperationResponse_Failure)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.Failure.Equal(that1.Failure) {
+		return false
+	}
+	return true
+}
 func (this *Response) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -622,18 +1498,37 @@ func (this *Response) Equal(that interface{}) bool {
 	} else if this == nil {
 		return false
 	}
-	if this.StatusCode != that1.StatusCode {
+	if that1.Variant == nil {
+		if this.Variant != nil {
+			return false
+		}
+	} else if this.Variant == nil {
+		return false
+	} else if !this.Variant.Equal(that1.Variant) {
 		return false
 	}
-	if len(this.Headers) != len(that1.Headers) {
-		return false
+	return true
+}
+func (this *Response_StartOperation) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
 	}
-	for i := range this.Headers {
-		if !this.Headers[i].Equal(that1.Headers[i]) {
+
+	that1, ok := that.(*Response_StartOperation)
+	if !ok {
+		that2, ok := that.(Response_StartOperation)
+		if ok {
+			that1 = &that2
+		} else {
 			return false
 		}
 	}
-	if !bytes.Equal(this.Body, that1.Body) {
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.StartOperation.Equal(that1.StartOperation) {
 		return false
 	}
 	return true
@@ -645,6 +1540,81 @@ func (this *HeaderValues) GoString() string {
 	s := make([]string, 0, 5)
 	s = append(s, "&nexus.HeaderValues{")
 	s = append(s, "Elements: "+fmt.Sprintf("%#v", this.Elements)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *Payload) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&nexus.Payload{")
+	keysForHeaders := make([]string, 0, len(this.Headers))
+	for k, _ := range this.Headers {
+		keysForHeaders = append(keysForHeaders, k)
+	}
+	github_com_gogo_protobuf_sortkeys.Strings(keysForHeaders)
+	mapStringForHeaders := "map[string]*HeaderValues{"
+	for _, k := range keysForHeaders {
+		mapStringForHeaders += fmt.Sprintf("%#v: %#v,", k, this.Headers[k])
+	}
+	mapStringForHeaders += "}"
+	if this.Headers != nil {
+		s = append(s, "Headers: "+mapStringForHeaders+",\n")
+	}
+	s = append(s, "Body: "+fmt.Sprintf("%#v", this.Body)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *Failure) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 7)
+	s = append(s, "&nexus.Failure{")
+	s = append(s, "Message: "+fmt.Sprintf("%#v", this.Message)+",\n")
+	keysForMetadata := make([]string, 0, len(this.Metadata))
+	for k, _ := range this.Metadata {
+		keysForMetadata = append(keysForMetadata, k)
+	}
+	github_com_gogo_protobuf_sortkeys.Strings(keysForMetadata)
+	mapStringForMetadata := "map[string]string{"
+	for _, k := range keysForMetadata {
+		mapStringForMetadata += fmt.Sprintf("%#v: %#v,", k, this.Metadata[k])
+	}
+	mapStringForMetadata += "}"
+	if this.Metadata != nil {
+		s = append(s, "Metadata: "+mapStringForMetadata+",\n")
+	}
+	if this.Details != nil {
+		s = append(s, "Details: "+fmt.Sprintf("%#v", this.Details)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *HandlerError) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&nexus.HandlerError{")
+	s = append(s, "StatusCode: "+fmt.Sprintf("%#v", this.StatusCode)+",\n")
+	if this.Failure != nil {
+		s = append(s, "Failure: "+fmt.Sprintf("%#v", this.Failure)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *UnsuccessfulOperationError) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&nexus.UnsuccessfulOperationError{")
+	s = append(s, "OperationState: "+fmt.Sprintf("%#v", this.OperationState)+",\n")
+	if this.Failure != nil {
+		s = append(s, "Failure: "+fmt.Sprintf("%#v", this.Failure)+",\n")
+	}
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -713,29 +1683,111 @@ func (this *Request_CancelOperation) GoString() string {
 		`CancelOperation:` + fmt.Sprintf("%#v", this.CancelOperation) + `}`}, ", ")
 	return s
 }
-func (this *Response) GoString() string {
+func (this *StartOperationResponseSync) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&nexus.StartOperationResponseSync{")
+	if this.Payload != nil {
+		s = append(s, "Payload: "+fmt.Sprintf("%#v", this.Payload)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *StartOperationResponseAsync) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&nexus.StartOperationResponseAsync{")
+	s = append(s, "OperationId: "+fmt.Sprintf("%#v", this.OperationId)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *StartOperationResponseFailure) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&nexus.StartOperationResponseFailure{")
+	if this.Variant != nil {
+		s = append(s, "Variant: "+fmt.Sprintf("%#v", this.Variant)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *StartOperationResponseFailure_HandlerError) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.StartOperationResponseFailure_HandlerError{` +
+		`HandlerError:` + fmt.Sprintf("%#v", this.HandlerError) + `}`}, ", ")
+	return s
+}
+func (this *StartOperationResponseFailure_OperationError) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.StartOperationResponseFailure_OperationError{` +
+		`OperationError:` + fmt.Sprintf("%#v", this.OperationError) + `}`}, ", ")
+	return s
+}
+func (this *StartOperationResponse) GoString() string {
 	if this == nil {
 		return "nil"
 	}
 	s := make([]string, 0, 7)
-	s = append(s, "&nexus.Response{")
-	s = append(s, "StatusCode: "+fmt.Sprintf("%#v", this.StatusCode)+",\n")
-	keysForHeaders := make([]string, 0, len(this.Headers))
-	for k, _ := range this.Headers {
-		keysForHeaders = append(keysForHeaders, k)
+	s = append(s, "&nexus.StartOperationResponse{")
+	if this.Variant != nil {
+		s = append(s, "Variant: "+fmt.Sprintf("%#v", this.Variant)+",\n")
 	}
-	github_com_gogo_protobuf_sortkeys.Strings(keysForHeaders)
-	mapStringForHeaders := "map[string]*HeaderValues{"
-	for _, k := range keysForHeaders {
-		mapStringForHeaders += fmt.Sprintf("%#v: %#v,", k, this.Headers[k])
-	}
-	mapStringForHeaders += "}"
-	if this.Headers != nil {
-		s = append(s, "Headers: "+mapStringForHeaders+",\n")
-	}
-	s = append(s, "Body: "+fmt.Sprintf("%#v", this.Body)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
+}
+func (this *StartOperationResponse_SyncSuccess) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.StartOperationResponse_SyncSuccess{` +
+		`SyncSuccess:` + fmt.Sprintf("%#v", this.SyncSuccess) + `}`}, ", ")
+	return s
+}
+func (this *StartOperationResponse_AsyncSuccess) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.StartOperationResponse_AsyncSuccess{` +
+		`AsyncSuccess:` + fmt.Sprintf("%#v", this.AsyncSuccess) + `}`}, ", ")
+	return s
+}
+func (this *StartOperationResponse_Failure) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.StartOperationResponse_Failure{` +
+		`Failure:` + fmt.Sprintf("%#v", this.Failure) + `}`}, ", ")
+	return s
+}
+func (this *Response) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&nexus.Response{")
+	if this.Variant != nil {
+		s = append(s, "Variant: "+fmt.Sprintf("%#v", this.Variant)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *Response_StartOperation) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&nexus.Response_StartOperation{` +
+		`StartOperation:` + fmt.Sprintf("%#v", this.StartOperation) + `}`}, ", ")
+	return s
 }
 func valueToGoStringMessage(v interface{}, typ string) string {
 	rv := reflect.ValueOf(v)
@@ -773,6 +1825,205 @@ func (m *HeaderValues) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			i--
 			dAtA[i] = 0xa
 		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Payload) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Payload) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Payload) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Body) > 0 {
+		i -= len(m.Body)
+		copy(dAtA[i:], m.Body)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.Body)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Headers) > 0 {
+		for k := range m.Headers {
+			v := m.Headers[k]
+			baseI := i
+			if v != nil {
+				{
+					size, err := v.MarshalToSizedBuffer(dAtA[:i])
+					if err != nil {
+						return 0, err
+					}
+					i -= size
+					i = encodeVarintMessage(dAtA, i, uint64(size))
+				}
+				i--
+				dAtA[i] = 0x12
+			}
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintMessage(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintMessage(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Failure) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Failure) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Failure) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Details != nil {
+		{
+			size, err := m.Details.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Metadata) > 0 {
+		for k := range m.Metadata {
+			v := m.Metadata[k]
+			baseI := i
+			i -= len(v)
+			copy(dAtA[i:], v)
+			i = encodeVarintMessage(dAtA, i, uint64(len(v)))
+			i--
+			dAtA[i] = 0x12
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintMessage(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintMessage(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x12
+		}
+	}
+	if len(m.Message) > 0 {
+		i -= len(m.Message)
+		copy(dAtA[i:], m.Message)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.Message)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *HandlerError) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *HandlerError) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *HandlerError) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Failure != nil {
+		{
+			size, err := m.Failure.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.StatusCode != 0 {
+		i = encodeVarintMessage(dAtA, i, uint64(m.StatusCode))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *UnsuccessfulOperationError) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *UnsuccessfulOperationError) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *UnsuccessfulOperationError) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Failure != nil {
+		{
+			size, err := m.Failure.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.OperationState) > 0 {
+		i -= len(m.OperationState)
+		copy(dAtA[i:], m.OperationState)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.OperationState)))
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -965,6 +2216,240 @@ func (m *Request_CancelOperation) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	}
 	return len(dAtA) - i, nil
 }
+func (m *StartOperationResponseSync) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StartOperationResponseSync) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponseSync) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Payload != nil {
+		{
+			size, err := m.Payload.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *StartOperationResponseAsync) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StartOperationResponseAsync) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponseAsync) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.OperationId) > 0 {
+		i -= len(m.OperationId)
+		copy(dAtA[i:], m.OperationId)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.OperationId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *StartOperationResponseFailure) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StartOperationResponseFailure) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponseFailure) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Variant != nil {
+		{
+			size := m.Variant.Size()
+			i -= size
+			if _, err := m.Variant.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
+			}
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *StartOperationResponseFailure_HandlerError) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponseFailure_HandlerError) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.HandlerError != nil {
+		{
+			size, err := m.HandlerError.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+func (m *StartOperationResponseFailure_OperationError) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponseFailure_OperationError) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.OperationError != nil {
+		{
+			size, err := m.OperationError.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	return len(dAtA) - i, nil
+}
+func (m *StartOperationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *StartOperationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Variant != nil {
+		{
+			size := m.Variant.Size()
+			i -= size
+			if _, err := m.Variant.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
+			}
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *StartOperationResponse_SyncSuccess) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponse_SyncSuccess) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.SyncSuccess != nil {
+		{
+			size, err := m.SyncSuccess.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+func (m *StartOperationResponse_AsyncSuccess) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponse_AsyncSuccess) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.AsyncSuccess != nil {
+		{
+			size, err := m.AsyncSuccess.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	return len(dAtA) - i, nil
+}
+func (m *StartOperationResponse_Failure) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *StartOperationResponse_Failure) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.Failure != nil {
+		{
+			size, err := m.Failure.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	return len(dAtA) - i, nil
+}
 func (m *Response) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -985,47 +2470,39 @@ func (m *Response) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Body) > 0 {
-		i -= len(m.Body)
-		copy(dAtA[i:], m.Body)
-		i = encodeVarintMessage(dAtA, i, uint64(len(m.Body)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Headers) > 0 {
-		for k := range m.Headers {
-			v := m.Headers[k]
-			baseI := i
-			if v != nil {
-				{
-					size, err := v.MarshalToSizedBuffer(dAtA[:i])
-					if err != nil {
-						return 0, err
-					}
-					i -= size
-					i = encodeVarintMessage(dAtA, i, uint64(size))
-				}
-				i--
-				dAtA[i] = 0x12
+	if m.Variant != nil {
+		{
+			size := m.Variant.Size()
+			i -= size
+			if _, err := m.Variant.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
 			}
-			i -= len(k)
-			copy(dAtA[i:], k)
-			i = encodeVarintMessage(dAtA, i, uint64(len(k)))
-			i--
-			dAtA[i] = 0xa
-			i = encodeVarintMessage(dAtA, i, uint64(baseI-i))
-			i--
-			dAtA[i] = 0x12
 		}
-	}
-	if m.StatusCode != 0 {
-		i = encodeVarintMessage(dAtA, i, uint64(m.StatusCode))
-		i--
-		dAtA[i] = 0x8
 	}
 	return len(dAtA) - i, nil
 }
 
+func (m *Response_StartOperation) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Response_StartOperation) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.StartOperation != nil {
+		{
+			size, err := m.StartOperation.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
 func encodeVarintMessage(dAtA []byte, offset int, v uint64) int {
 	offset -= sovMessage(v)
 	base := offset
@@ -1048,6 +2525,90 @@ func (m *HeaderValues) Size() (n int) {
 			l = len(s)
 			n += 1 + l + sovMessage(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *Payload) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Headers) > 0 {
+		for k, v := range m.Headers {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovMessage(uint64(l))
+			}
+			mapEntrySize := 1 + len(k) + sovMessage(uint64(len(k))) + l
+			n += mapEntrySize + 1 + sovMessage(uint64(mapEntrySize))
+		}
+	}
+	l = len(m.Body)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *Failure) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Message)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	if len(m.Metadata) > 0 {
+		for k, v := range m.Metadata {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovMessage(uint64(len(k))) + 1 + len(v) + sovMessage(uint64(len(v)))
+			n += mapEntrySize + 1 + sovMessage(uint64(mapEntrySize))
+		}
+	}
+	if m.Details != nil {
+		l = m.Details.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *HandlerError) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.StatusCode != 0 {
+		n += 1 + sovMessage(uint64(m.StatusCode))
+	}
+	if m.Failure != nil {
+		l = m.Failure.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *UnsuccessfulOperationError) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.OperationState)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	if m.Failure != nil {
+		l = m.Failure.Size()
+		n += 1 + l + sovMessage(uint64(l))
 	}
 	return n
 }
@@ -1143,30 +2704,136 @@ func (m *Request_CancelOperation) Size() (n int) {
 	}
 	return n
 }
+func (m *StartOperationResponseSync) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Payload != nil {
+		l = m.Payload.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *StartOperationResponseAsync) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.OperationId)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *StartOperationResponseFailure) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Variant != nil {
+		n += m.Variant.Size()
+	}
+	return n
+}
+
+func (m *StartOperationResponseFailure_HandlerError) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.HandlerError != nil {
+		l = m.HandlerError.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *StartOperationResponseFailure_OperationError) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.OperationError != nil {
+		l = m.OperationError.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *StartOperationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Variant != nil {
+		n += m.Variant.Size()
+	}
+	return n
+}
+
+func (m *StartOperationResponse_SyncSuccess) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.SyncSuccess != nil {
+		l = m.SyncSuccess.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *StartOperationResponse_AsyncSuccess) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.AsyncSuccess != nil {
+		l = m.AsyncSuccess.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *StartOperationResponse_Failure) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Failure != nil {
+		l = m.Failure.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
 func (m *Response) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.StatusCode != 0 {
-		n += 1 + sovMessage(uint64(m.StatusCode))
+	if m.Variant != nil {
+		n += m.Variant.Size()
 	}
-	if len(m.Headers) > 0 {
-		for k, v := range m.Headers {
-			_ = k
-			_ = v
-			l = 0
-			if v != nil {
-				l = v.Size()
-				l += 1 + sovMessage(uint64(l))
-			}
-			mapEntrySize := 1 + len(k) + sovMessage(uint64(len(k))) + l
-			n += mapEntrySize + 1 + sovMessage(uint64(mapEntrySize))
-		}
+	return n
+}
+
+func (m *Response_StartOperation) Size() (n int) {
+	if m == nil {
+		return 0
 	}
-	l = len(m.Body)
-	if l > 0 {
+	var l int
+	_ = l
+	if m.StartOperation != nil {
+		l = m.StartOperation.Size()
 		n += 1 + l + sovMessage(uint64(l))
 	}
 	return n
@@ -1184,6 +2851,71 @@ func (this *HeaderValues) String() string {
 	}
 	s := strings.Join([]string{`&HeaderValues{`,
 		`Elements:` + fmt.Sprintf("%v", this.Elements) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *Payload) String() string {
+	if this == nil {
+		return "nil"
+	}
+	keysForHeaders := make([]string, 0, len(this.Headers))
+	for k, _ := range this.Headers {
+		keysForHeaders = append(keysForHeaders, k)
+	}
+	github_com_gogo_protobuf_sortkeys.Strings(keysForHeaders)
+	mapStringForHeaders := "map[string]*HeaderValues{"
+	for _, k := range keysForHeaders {
+		mapStringForHeaders += fmt.Sprintf("%v: %v,", k, this.Headers[k])
+	}
+	mapStringForHeaders += "}"
+	s := strings.Join([]string{`&Payload{`,
+		`Headers:` + mapStringForHeaders + `,`,
+		`Body:` + fmt.Sprintf("%v", this.Body) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *Failure) String() string {
+	if this == nil {
+		return "nil"
+	}
+	keysForMetadata := make([]string, 0, len(this.Metadata))
+	for k, _ := range this.Metadata {
+		keysForMetadata = append(keysForMetadata, k)
+	}
+	github_com_gogo_protobuf_sortkeys.Strings(keysForMetadata)
+	mapStringForMetadata := "map[string]string{"
+	for _, k := range keysForMetadata {
+		mapStringForMetadata += fmt.Sprintf("%v: %v,", k, this.Metadata[k])
+	}
+	mapStringForMetadata += "}"
+	s := strings.Join([]string{`&Failure{`,
+		`Message:` + fmt.Sprintf("%v", this.Message) + `,`,
+		`Metadata:` + mapStringForMetadata + `,`,
+		`Details:` + strings.Replace(fmt.Sprintf("%v", this.Details), "Struct", "types.Struct", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *HandlerError) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&HandlerError{`,
+		`StatusCode:` + fmt.Sprintf("%v", this.StatusCode) + `,`,
+		`Failure:` + strings.Replace(this.Failure.String(), "Failure", "Failure", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *UnsuccessfulOperationError) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&UnsuccessfulOperationError{`,
+		`OperationState:` + fmt.Sprintf("%v", this.OperationState) + `,`,
+		`Failure:` + strings.Replace(this.Failure.String(), "Failure", "Failure", 1) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -1253,24 +2985,112 @@ func (this *Request_CancelOperation) String() string {
 	}, "")
 	return s
 }
+func (this *StartOperationResponseSync) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponseSync{`,
+		`Payload:` + strings.Replace(this.Payload.String(), "Payload", "Payload", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponseAsync) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponseAsync{`,
+		`OperationId:` + fmt.Sprintf("%v", this.OperationId) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponseFailure) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponseFailure{`,
+		`Variant:` + fmt.Sprintf("%v", this.Variant) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponseFailure_HandlerError) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponseFailure_HandlerError{`,
+		`HandlerError:` + strings.Replace(fmt.Sprintf("%v", this.HandlerError), "HandlerError", "HandlerError", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponseFailure_OperationError) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponseFailure_OperationError{`,
+		`OperationError:` + strings.Replace(fmt.Sprintf("%v", this.OperationError), "UnsuccessfulOperationError", "UnsuccessfulOperationError", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponse) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponse{`,
+		`Variant:` + fmt.Sprintf("%v", this.Variant) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponse_SyncSuccess) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponse_SyncSuccess{`,
+		`SyncSuccess:` + strings.Replace(fmt.Sprintf("%v", this.SyncSuccess), "StartOperationResponseSync", "StartOperationResponseSync", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponse_AsyncSuccess) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponse_AsyncSuccess{`,
+		`AsyncSuccess:` + strings.Replace(fmt.Sprintf("%v", this.AsyncSuccess), "StartOperationResponseAsync", "StartOperationResponseAsync", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *StartOperationResponse_Failure) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&StartOperationResponse_Failure{`,
+		`Failure:` + strings.Replace(fmt.Sprintf("%v", this.Failure), "StartOperationResponseFailure", "StartOperationResponseFailure", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
 func (this *Response) String() string {
 	if this == nil {
 		return "nil"
 	}
-	keysForHeaders := make([]string, 0, len(this.Headers))
-	for k, _ := range this.Headers {
-		keysForHeaders = append(keysForHeaders, k)
-	}
-	github_com_gogo_protobuf_sortkeys.Strings(keysForHeaders)
-	mapStringForHeaders := "map[string]*HeaderValues{"
-	for _, k := range keysForHeaders {
-		mapStringForHeaders += fmt.Sprintf("%v: %v,", k, this.Headers[k])
-	}
-	mapStringForHeaders += "}"
 	s := strings.Join([]string{`&Response{`,
-		`StatusCode:` + fmt.Sprintf("%v", this.StatusCode) + `,`,
-		`Headers:` + mapStringForHeaders + `,`,
-		`Body:` + fmt.Sprintf("%v", this.Body) + `,`,
+		`Variant:` + fmt.Sprintf("%v", this.Variant) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *Response_StartOperation) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&Response_StartOperation{`,
+		`StartOperation:` + strings.Replace(fmt.Sprintf("%v", this.StartOperation), "StartOperationResponse", "StartOperationResponse", 1) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -1343,6 +3163,699 @@ func (m *HeaderValues) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Elements = append(m.Elements, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Payload) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Payload: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Payload: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Headers", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Headers == nil {
+				m.Headers = make(map[string]*HeaderValues)
+			}
+			var mapkey string
+			var mapvalue *HeaderValues
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMessage
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMessage
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthMessage
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMessage
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthMessage
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if postmsgIndex < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &HeaderValues{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipMessage(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Headers[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Body", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Body = append(m.Body[:0], dAtA[iNdEx:postIndex]...)
+			if m.Body == nil {
+				m.Body = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Failure) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Failure: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Failure: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Message", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Message = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = make(map[string]string)
+			}
+			var mapkey string
+			var mapvalue string
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowMessage
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMessage
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthMessage
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var stringLenmapvalue uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowMessage
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapvalue |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapvalue := int(stringLenmapvalue)
+					if intStringLenmapvalue < 0 {
+						return ErrInvalidLengthMessage
+					}
+					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
+					if postStringIndexmapvalue < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if postStringIndexmapvalue > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
+					iNdEx = postStringIndexmapvalue
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipMessage(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if skippy < 0 {
+						return ErrInvalidLengthMessage
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Metadata[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Details", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Details == nil {
+				m.Details = &types.Struct{}
+			}
+			if err := m.Details.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *HandlerError) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: HandlerError: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: HandlerError: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StatusCode", wireType)
+			}
+			m.StatusCode = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.StatusCode |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Failure", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Failure == nil {
+				m.Failure = &Failure{}
+			}
+			if err := m.Failure.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *UnsuccessfulOperationError) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: UnsuccessfulOperationError: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: UnsuccessfulOperationError: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OperationState", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OperationState = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Failure", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Failure == nil {
+				m.Failure = &Failure{}
+			}
+			if err := m.Failure.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1920,6 +4433,461 @@ func (m *Request) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *StartOperationResponseSync) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StartOperationResponseSync: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StartOperationResponseSync: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Payload", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Payload == nil {
+				m.Payload = &Payload{}
+			}
+			if err := m.Payload.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *StartOperationResponseAsync) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StartOperationResponseAsync: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StartOperationResponseAsync: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OperationId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OperationId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *StartOperationResponseFailure) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StartOperationResponseFailure: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StartOperationResponseFailure: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HandlerError", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &HandlerError{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &StartOperationResponseFailure_HandlerError{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OperationError", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &UnsuccessfulOperationError{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &StartOperationResponseFailure_OperationError{v}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *StartOperationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StartOperationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StartOperationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SyncSuccess", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &StartOperationResponseSync{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &StartOperationResponse_SyncSuccess{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AsyncSuccess", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &StartOperationResponseAsync{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &StartOperationResponse_AsyncSuccess{v}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Failure", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &StartOperationResponseFailure{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &StartOperationResponse_Failure{v}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *Response) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1950,27 +4918,8 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field StatusCode", wireType)
-			}
-			m.StatusCode = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMessage
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.StatusCode |= int32(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Headers", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field StartOperation", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1997,139 +4946,11 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Headers == nil {
-				m.Headers = make(map[string]*HeaderValues)
+			v := &StartOperationResponse{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
-			var mapkey string
-			var mapvalue *HeaderValues
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowMessage
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					var stringLenmapkey uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowMessage
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapkey |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapkey := int(stringLenmapkey)
-					if intStringLenmapkey < 0 {
-						return ErrInvalidLengthMessage
-					}
-					postStringIndexmapkey := iNdEx + intStringLenmapkey
-					if postStringIndexmapkey < 0 {
-						return ErrInvalidLengthMessage
-					}
-					if postStringIndexmapkey > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
-					iNdEx = postStringIndexmapkey
-				} else if fieldNum == 2 {
-					var mapmsglen int
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowMessage
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapmsglen |= int(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					if mapmsglen < 0 {
-						return ErrInvalidLengthMessage
-					}
-					postmsgIndex := iNdEx + mapmsglen
-					if postmsgIndex < 0 {
-						return ErrInvalidLengthMessage
-					}
-					if postmsgIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = &HeaderValues{}
-					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
-						return err
-					}
-					iNdEx = postmsgIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipMessage(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if skippy < 0 {
-						return ErrInvalidLengthMessage
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.Headers[mapkey] = mapvalue
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Body", wireType)
-			}
-			var byteLen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMessage
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				byteLen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if byteLen < 0 {
-				return ErrInvalidLengthMessage
-			}
-			postIndex := iNdEx + byteLen
-			if postIndex < 0 {
-				return ErrInvalidLengthMessage
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Body = append(m.Body[:0], dAtA[iNdEx:postIndex]...)
-			if m.Body == nil {
-				m.Body = []byte{}
-			}
+			m.Variant = &Response_StartOperation{v}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

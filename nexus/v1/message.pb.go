@@ -94,6 +94,7 @@ func (m *HeaderValues) GetElements() []string {
 }
 
 type Payload struct {
+	// TODO: just single value is simpler, switch to that or support HTTP?
 	Headers map[string]*HeaderValues `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	Body    []byte                   `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
 }

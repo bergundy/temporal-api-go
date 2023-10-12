@@ -738,7 +738,6 @@ func visitPayloads(ctx *VisitPayloadsContext, options *VisitPayloadsOptions, obj
 				o.GetChildWorkflowExecutionFailedEventAttributes(),
 				o.GetChildWorkflowExecutionStartedEventAttributes(),
 				o.GetMarkerRecordedEventAttributes(),
-				o.GetNexusOperationCompletedEventAttributes(),
 				o.GetNexusOperationFailedEventAttributes(),
 				o.GetNexusOperationScheduledEventAttributes(),
 				o.GetNexusOperationTimedoutEventAttributes(),
@@ -774,20 +773,6 @@ func visitPayloads(ctx *VisitPayloadsContext, options *VisitPayloadsOptions, obj
 				o.GetDetails(),
 				o.GetFailure(),
 				o.GetHeader(),
-			); err != nil {
-				return err
-			}
-
-		case *history.NexusOperationCompletedEventAttributes:
-
-			if o == nil {
-				continue
-			}
-			ctx.Parent = o
-			if err := visitPayloads(
-				ctx,
-				options,
-				o.GetResult(),
 			); err != nil {
 				return err
 			}

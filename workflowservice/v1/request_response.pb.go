@@ -4144,6 +4144,7 @@ type ListOpenWorkflowExecutionsRequest struct {
 	NextPageToken   []byte                `protobuf:"bytes,3,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
 	StartTimeFilter *v111.StartTimeFilter `protobuf:"bytes,4,opt,name=start_time_filter,json=startTimeFilter,proto3" json:"start_time_filter,omitempty"`
 	// Types that are valid to be assigned to Filters:
+	//
 	//	*ListOpenWorkflowExecutionsRequest_ExecutionFilter
 	//	*ListOpenWorkflowExecutionsRequest_TypeFilter
 	Filters isListOpenWorkflowExecutionsRequest_Filters `protobuf_oneof:"filters"`

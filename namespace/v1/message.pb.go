@@ -344,6 +344,188 @@ func (m *BadBinaryInfo) GetCreateTime() *time.Time {
 	return nil
 }
 
+type OutboundServiceUpdate struct {
+	// Types that are valid to be assigned to Variant:
+	//
+	//	*OutboundServiceUpdate_DeleteService_
+	//	*OutboundServiceUpdate_CreateOrUpdateService_
+	Variant isOutboundServiceUpdate_Variant `protobuf_oneof:"variant"`
+}
+
+func (m *OutboundServiceUpdate) Reset()      { *m = OutboundServiceUpdate{} }
+func (*OutboundServiceUpdate) ProtoMessage() {}
+func (*OutboundServiceUpdate) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cb8d87cc59c3faa9, []int{4}
+}
+func (m *OutboundServiceUpdate) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *OutboundServiceUpdate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_OutboundServiceUpdate.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *OutboundServiceUpdate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OutboundServiceUpdate.Merge(m, src)
+}
+func (m *OutboundServiceUpdate) XXX_Size() int {
+	return m.Size()
+}
+func (m *OutboundServiceUpdate) XXX_DiscardUnknown() {
+	xxx_messageInfo_OutboundServiceUpdate.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OutboundServiceUpdate proto.InternalMessageInfo
+
+type isOutboundServiceUpdate_Variant interface {
+	isOutboundServiceUpdate_Variant()
+	Equal(interface{}) bool
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type OutboundServiceUpdate_DeleteService_ struct {
+	DeleteService *OutboundServiceUpdate_DeleteService `protobuf:"bytes,1,opt,name=delete_service,json=deleteService,proto3,oneof" json:"delete_service,omitempty"`
+}
+type OutboundServiceUpdate_CreateOrUpdateService_ struct {
+	CreateOrUpdateService *OutboundServiceUpdate_CreateOrUpdateService `protobuf:"bytes,2,opt,name=create_or_update_service,json=createOrUpdateService,proto3,oneof" json:"create_or_update_service,omitempty"`
+}
+
+func (*OutboundServiceUpdate_DeleteService_) isOutboundServiceUpdate_Variant()         {}
+func (*OutboundServiceUpdate_CreateOrUpdateService_) isOutboundServiceUpdate_Variant() {}
+
+func (m *OutboundServiceUpdate) GetVariant() isOutboundServiceUpdate_Variant {
+	if m != nil {
+		return m.Variant
+	}
+	return nil
+}
+
+func (m *OutboundServiceUpdate) GetDeleteService() *OutboundServiceUpdate_DeleteService {
+	if x, ok := m.GetVariant().(*OutboundServiceUpdate_DeleteService_); ok {
+		return x.DeleteService
+	}
+	return nil
+}
+
+func (m *OutboundServiceUpdate) GetCreateOrUpdateService() *OutboundServiceUpdate_CreateOrUpdateService {
+	if x, ok := m.GetVariant().(*OutboundServiceUpdate_CreateOrUpdateService_); ok {
+		return x.CreateOrUpdateService
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*OutboundServiceUpdate) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*OutboundServiceUpdate_DeleteService_)(nil),
+		(*OutboundServiceUpdate_CreateOrUpdateService_)(nil),
+	}
+}
+
+type OutboundServiceUpdate_DeleteService struct {
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (m *OutboundServiceUpdate_DeleteService) Reset()      { *m = OutboundServiceUpdate_DeleteService{} }
+func (*OutboundServiceUpdate_DeleteService) ProtoMessage() {}
+func (*OutboundServiceUpdate_DeleteService) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cb8d87cc59c3faa9, []int{4, 0}
+}
+func (m *OutboundServiceUpdate_DeleteService) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *OutboundServiceUpdate_DeleteService) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_OutboundServiceUpdate_DeleteService.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *OutboundServiceUpdate_DeleteService) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OutboundServiceUpdate_DeleteService.Merge(m, src)
+}
+func (m *OutboundServiceUpdate_DeleteService) XXX_Size() int {
+	return m.Size()
+}
+func (m *OutboundServiceUpdate_DeleteService) XXX_DiscardUnknown() {
+	xxx_messageInfo_OutboundServiceUpdate_DeleteService.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OutboundServiceUpdate_DeleteService proto.InternalMessageInfo
+
+func (m *OutboundServiceUpdate_DeleteService) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type OutboundServiceUpdate_CreateOrUpdateService struct {
+	Name    string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	BaseUrl string `protobuf:"bytes,2,opt,name=base_url,json=baseUrl,proto3" json:"base_url,omitempty"`
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) Reset() {
+	*m = OutboundServiceUpdate_CreateOrUpdateService{}
+}
+func (*OutboundServiceUpdate_CreateOrUpdateService) ProtoMessage() {}
+func (*OutboundServiceUpdate_CreateOrUpdateService) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cb8d87cc59c3faa9, []int{4, 1}
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_OutboundServiceUpdate_CreateOrUpdateService.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OutboundServiceUpdate_CreateOrUpdateService.Merge(m, src)
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) XXX_Size() int {
+	return m.Size()
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) XXX_DiscardUnknown() {
+	xxx_messageInfo_OutboundServiceUpdate_CreateOrUpdateService.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OutboundServiceUpdate_CreateOrUpdateService proto.InternalMessageInfo
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) GetBaseUrl() string {
+	if m != nil {
+		return m.BaseUrl
+	}
+	return ""
+}
+
 type UpdateNamespaceInfo struct {
 	Description string `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
 	OwnerEmail  string `protobuf:"bytes,2,opt,name=owner_email,json=ownerEmail,proto3" json:"owner_email,omitempty"`
@@ -358,13 +540,14 @@ type UpdateNamespaceInfo struct {
 	//	Handover -> [ Registered ]
 	//
 	// Default is NAMESPACE_STATE_UNSPECIFIED which is do not change state.
-	State v1.NamespaceState `protobuf:"varint,4,opt,name=state,proto3,enum=temporal.api.enums.v1.NamespaceState" json:"state,omitempty"`
+	State                  v1.NamespaceState        `protobuf:"varint,4,opt,name=state,proto3,enum=temporal.api.enums.v1.NamespaceState" json:"state,omitempty"`
+	OutboundServiceUpdates []*OutboundServiceUpdate `protobuf:"bytes,5,rep,name=outbound_service_updates,json=outboundServiceUpdates,proto3" json:"outbound_service_updates,omitempty"`
 }
 
 func (m *UpdateNamespaceInfo) Reset()      { *m = UpdateNamespaceInfo{} }
 func (*UpdateNamespaceInfo) ProtoMessage() {}
 func (*UpdateNamespaceInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cb8d87cc59c3faa9, []int{4}
+	return fileDescriptor_cb8d87cc59c3faa9, []int{5}
 }
 func (m *UpdateNamespaceInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -421,6 +604,13 @@ func (m *UpdateNamespaceInfo) GetState() v1.NamespaceState {
 	return v1.NAMESPACE_STATE_UNSPECIFIED
 }
 
+func (m *UpdateNamespaceInfo) GetOutboundServiceUpdates() []*OutboundServiceUpdate {
+	if m != nil {
+		return m.OutboundServiceUpdates
+	}
+	return nil
+}
+
 type NamespaceFilter struct {
 	// By default namespaces in NAMESPACE_STATE_DELETED state are not included.
 	// Setting include_deleted to true will include deleted namespaces.
@@ -431,7 +621,7 @@ type NamespaceFilter struct {
 func (m *NamespaceFilter) Reset()      { *m = NamespaceFilter{} }
 func (*NamespaceFilter) ProtoMessage() {}
 func (*NamespaceFilter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cb8d87cc59c3faa9, []int{5}
+	return fileDescriptor_cb8d87cc59c3faa9, []int{6}
 }
 func (m *NamespaceFilter) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -475,6 +665,9 @@ func init() {
 	proto.RegisterType((*BadBinaries)(nil), "temporal.api.namespace.v1.BadBinaries")
 	proto.RegisterMapType((map[string]*BadBinaryInfo)(nil), "temporal.api.namespace.v1.BadBinaries.BinariesEntry")
 	proto.RegisterType((*BadBinaryInfo)(nil), "temporal.api.namespace.v1.BadBinaryInfo")
+	proto.RegisterType((*OutboundServiceUpdate)(nil), "temporal.api.namespace.v1.OutboundServiceUpdate")
+	proto.RegisterType((*OutboundServiceUpdate_DeleteService)(nil), "temporal.api.namespace.v1.OutboundServiceUpdate.DeleteService")
+	proto.RegisterType((*OutboundServiceUpdate_CreateOrUpdateService)(nil), "temporal.api.namespace.v1.OutboundServiceUpdate.CreateOrUpdateService")
 	proto.RegisterType((*UpdateNamespaceInfo)(nil), "temporal.api.namespace.v1.UpdateNamespaceInfo")
 	proto.RegisterMapType((map[string]string)(nil), "temporal.api.namespace.v1.UpdateNamespaceInfo.DataEntry")
 	proto.RegisterType((*NamespaceFilter)(nil), "temporal.api.namespace.v1.NamespaceFilter")
@@ -485,66 +678,75 @@ func init() {
 }
 
 var fileDescriptor_cb8d87cc59c3faa9 = []byte{
-	// 932 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x56, 0xcf, 0x6f, 0x1b, 0x45,
-	0x14, 0xf6, 0xf8, 0x47, 0x48, 0x66, 0x9b, 0x14, 0x86, 0xd0, 0x3a, 0xa6, 0x6c, 0xdc, 0x88, 0x52,
-	0x73, 0x60, 0x8d, 0x0d, 0x82, 0xca, 0x95, 0x90, 0xec, 0x26, 0x95, 0x2a, 0x15, 0x88, 0x36, 0x69,
-	0x0f, 0xbd, 0x2c, 0xe3, 0xdd, 0x17, 0x67, 0xd4, 0xf5, 0xce, 0x6a, 0x66, 0xd6, 0x21, 0x37, 0x4e,
-	0x9c, 0x2b, 0x71, 0xe1, 0xc0, 0x1f, 0x80, 0xf8, 0x43, 0x10, 0x07, 0x0e, 0xb9, 0x20, 0xf5, 0x06,
-	0x71, 0x2e, 0x88, 0x53, 0xff, 0x04, 0xb4, 0xb3, 0x3f, 0x6c, 0xc7, 0x49, 0x9a, 0xf4, 0x36, 0xf3,
-	0xde, 0xf7, 0xbe, 0xfd, 0xde, 0xf3, 0xb7, 0x6f, 0x8d, 0xef, 0x2a, 0x18, 0x86, 0x5c, 0x50, 0xbf,
-	0x49, 0x43, 0xd6, 0x0c, 0xe8, 0x10, 0x64, 0x48, 0x5d, 0x68, 0x8e, 0x5a, 0xcd, 0x21, 0x48, 0x49,
-	0x07, 0x60, 0x85, 0x82, 0x2b, 0x4e, 0xd6, 0x32, 0xa0, 0x45, 0x43, 0x66, 0xe5, 0x40, 0x6b, 0xd4,
-	0xaa, 0x99, 0x03, 0xce, 0x07, 0x3e, 0x34, 0x35, 0xb0, 0x1f, 0xed, 0x35, 0xbd, 0x48, 0x50, 0xc5,
-	0x78, 0x90, 0x94, 0xd6, 0xd6, 0x4f, 0xe7, 0x15, 0x1b, 0x82, 0x54, 0x74, 0x18, 0xa6, 0x80, 0xdb,
-	0x1e, 0x84, 0x10, 0x78, 0x10, 0xb8, 0x0c, 0x64, 0x73, 0xc0, 0x07, 0x5c, 0xc7, 0xf5, 0x29, 0x85,
-	0xdc, 0x99, 0xd1, 0x09, 0x41, 0x34, 0x94, 0xb1, 0xc6, 0x89, 0x0e, 0x0d, 0xdb, 0x38, 0x29, 0xe2,
-	0xe5, 0x6f, 0xb2, 0xd8, 0xa3, 0x60, 0x8f, 0x13, 0x82, 0xcb, 0x31, 0xa8, 0x8a, 0xea, 0xa8, 0xb1,
-	0x64, 0xeb, 0x33, 0xb9, 0x8f, 0x2b, 0x52, 0x51, 0x05, 0xd5, 0x62, 0x1d, 0x35, 0x56, 0xda, 0x77,
-	0xac, 0x99, 0xde, 0x34, 0xb9, 0x35, 0x6a, 0x59, 0x39, 0xd1, 0x4e, 0x0c, 0xb6, 0x93, 0x1a, 0x52,
-	0xc7, 0x86, 0x07, 0xd2, 0x15, 0x2c, 0x8c, 0x5b, 0xac, 0x96, 0x34, 0xef, 0x74, 0x88, 0xac, 0x63,
-	0x83, 0x1f, 0x04, 0x20, 0x1c, 0x18, 0x52, 0xe6, 0x57, 0xcb, 0x1a, 0x81, 0x75, 0x68, 0x2b, 0x8e,
-	0x90, 0x87, 0xb8, 0xec, 0x51, 0x45, 0xab, 0x95, 0x7a, 0xa9, 0x61, 0xb4, 0xdb, 0xd6, 0xb9, 0xa3,
-	0xb5, 0x66, 0x7a, 0xb1, 0x36, 0xa9, 0xa2, 0x5b, 0x81, 0x12, 0x87, 0xb6, 0xae, 0x27, 0x2b, 0xb8,
-	0xc8, 0xbc, 0xea, 0x82, 0xe6, 0x2f, 0x32, 0x8f, 0x7c, 0x82, 0x89, 0x8c, 0xc2, 0x90, 0x0b, 0x25,
-	0x1d, 0xe9, 0xee, 0x83, 0x17, 0xf9, 0x20, 0xab, 0x5e, 0x1d, 0x35, 0x16, 0xed, 0x77, 0xb2, 0xcc,
-	0x4e, 0x96, 0xa8, 0x7d, 0x89, 0x97, 0x72, 0x46, 0xf2, 0x36, 0x2e, 0x3d, 0x87, 0xc3, 0x74, 0x4c,
-	0xf1, 0x91, 0xac, 0xe2, 0xca, 0x88, 0xfa, 0x51, 0x32, 0xa5, 0x25, 0x3b, 0xb9, 0x74, 0x8a, 0xf7,
-	0xd0, 0xc6, 0x5f, 0x15, 0x7c, 0x3d, 0x57, 0xf6, 0x80, 0x07, 0x7b, 0x6c, 0x40, 0xf6, 0x71, 0xfd,
-	0x80, 0x8b, 0xe7, 0x7b, 0x3e, 0x3f, 0x70, 0xe0, 0x7b, 0x70, 0xa3, 0x78, 0x14, 0x8e, 0x00, 0x05,
-	0x81, 0x3e, 0x29, 0xe5, 0x6b, 0x72, 0xa3, 0xbd, 0x66, 0x25, 0x7e, 0xb0, 0x32, 0x3f, 0x58, 0x9b,
-	0xa9, 0x5f, 0x7a, 0xe5, 0x9f, 0xff, 0x5e, 0x47, 0xf6, 0x07, 0x19, 0xd1, 0x56, 0xc6, 0x63, 0x67,
-	0x34, 0xbb, 0xca, 0x27, 0x8f, 0xf0, 0xb5, 0x3e, 0xf5, 0x9c, 0x3e, 0x0b, 0xa8, 0x60, 0x20, 0xb5,
-	0x3c, 0xa3, 0xfd, 0xd1, 0x05, 0x53, 0xec, 0x51, 0xaf, 0x97, 0xa2, 0x6d, 0xa3, 0x3f, 0xb9, 0x90,
-	0x67, 0xf8, 0xc6, 0x3e, 0x93, 0x8a, 0x8b, 0x43, 0x87, 0x0a, 0x77, 0x9f, 0x8d, 0xa8, 0xef, 0x24,
-	0xce, 0x28, 0x69, 0x67, 0x7c, 0x78, 0x8e, 0x33, 0xba, 0x29, 0x38, 0x31, 0xc6, 0x6a, 0xca, 0x31,
-	0x13, 0x25, 0x9f, 0xe2, 0xd5, 0x39, 0xee, 0x48, 0xb0, 0xd4, 0x0e, 0xe4, 0x54, 0xcd, 0x13, 0xc1,
-	0xc8, 0x77, 0x78, 0x6d, 0xc4, 0x24, 0xeb, 0x33, 0x9f, 0xa9, 0x39, 0x41, 0x95, 0x2b, 0x08, 0xba,
-	0x39, 0xa1, 0x99, 0xd5, 0xf4, 0x05, 0xbe, 0x79, 0xd6, 0x13, 0x62, 0x59, 0x89, 0x8b, 0xde, 0x9b,
-	0xaf, 0x8c, 0x95, 0xfd, 0x84, 0xf0, 0xba, 0x1b, 0x49, 0xc5, 0x87, 0x8e, 0x84, 0xb8, 0xcc, 0xa1,
-	0x4a, 0x09, 0xd6, 0x8f, 0x14, 0x38, 0xd4, 0x67, 0x54, 0x82, 0xac, 0xbe, 0xa5, 0xcd, 0xfc, 0xf8,
-	0x32, 0x66, 0x4e, 0x2c, 0x63, 0x3d, 0xd0, 0x8c, 0x3b, 0x9a, 0xb0, 0x9b, 0xf1, 0x75, 0x13, 0xba,
-	0xc4, 0xe6, 0xb7, 0xdc, 0x0b, 0x20, 0xb5, 0x6f, 0xf1, 0xed, 0xd7, 0x52, 0x5c, 0xc9, 0xd7, 0xbf,
-	0x23, 0x6c, 0x4c, 0x79, 0x85, 0x6c, 0xe3, 0xc5, 0xdc, 0x65, 0x48, 0xb7, 0xf7, 0xf9, 0xe5, 0x5c,
-	0x66, 0x65, 0x87, 0xa4, 0x8d, 0x9c, 0xa5, 0x06, 0x78, 0x79, 0x26, 0x75, 0x86, 0xbc, 0xaf, 0xa6,
-	0xe5, 0x19, 0xed, 0xc6, 0x25, 0x9e, 0x78, 0x18, 0x6f, 0x87, 0xe9, 0x46, 0x7e, 0x44, 0x78, 0x79,
-	0x26, 0x49, 0x6e, 0xe0, 0x05, 0x01, 0x54, 0xf2, 0x20, 0x7d, 0x54, 0x7a, 0x23, 0x35, 0xbc, 0xc8,
-	0x43, 0x10, 0x54, 0x71, 0x91, 0xce, 0x23, 0xbf, 0x93, 0x2e, 0x36, 0x5c, 0x01, 0x54, 0x81, 0x13,
-	0x2f, 0x6c, 0xfd, 0x4a, 0x18, 0xed, 0xda, 0xdc, 0xdb, 0xbb, 0x9b, 0x6d, 0xf3, 0x5e, 0xf9, 0x45,
-	0xfc, 0xfa, 0xe2, 0xa4, 0x28, 0x0e, 0x6f, 0xfc, 0x52, 0xc4, 0xef, 0x3e, 0x09, 0x3d, 0xaa, 0x60,
-	0x76, 0x2b, 0x9f, 0x5a, 0xa2, 0xe8, 0xb5, 0x4b, 0xb4, 0x38, 0xb7, 0x44, 0x1f, 0xa7, 0x4b, 0xb4,
-	0xa4, 0x7f, 0x98, 0x7b, 0x17, 0x8c, 0xe9, 0x0c, 0x01, 0x73, 0xab, 0x34, 0xff, 0x24, 0x94, 0xaf,
-	0xfe, 0x49, 0x78, 0xf3, 0x45, 0xda, 0x99, 0xda, 0xa3, 0x0f, 0x99, 0xaf, 0x40, 0x90, 0xbb, 0xf8,
-	0x3a, 0x0b, 0x5c, 0x3f, 0xf2, 0xc0, 0xf1, 0xc0, 0x07, 0x05, 0x9e, 0xa6, 0x5a, 0xb4, 0x57, 0xd2,
-	0xf0, 0x66, 0x12, 0xed, 0xfd, 0x89, 0x8e, 0x8e, 0xcd, 0xc2, 0xcb, 0x63, 0xb3, 0xf0, 0xea, 0xd8,
-	0x44, 0x3f, 0x8c, 0x4d, 0xf4, 0xeb, 0xd8, 0x44, 0x7f, 0x8c, 0x4d, 0x74, 0x34, 0x36, 0xd1, 0x3f,
-	0x63, 0x13, 0xfd, 0x3b, 0x36, 0x0b, 0xaf, 0xc6, 0x26, 0x7a, 0x71, 0x62, 0x16, 0x8e, 0x4e, 0xcc,
-	0xc2, 0xcb, 0x13, 0xb3, 0x80, 0x6f, 0x31, 0x7e, 0xfe, 0xa8, 0x7a, 0xd7, 0xbe, 0x4e, 0x3e, 0xfa,
-	0xdb, 0xf1, 0x8f, 0xbb, 0x8d, 0x9e, 0x7d, 0x3c, 0x98, 0x42, 0x33, 0x3e, 0xf7, 0x27, 0xe1, 0x7e,
-	0x7e, 0xf9, 0xad, 0xf8, 0xfe, 0x6e, 0x0a, 0x64, 0xdc, 0xea, 0x86, 0x6c, 0x32, 0x2b, 0xeb, 0x69,
-	0xeb, 0xbf, 0xa2, 0x39, 0xc9, 0x76, 0x3a, 0xdd, 0x90, 0x75, 0x3a, 0x79, 0xbe, 0xd3, 0x79, 0xda,
-	0xea, 0x2f, 0x68, 0x3f, 0x7d, 0xf6, 0x7f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xd3, 0x23, 0x7e, 0xfa,
-	0x91, 0x08, 0x00, 0x00,
+	// 1073 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x56, 0x4d, 0x6f, 0x1b, 0x45,
+	0x18, 0xf6, 0xd8, 0xce, 0xd7, 0xb8, 0x49, 0x61, 0x48, 0xd2, 0x8d, 0x29, 0x1b, 0x37, 0x50, 0x1a,
+	0x0e, 0xac, 0x1b, 0x83, 0xa0, 0x72, 0xa5, 0x4a, 0x76, 0x3e, 0x44, 0xa5, 0x42, 0xa2, 0x4d, 0xd2,
+	0x43, 0x2f, 0xcb, 0x78, 0x77, 0xe2, 0x0c, 0x5d, 0xef, 0xac, 0x66, 0x66, 0x1d, 0x72, 0x83, 0x0b,
+	0xe2, 0x58, 0x89, 0x0b, 0x3f, 0x01, 0xf1, 0x43, 0x10, 0x07, 0x0e, 0xb9, 0x20, 0xf5, 0x06, 0x71,
+	0x2e, 0x88, 0x53, 0x7f, 0x00, 0x07, 0xb4, 0xb3, 0xb3, 0x6b, 0x3b, 0x76, 0xd2, 0x04, 0x6e, 0x3b,
+	0xef, 0xc7, 0x33, 0xcf, 0xfb, 0xce, 0x33, 0xf3, 0x2e, 0xbc, 0x27, 0x49, 0x27, 0x64, 0x1c, 0xfb,
+	0x55, 0x1c, 0xd2, 0x6a, 0x80, 0x3b, 0x44, 0x84, 0xd8, 0x25, 0xd5, 0xee, 0x5a, 0xb5, 0x43, 0x84,
+	0xc0, 0x6d, 0x62, 0x85, 0x9c, 0x49, 0x86, 0x96, 0xd2, 0x40, 0x0b, 0x87, 0xd4, 0xca, 0x02, 0xad,
+	0xee, 0x5a, 0xd9, 0x6c, 0x33, 0xd6, 0xf6, 0x49, 0x55, 0x05, 0xb6, 0xa2, 0x83, 0xaa, 0x17, 0x71,
+	0x2c, 0x29, 0x0b, 0x92, 0xd4, 0xf2, 0xf2, 0x79, 0xbf, 0xa4, 0x1d, 0x22, 0x24, 0xee, 0x84, 0x3a,
+	0xe0, 0x8e, 0x47, 0x42, 0x12, 0x78, 0x24, 0x70, 0x29, 0x11, 0xd5, 0x36, 0x6b, 0x33, 0x65, 0x57,
+	0x5f, 0x3a, 0xe4, 0xee, 0x10, 0x4f, 0x12, 0x44, 0x1d, 0x11, 0x73, 0xec, 0xf3, 0x50, 0x61, 0x2b,
+	0x67, 0x79, 0x38, 0xfb, 0x45, 0x6a, 0x7b, 0x1c, 0x1c, 0x30, 0x84, 0x60, 0x31, 0x0e, 0x32, 0x40,
+	0x05, 0xac, 0xce, 0xd8, 0xea, 0x1b, 0x3d, 0x84, 0x13, 0x42, 0x62, 0x49, 0x8c, 0x7c, 0x05, 0xac,
+	0xce, 0xd5, 0xee, 0x5a, 0x43, 0xb5, 0x29, 0x70, 0xab, 0xbb, 0x66, 0x65, 0x40, 0xbb, 0x71, 0xb0,
+	0x9d, 0xe4, 0xa0, 0x0a, 0x2c, 0x79, 0x44, 0xb8, 0x9c, 0x86, 0x71, 0x89, 0x46, 0x41, 0xe1, 0x0e,
+	0x9a, 0xd0, 0x32, 0x2c, 0xb1, 0xa3, 0x80, 0x70, 0x87, 0x74, 0x30, 0xf5, 0x8d, 0xa2, 0x8a, 0x80,
+	0xca, 0xb4, 0x19, 0x5b, 0xd0, 0x16, 0x2c, 0x7a, 0x58, 0x62, 0x63, 0xa2, 0x52, 0x58, 0x2d, 0xd5,
+	0x6a, 0xd6, 0x85, 0xad, 0xb5, 0x86, 0x6a, 0xb1, 0x36, 0xb0, 0xc4, 0x9b, 0x81, 0xe4, 0xc7, 0xb6,
+	0xca, 0x47, 0x73, 0x30, 0x4f, 0x3d, 0x63, 0x52, 0xe1, 0xe7, 0xa9, 0x87, 0x3e, 0x84, 0x48, 0x44,
+	0x61, 0xc8, 0xb8, 0x14, 0x8e, 0x70, 0x0f, 0x89, 0x17, 0xf9, 0x44, 0x18, 0x5e, 0x05, 0xac, 0x4e,
+	0xdb, 0x6f, 0xa6, 0x9e, 0xdd, 0xd4, 0x51, 0xfe, 0x14, 0xce, 0x64, 0x88, 0xe8, 0x0d, 0x58, 0x78,
+	0x4e, 0x8e, 0x75, 0x9b, 0xe2, 0x4f, 0x34, 0x0f, 0x27, 0xba, 0xd8, 0x8f, 0x92, 0x2e, 0xcd, 0xd8,
+	0xc9, 0xa2, 0x9e, 0x7f, 0x00, 0x56, 0x7e, 0x9f, 0x80, 0x37, 0x33, 0x66, 0xeb, 0x2c, 0x38, 0xa0,
+	0x6d, 0x74, 0x08, 0x2b, 0x47, 0x8c, 0x3f, 0x3f, 0xf0, 0xd9, 0x91, 0x43, 0xbe, 0x26, 0x6e, 0x14,
+	0xb7, 0xc2, 0xe1, 0x44, 0x92, 0x40, 0x7d, 0x49, 0xe9, 0x2b, 0xf0, 0x52, 0x6d, 0xc9, 0x4a, 0xf4,
+	0x60, 0xa5, 0x7a, 0xb0, 0x36, 0xb4, 0x5e, 0x9a, 0xc5, 0x1f, 0xff, 0x58, 0x06, 0xf6, 0x3b, 0x29,
+	0xd0, 0x66, 0x8a, 0x63, 0xa7, 0x30, 0x7b, 0xd2, 0x47, 0x8f, 0xe1, 0x8d, 0x16, 0xf6, 0x9c, 0x16,
+	0x0d, 0x30, 0xa7, 0x44, 0x28, 0x7a, 0xa5, 0xda, 0xfb, 0x97, 0x74, 0xb1, 0x89, 0xbd, 0xa6, 0x8e,
+	0xb6, 0x4b, 0xad, 0xfe, 0x02, 0x3d, 0x83, 0x8b, 0x87, 0x54, 0x48, 0xc6, 0x8f, 0x1d, 0xcc, 0xdd,
+	0x43, 0xda, 0xc5, 0xbe, 0x93, 0x28, 0xa3, 0xa0, 0x94, 0xf1, 0xde, 0x05, 0xca, 0x68, 0xe8, 0xe0,
+	0x44, 0x18, 0xf3, 0x1a, 0x63, 0xc8, 0x8a, 0xee, 0xc3, 0xf9, 0x11, 0xec, 0x88, 0x53, 0x2d, 0x07,
+	0x74, 0x2e, 0x67, 0x9f, 0x53, 0xf4, 0x25, 0x5c, 0xea, 0x52, 0x41, 0x5b, 0xd4, 0xa7, 0x72, 0x84,
+	0xd0, 0xc4, 0x35, 0x08, 0xdd, 0xea, 0xc3, 0x0c, 0x73, 0xfa, 0x04, 0xde, 0x1a, 0xb7, 0x43, 0x4c,
+	0x2b, 0x51, 0xd1, 0xc2, 0x68, 0x66, 0xcc, 0xec, 0x07, 0x00, 0x97, 0xdd, 0x48, 0x48, 0xd6, 0x71,
+	0x04, 0x89, 0xd3, 0x1c, 0x2c, 0x25, 0xa7, 0xad, 0x48, 0x12, 0x07, 0xfb, 0x14, 0x0b, 0x22, 0x8c,
+	0x29, 0x25, 0xe6, 0x27, 0x57, 0x11, 0x73, 0x22, 0x19, 0x6b, 0x5d, 0x21, 0xee, 0x2a, 0xc0, 0x46,
+	0x8a, 0xd7, 0x48, 0xe0, 0x12, 0x99, 0xdf, 0x76, 0x2f, 0x09, 0x29, 0x6f, 0xc3, 0x3b, 0xaf, 0x85,
+	0xb8, 0x96, 0xae, 0x7f, 0x01, 0xb0, 0x34, 0xa0, 0x15, 0xb4, 0x03, 0xa7, 0x33, 0x95, 0x01, 0x55,
+	0xde, 0xc7, 0x57, 0x53, 0x99, 0x95, 0x7e, 0x24, 0x65, 0x64, 0x28, 0x65, 0x02, 0x67, 0x87, 0x5c,
+	0x63, 0xe8, 0x3d, 0x1a, 0xa4, 0x57, 0xaa, 0xad, 0x5e, 0x61, 0xc7, 0xe3, 0xf8, 0x75, 0x18, 0x2c,
+	0xe4, 0x3b, 0x00, 0x67, 0x87, 0x9c, 0x68, 0x11, 0x4e, 0x72, 0x82, 0x05, 0x0b, 0xf4, 0x56, 0x7a,
+	0x85, 0xca, 0x70, 0x9a, 0x85, 0x84, 0x63, 0xc9, 0xb8, 0xee, 0x47, 0xb6, 0x46, 0x0d, 0x58, 0x72,
+	0x39, 0xc1, 0x92, 0x38, 0xf1, 0x83, 0xad, 0xae, 0x44, 0xa9, 0x56, 0x1e, 0xb9, 0xbd, 0x7b, 0xe9,
+	0x6b, 0xde, 0x2c, 0xbe, 0x88, 0xaf, 0x2f, 0x4c, 0x92, 0x62, 0xf3, 0xca, 0x3f, 0x79, 0xb8, 0xb0,
+	0x1d, 0xc9, 0x16, 0x8b, 0x02, 0x6f, 0x97, 0xf0, 0x2e, 0x75, 0xc9, 0x7e, 0xe8, 0xc5, 0x52, 0x6c,
+	0xc3, 0x39, 0x8f, 0xf8, 0x44, 0x12, 0x47, 0x24, 0x76, 0xfd, 0x3a, 0x3c, 0xba, 0xa4, 0xde, 0xb1,
+	0x48, 0xd6, 0x86, 0x82, 0xd1, 0xb6, 0xcf, 0x72, 0xf6, 0xac, 0x37, 0x68, 0x40, 0xdf, 0x02, 0x68,
+	0xe8, 0x32, 0x18, 0x77, 0x22, 0x95, 0x93, 0xed, 0x99, 0xf4, 0x78, 0xeb, 0xda, 0x7b, 0xae, 0x2b,
+	0xc0, 0x6d, 0x9e, 0x2c, 0xfb, 0x7b, 0x2f, 0xb8, 0xe3, 0x1c, 0xe5, 0x77, 0xe1, 0xec, 0x10, 0xcb,
+	0x71, 0x53, 0xa9, 0xbc, 0x05, 0x17, 0xc6, 0xc2, 0x8e, 0x1d, 0x61, 0x4b, 0x70, 0xba, 0x85, 0x05,
+	0x71, 0x22, 0xee, 0xeb, 0x73, 0x9b, 0x8a, 0xd7, 0xfb, 0xdc, 0x6f, 0xce, 0xc0, 0xa9, 0x2e, 0xe6,
+	0x14, 0x07, 0x72, 0xe5, 0xfb, 0x02, 0x7c, 0x2b, 0xc1, 0x1a, 0x1e, 0x8a, 0xe7, 0x66, 0x18, 0x78,
+	0xed, 0x0c, 0xcb, 0x8f, 0xcc, 0xb0, 0x27, 0x7a, 0x86, 0x15, 0xd4, 0xbd, 0x78, 0x70, 0x49, 0x07,
+	0xc7, 0x10, 0x18, 0x99, 0x64, 0xd9, 0x44, 0x2e, 0xfe, 0x87, 0x89, 0xfc, 0x15, 0x34, 0x98, 0x3e,
+	0xa5, 0xf4, 0x60, 0xf5, 0x39, 0x0b, 0x3d, 0x62, 0xef, 0x5f, 0xf7, 0x80, 0xed, 0x45, 0x36, 0xce,
+	0xfc, 0x3f, 0x66, 0x66, 0x7d, 0x60, 0x64, 0x6e, 0x51, 0x5f, 0x12, 0x8e, 0xee, 0xc1, 0x9b, 0x34,
+	0x70, 0xfd, 0xc8, 0x23, 0x4e, 0x22, 0x59, 0x4f, 0x41, 0x4d, 0xdb, 0x73, 0xda, 0x9c, 0x68, 0xc6,
+	0x6b, 0xfe, 0x06, 0x4e, 0x4e, 0xcd, 0xdc, 0xcb, 0x53, 0x33, 0xf7, 0xea, 0xd4, 0x04, 0xdf, 0xf4,
+	0x4c, 0xf0, 0x53, 0xcf, 0x04, 0xbf, 0xf6, 0x4c, 0x70, 0xd2, 0x33, 0xc1, 0x9f, 0x3d, 0x13, 0xfc,
+	0xd5, 0x33, 0x73, 0xaf, 0x7a, 0x26, 0x78, 0x71, 0x66, 0xe6, 0x4e, 0xce, 0xcc, 0xdc, 0xcb, 0x33,
+	0x33, 0x07, 0x6f, 0x53, 0x76, 0x71, 0xdd, 0xcd, 0x1b, 0x9f, 0x27, 0xff, 0x77, 0x3b, 0xf1, 0x3d,
+	0xde, 0x01, 0xcf, 0x3e, 0x68, 0x0f, 0x44, 0x53, 0x36, 0xf2, 0x3f, 0xf8, 0x30, 0x5b, 0xfc, 0x9c,
+	0x7f, 0x7b, 0x4f, 0x07, 0x52, 0x66, 0x35, 0x42, 0xda, 0x3f, 0x17, 0xeb, 0xe9, 0xda, 0xdf, 0x79,
+	0xb3, 0xef, 0xad, 0xd7, 0x1b, 0x21, 0xad, 0xd7, 0x33, 0x7f, 0xbd, 0xfe, 0x74, 0xad, 0x35, 0xa9,
+	0x9e, 0x8e, 0x8f, 0xfe, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x5c, 0x1c, 0xd4, 0x83, 0x7c, 0x0a, 0x00,
+	0x00,
 }
 
 func (this *NamespaceInfo) Equal(that interface{}) bool {
@@ -710,6 +912,135 @@ func (this *BadBinaryInfo) Equal(that interface{}) bool {
 	}
 	return true
 }
+func (this *OutboundServiceUpdate) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*OutboundServiceUpdate)
+	if !ok {
+		that2, ok := that.(OutboundServiceUpdate)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if that1.Variant == nil {
+		if this.Variant != nil {
+			return false
+		}
+	} else if this.Variant == nil {
+		return false
+	} else if !this.Variant.Equal(that1.Variant) {
+		return false
+	}
+	return true
+}
+func (this *OutboundServiceUpdate_DeleteService_) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*OutboundServiceUpdate_DeleteService_)
+	if !ok {
+		that2, ok := that.(OutboundServiceUpdate_DeleteService_)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.DeleteService.Equal(that1.DeleteService) {
+		return false
+	}
+	return true
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService_) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*OutboundServiceUpdate_CreateOrUpdateService_)
+	if !ok {
+		that2, ok := that.(OutboundServiceUpdate_CreateOrUpdateService_)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if !this.CreateOrUpdateService.Equal(that1.CreateOrUpdateService) {
+		return false
+	}
+	return true
+}
+func (this *OutboundServiceUpdate_DeleteService) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*OutboundServiceUpdate_DeleteService)
+	if !ok {
+		that2, ok := that.(OutboundServiceUpdate_DeleteService)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Name != that1.Name {
+		return false
+	}
+	return true
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*OutboundServiceUpdate_CreateOrUpdateService)
+	if !ok {
+		that2, ok := that.(OutboundServiceUpdate_CreateOrUpdateService)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Name != that1.Name {
+		return false
+	}
+	if this.BaseUrl != that1.BaseUrl {
+		return false
+	}
+	return true
+}
 func (this *UpdateNamespaceInfo) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -745,6 +1076,14 @@ func (this *UpdateNamespaceInfo) Equal(that interface{}) bool {
 	}
 	if this.State != that1.State {
 		return false
+	}
+	if len(this.OutboundServiceUpdates) != len(that1.OutboundServiceUpdates) {
+		return false
+	}
+	for i := range this.OutboundServiceUpdates {
+		if !this.OutboundServiceUpdates[i].Equal(that1.OutboundServiceUpdates[i]) {
+			return false
+		}
 	}
 	return true
 }
@@ -864,11 +1203,60 @@ func (this *BadBinaryInfo) GoString() string {
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
+func (this *OutboundServiceUpdate) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&namespace.OutboundServiceUpdate{")
+	if this.Variant != nil {
+		s = append(s, "Variant: "+fmt.Sprintf("%#v", this.Variant)+",\n")
+	}
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *OutboundServiceUpdate_DeleteService_) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&namespace.OutboundServiceUpdate_DeleteService_{` +
+		`DeleteService:` + fmt.Sprintf("%#v", this.DeleteService) + `}`}, ", ")
+	return s
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService_) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&namespace.OutboundServiceUpdate_CreateOrUpdateService_{` +
+		`CreateOrUpdateService:` + fmt.Sprintf("%#v", this.CreateOrUpdateService) + `}`}, ", ")
+	return s
+}
+func (this *OutboundServiceUpdate_DeleteService) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&namespace.OutboundServiceUpdate_DeleteService{")
+	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&namespace.OutboundServiceUpdate_CreateOrUpdateService{")
+	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
+	s = append(s, "BaseUrl: "+fmt.Sprintf("%#v", this.BaseUrl)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
 func (this *UpdateNamespaceInfo) GoString() string {
 	if this == nil {
 		return "nil"
 	}
-	s := make([]string, 0, 8)
+	s := make([]string, 0, 9)
 	s = append(s, "&namespace.UpdateNamespaceInfo{")
 	s = append(s, "Description: "+fmt.Sprintf("%#v", this.Description)+",\n")
 	s = append(s, "OwnerEmail: "+fmt.Sprintf("%#v", this.OwnerEmail)+",\n")
@@ -886,6 +1274,9 @@ func (this *UpdateNamespaceInfo) GoString() string {
 		s = append(s, "Data: "+mapStringForData+",\n")
 	}
 	s = append(s, "State: "+fmt.Sprintf("%#v", this.State)+",\n")
+	if this.OutboundServiceUpdates != nil {
+		s = append(s, "OutboundServiceUpdates: "+fmt.Sprintf("%#v", this.OutboundServiceUpdates)+",\n")
+	}
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -1178,6 +1569,147 @@ func (m *BadBinaryInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *OutboundServiceUpdate) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *OutboundServiceUpdate) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundServiceUpdate) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Variant != nil {
+		{
+			size := m.Variant.Size()
+			i -= size
+			if _, err := m.Variant.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
+			}
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *OutboundServiceUpdate_DeleteService_) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundServiceUpdate_DeleteService_) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.DeleteService != nil {
+		{
+			size, err := m.DeleteService.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService_) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService_) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.CreateOrUpdateService != nil {
+		{
+			size, err := m.CreateOrUpdateService.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintMessage(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	return len(dAtA) - i, nil
+}
+func (m *OutboundServiceUpdate_DeleteService) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *OutboundServiceUpdate_DeleteService) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundServiceUpdate_DeleteService) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.BaseUrl) > 0 {
+		i -= len(m.BaseUrl)
+		copy(dAtA[i:], m.BaseUrl)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.BaseUrl)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintMessage(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *UpdateNamespaceInfo) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -1198,6 +1730,20 @@ func (m *UpdateNamespaceInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.OutboundServiceUpdates) > 0 {
+		for iNdEx := len(m.OutboundServiceUpdates) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.OutboundServiceUpdates[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintMessage(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x2a
+		}
+	}
 	if m.State != 0 {
 		i = encodeVarintMessage(dAtA, i, uint64(m.State))
 		i--
@@ -1404,6 +1950,72 @@ func (m *BadBinaryInfo) Size() (n int) {
 	return n
 }
 
+func (m *OutboundServiceUpdate) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Variant != nil {
+		n += m.Variant.Size()
+	}
+	return n
+}
+
+func (m *OutboundServiceUpdate_DeleteService_) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.DeleteService != nil {
+		l = m.DeleteService.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService_) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CreateOrUpdateService != nil {
+		l = m.CreateOrUpdateService.Size()
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+func (m *OutboundServiceUpdate_DeleteService) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
+func (m *OutboundServiceUpdate_CreateOrUpdateService) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	l = len(m.BaseUrl)
+	if l > 0 {
+		n += 1 + l + sovMessage(uint64(l))
+	}
+	return n
+}
+
 func (m *UpdateNamespaceInfo) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1428,6 +2040,12 @@ func (m *UpdateNamespaceInfo) Size() (n int) {
 	}
 	if m.State != 0 {
 		n += 1 + sovMessage(uint64(m.State))
+	}
+	if len(m.OutboundServiceUpdates) > 0 {
+		for _, e := range m.OutboundServiceUpdates {
+			l = e.Size()
+			n += 1 + l + sovMessage(uint64(l))
+		}
 	}
 	return n
 }
@@ -1534,10 +2152,66 @@ func (this *BadBinaryInfo) String() string {
 	}, "")
 	return s
 }
+func (this *OutboundServiceUpdate) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&OutboundServiceUpdate{`,
+		`Variant:` + fmt.Sprintf("%v", this.Variant) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *OutboundServiceUpdate_DeleteService_) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&OutboundServiceUpdate_DeleteService_{`,
+		`DeleteService:` + strings.Replace(fmt.Sprintf("%v", this.DeleteService), "OutboundServiceUpdate_DeleteService", "OutboundServiceUpdate_DeleteService", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService_) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&OutboundServiceUpdate_CreateOrUpdateService_{`,
+		`CreateOrUpdateService:` + strings.Replace(fmt.Sprintf("%v", this.CreateOrUpdateService), "OutboundServiceUpdate_CreateOrUpdateService", "OutboundServiceUpdate_CreateOrUpdateService", 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *OutboundServiceUpdate_DeleteService) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&OutboundServiceUpdate_DeleteService{`,
+		`Name:` + fmt.Sprintf("%v", this.Name) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *OutboundServiceUpdate_CreateOrUpdateService) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&OutboundServiceUpdate_CreateOrUpdateService{`,
+		`Name:` + fmt.Sprintf("%v", this.Name) + `,`,
+		`BaseUrl:` + fmt.Sprintf("%v", this.BaseUrl) + `,`,
+		`}`,
+	}, "")
+	return s
+}
 func (this *UpdateNamespaceInfo) String() string {
 	if this == nil {
 		return "nil"
 	}
+	repeatedStringForOutboundServiceUpdates := "[]*OutboundServiceUpdate{"
+	for _, f := range this.OutboundServiceUpdates {
+		repeatedStringForOutboundServiceUpdates += strings.Replace(f.String(), "OutboundServiceUpdate", "OutboundServiceUpdate", 1) + ","
+	}
+	repeatedStringForOutboundServiceUpdates += "}"
 	keysForData := make([]string, 0, len(this.Data))
 	for k, _ := range this.Data {
 		keysForData = append(keysForData, k)
@@ -1553,6 +2227,7 @@ func (this *UpdateNamespaceInfo) String() string {
 		`OwnerEmail:` + fmt.Sprintf("%v", this.OwnerEmail) + `,`,
 		`Data:` + mapStringForData + `,`,
 		`State:` + fmt.Sprintf("%v", this.State) + `,`,
+		`OutboundServiceUpdates:` + repeatedStringForOutboundServiceUpdates + `,`,
 		`}`,
 	}, "")
 	return s
@@ -2611,6 +3286,331 @@ func (m *BadBinaryInfo) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *OutboundServiceUpdate) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: OutboundServiceUpdate: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: OutboundServiceUpdate: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DeleteService", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &OutboundServiceUpdate_DeleteService{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &OutboundServiceUpdate_DeleteService_{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreateOrUpdateService", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &OutboundServiceUpdate_CreateOrUpdateService{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Variant = &OutboundServiceUpdate_CreateOrUpdateService_{v}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *OutboundServiceUpdate_DeleteService) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DeleteService: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DeleteService: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *OutboundServiceUpdate_CreateOrUpdateService) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowMessage
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CreateOrUpdateService: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CreateOrUpdateService: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BaseUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.BaseUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipMessage(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *UpdateNamespaceInfo) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -2850,6 +3850,40 @@ func (m *UpdateNamespaceInfo) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OutboundServiceUpdates", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowMessage
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthMessage
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthMessage
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OutboundServiceUpdates = append(m.OutboundServiceUpdates, &OutboundServiceUpdate{})
+			if err := m.OutboundServiceUpdates[len(m.OutboundServiceUpdates)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipMessage(dAtA[iNdEx:])

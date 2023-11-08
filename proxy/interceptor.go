@@ -33,6 +33,7 @@ import (
 	"go.temporal.io/api/common/v1"
 	"go.temporal.io/api/failure/v1"
 	"go.temporal.io/api/history/v1"
+	"go.temporal.io/api/nexus/v1"
 	"go.temporal.io/api/query/v1"
 	"go.temporal.io/api/schedule/v1"
 	"go.temporal.io/api/update/v1"
@@ -1000,6 +1001,76 @@ func visitPayloads(ctx *VisitPayloadsContext, options *VisitPayloadsOptions, obj
 				return err
 			}
 
+		case *nexus.Request:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetStartOperation(),
+			); err != nil {
+				return err
+			}
+
+		case *nexus.Response:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetStartOperation(),
+			); err != nil {
+				return err
+			}
+
+		case *nexus.StartOperationRequest:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetPayload(),
+			); err != nil {
+				return err
+			}
+
+		case *nexus.StartOperationResponse:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetSyncSuccess(),
+			); err != nil {
+				return err
+			}
+
+		case *nexus.StartOperationResponse_Sync:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetPayload(),
+			); err != nil {
+				return err
+			}
+
 		case map[string]*query.WorkflowQuery:
 			for _, x := range o {
 				if err := visitPayloads(ctx, options, x); err != nil {
@@ -1401,6 +1472,20 @@ func visitPayloads(ctx *VisitPayloadsContext, options *VisitPayloadsOptions, obj
 				return err
 			}
 
+		case *workflowservice.PollNexusTaskQueueResponse:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetRequest(),
+			); err != nil {
+				return err
+			}
+
 		case *workflowservice.PollWorkflowExecutionUpdateResponse:
 
 			if o == nil {
@@ -1597,6 +1682,20 @@ func visitPayloads(ctx *VisitPayloadsContext, options *VisitPayloadsOptions, obj
 				ctx,
 				options,
 				o.GetFailures(),
+			); err != nil {
+				return err
+			}
+
+		case *workflowservice.RespondNexusTaskCompletedRequest:
+
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitPayloads(
+				ctx,
+				options,
+				o.GetResponse(),
 			); err != nil {
 				return err
 			}

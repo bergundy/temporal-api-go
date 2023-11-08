@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 // indirect
 	golang.org/x/mod v0.11.0 // indirect

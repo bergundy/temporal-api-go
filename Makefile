@@ -2,7 +2,7 @@ $(VERBOSE).SILENT:
 all: install test
 ############################# Main targets #############################
 # Install everything, update submodule, and compile proto files.
-install: grpc-install mockgen-install goimports-install update-proto
+install: grpc-install nexus-install mockgen-install goimports-install update-proto
 
 # Compile proto files.
 proto: http-api-docs grpc goimports proxy grpc-mock copyright
@@ -59,6 +59,7 @@ go-grpc: clean .go-helpers-installed $(PROTO_OUT)
 		--output=$(PROTO_OUT) \
 		--exclude=internal \
 		--exclude=proto/api/google \
+		-p go-nexus_out=$(PROTO_PATHS) \
 		-p go-grpc_out=$(PROTO_PATHS) \
 		-p grpc-gateway_out=allow_patch_feature=false,$(PROTO_PATHS) \
 		-p go-helpers_out=$(PROTO_PATHS)
@@ -95,6 +96,10 @@ proxy:
 goimports:
 	printf $(COLOR) "Run goimports..."
 	goimports -w $(PROTO_OUT)
+
+nexus-install:
+	@printf $(COLOR) "Install/update nexus plugins..."
+	@go install github.com/bergundy/protoc-gen-go-nexus/cmd/protoc-gen-go-nexus@latest
 
 ##### Plugins & tools #####
 grpc-install:

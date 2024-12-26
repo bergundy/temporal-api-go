@@ -151,3 +151,5 @@ clean:
 	find $(PROTO_OUT) \( -name "*.pb.go" -o -name "*.mock.go" -o -name "*.go-helpers.go" \) | xargs -I{} dirname {} | egrep -v 'testprotos' | sort -u | xargs rm -rf
 	# Delete entire cloud dir
 	rm -rf cloud
+	# Delete entire chasm dir, the `find` script above doesn't catch it due to non-standard nesting.
+	rm -rf chasm

@@ -41,30 +41,56 @@ import (
 // ActivityServiceServiceName defines the fully-qualified name for the temporal.api.chasm.activityservice.v1.ActivityService service.
 const ActivityServiceServiceName = "temporal.api.chasm.activityservice.v1.ActivityService"
 
-// ActivityServiceStartActivityOperationName defines the fully-qualified name for the StartActivity operation.
-const ActivityServiceStartActivityOperationName = "StartActivity"
+// ActivityServiceExecuteActivityOperationName defines the fully-qualified name for the ExecuteActivity operation.
+const ActivityServiceExecuteActivityOperationName = "ExecuteActivity"
 
-var ActivityServiceStartActivityOperation = nexus.NewOperationReference[*v1.StartActivityRequest, *v1.StartActivityResponse](ActivityServiceStartActivityOperationName)
+var ActivityServiceExecuteActivityOperation = nexus.NewOperationReference[*v1.ExecuteActivityRequest, *v1.ExecuteActivityResponse](ActivityServiceExecuteActivityOperationName)
 
-type ActivityServiceNexusServiceHandler interface {
-	mustEmbedUnimplementedActivityServiceNexusServiceHandler()
-	StartActivity(name string) nexus.Operation[*v1.StartActivityRequest, *v1.StartActivityResponse]
+// ActivityServiceDescribeActivityOperationName defines the fully-qualified name for the DescribeActivity operation.
+const ActivityServiceDescribeActivityOperationName = "DescribeActivity"
+
+var ActivityServiceDescribeActivityOperation = nexus.NewOperationReference[*v1.DescribeActivityRequest, *v1.DescribeActivityResponse](ActivityServiceDescribeActivityOperationName)
+
+// ActivityServiceListActivitiesOperationName defines the fully-qualified name for the ListActivities operation.
+const ActivityServiceListActivitiesOperationName = "ListActivities"
+
+var ActivityServiceListActivitiesOperation = nexus.NewOperationReference[*v1.ListActivitiesRequest, *v1.ListActivitiesResponse](ActivityServiceListActivitiesOperationName)
+
+func NewActivityServiceExecuteActivityOperationHandlerResultAsync(operationID string, startResult *v1.ExecuteActivityStartResponse, links []nexus.Link) *nexus.HandlerStartOperationResultAsync {
+	return &nexus.HandlerStartOperationResultAsync{
+		OperationID: operationID,
+		StartResult: startResult,
+		Links:       links,
+	}
 }
 
-func NewActivityServiceNexusService(h ActivityServiceNexusServiceHandler) (*nexus.Service, error) {
+type ActivityServiceNexusHandler interface {
+	mustEmbedUnimplementedActivityServiceNexusHandler()
+	ExecuteActivity(name string) nexus.Operation[*v1.ExecuteActivityRequest, *v1.ExecuteActivityResponse]
+	DescribeActivity(name string) nexus.Operation[*v1.DescribeActivityRequest, *v1.DescribeActivityResponse]
+	ListActivities(name string) nexus.Operation[*v1.ListActivitiesRequest, *v1.ListActivitiesResponse]
+}
+
+func NewActivityServiceNexusService(h ActivityServiceNexusHandler) (*nexus.Service, error) {
 	svc := nexus.NewService(ActivityServiceServiceName)
-	err := svc.Register(h.StartActivity(ActivityServiceStartActivityOperationName))
+	err := svc.Register(h.ExecuteActivity(ActivityServiceExecuteActivityOperationName), h.DescribeActivity(ActivityServiceDescribeActivityOperationName), h.ListActivities(ActivityServiceListActivitiesOperationName))
 	if err != nil {
 		return nil, err
 	}
 	return svc, nil
 }
 
-type UnimplementedActivityServiceNexusServiceHandler struct{}
+type UnimplementedActivityServiceNexusHandler struct{}
 
-func (h *UnimplementedActivityServiceNexusServiceHandler) mustEmbedUnimplementedActivityServiceNexusServiceHandler() {
+func (h *UnimplementedActivityServiceNexusHandler) mustEmbedUnimplementedActivityServiceNexusHandler() {
 }
-func (h *UnimplementedActivityServiceNexusServiceHandler) StartActivity(name string) nexus.Operation[*v1.StartActivityRequest, *v1.StartActivityResponse] {
+func (h *UnimplementedActivityServiceNexusHandler) ExecuteActivity(name string) nexus.Operation[*v1.ExecuteActivityRequest, *v1.ExecuteActivityResponse] {
+	panic("TODO")
+}
+func (h *UnimplementedActivityServiceNexusHandler) DescribeActivity(name string) nexus.Operation[*v1.DescribeActivityRequest, *v1.DescribeActivityResponse] {
+	panic("TODO")
+}
+func (h *UnimplementedActivityServiceNexusHandler) ListActivities(name string) nexus.Operation[*v1.ListActivitiesRequest, *v1.ListActivitiesResponse] {
 	panic("TODO")
 }
 
@@ -87,10 +113,76 @@ func NewActivityServiceNexusHTTPClient(options nexus.HTTPClientOptions) (*Activi
 		client: *client,
 	}, nil
 }
-func (c *ActivityServiceNexusHTTPClient) StartActivityAsync(ctx context.Context, input *v1.StartActivityRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.StartActivityResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, ActivityServiceStartActivityOperation, input, options)
+
+type ActivityServiceExecuteActivityOperationStartResult struct {
+	Successful  *v1.ExecuteActivityResponse
+	StartResult *v1.ExecuteActivityStartResponse
+	Pending     *nexus.OperationHandle[*v1.ExecuteActivityResponse]
+	Links       []nexus.Link
 }
-func (c *ActivityServiceNexusHTTPClient) StartActivity(ctx context.Context, input *v1.StartActivityRequest, options nexus.ExecuteOperationOptions) (*v1.StartActivityResponse, error) {
-	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceStartActivityOperation, input, options)
+
+func (c *ActivityServiceNexusHTTPClient) ExecuteActivityAsync(ctx context.Context, input *v1.ExecuteActivityRequest, options nexus.StartOperationOptions) (*ActivityServiceExecuteActivityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, ActivityServiceExecuteActivityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := ActivityServiceExecuteActivityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	if err := res.StartResult.Consume(&typed.StartResult); err != nil {
+		return nil, err
+	}
+	return &typed, nil
+}
+func (c *ActivityServiceNexusHTTPClient) ExecuteActivity(ctx context.Context, input *v1.ExecuteActivityRequest, options nexus.ExecuteOperationOptions) (*v1.ExecuteActivityResponse, error) {
+	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceExecuteActivityOperation, input, options)
+	return output, err
+}
+
+type ActivityServiceDescribeActivityOperationStartResult struct {
+	Successful *v1.DescribeActivityResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeActivityResponse]
+	Links      []nexus.Link
+}
+
+func (c *ActivityServiceNexusHTTPClient) DescribeActivityAsync(ctx context.Context, input *v1.DescribeActivityRequest, options nexus.StartOperationOptions) (*ActivityServiceDescribeActivityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, ActivityServiceDescribeActivityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := ActivityServiceDescribeActivityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
+}
+func (c *ActivityServiceNexusHTTPClient) DescribeActivity(ctx context.Context, input *v1.DescribeActivityRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeActivityResponse, error) {
+	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceDescribeActivityOperation, input, options)
+	return output, err
+}
+
+type ActivityServiceListActivitiesOperationStartResult struct {
+	Successful *v1.ListActivitiesResponse
+	Pending    *nexus.OperationHandle[*v1.ListActivitiesResponse]
+	Links      []nexus.Link
+}
+
+func (c *ActivityServiceNexusHTTPClient) ListActivitiesAsync(ctx context.Context, input *v1.ListActivitiesRequest, options nexus.StartOperationOptions) (*ActivityServiceListActivitiesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, ActivityServiceListActivitiesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := ActivityServiceListActivitiesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
+}
+func (c *ActivityServiceNexusHTTPClient) ListActivities(ctx context.Context, input *v1.ListActivitiesRequest, options nexus.ExecuteOperationOptions) (*v1.ListActivitiesResponse, error) {
+	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceListActivitiesOperation, input, options)
 	return output, err
 }

@@ -101,8 +101,8 @@ const OperatorServiceListNexusEndpointsOperationName = "ListNexusEndpoints"
 
 var OperatorServiceListNexusEndpointsOperation = nexus.NewOperationReference[*v1.ListNexusEndpointsRequest, *v1.ListNexusEndpointsResponse](OperatorServiceListNexusEndpointsOperationName)
 
-type OperatorServiceNexusServiceHandler interface {
-	mustEmbedUnimplementedOperatorServiceNexusServiceHandler()
+type OperatorServiceNexusHandler interface {
+	mustEmbedUnimplementedOperatorServiceNexusHandler()
 	AddSearchAttributes(name string) nexus.Operation[*v1.AddSearchAttributesRequest, *v1.AddSearchAttributesResponse]
 	RemoveSearchAttributes(name string) nexus.Operation[*v1.RemoveSearchAttributesRequest, *v1.RemoveSearchAttributesResponse]
 	ListSearchAttributes(name string) nexus.Operation[*v1.ListSearchAttributesRequest, *v1.ListSearchAttributesResponse]
@@ -117,7 +117,7 @@ type OperatorServiceNexusServiceHandler interface {
 	ListNexusEndpoints(name string) nexus.Operation[*v1.ListNexusEndpointsRequest, *v1.ListNexusEndpointsResponse]
 }
 
-func NewOperatorServiceNexusService(h OperatorServiceNexusServiceHandler) (*nexus.Service, error) {
+func NewOperatorServiceNexusService(h OperatorServiceNexusHandler) (*nexus.Service, error) {
 	svc := nexus.NewService(OperatorServiceServiceName)
 	err := svc.Register(h.AddSearchAttributes(OperatorServiceAddSearchAttributesOperationName), h.RemoveSearchAttributes(OperatorServiceRemoveSearchAttributesOperationName), h.ListSearchAttributes(OperatorServiceListSearchAttributesOperationName), h.DeleteNamespace(OperatorServiceDeleteNamespaceOperationName), h.AddOrUpdateRemoteCluster(OperatorServiceAddOrUpdateRemoteClusterOperationName), h.RemoveRemoteCluster(OperatorServiceRemoveRemoteClusterOperationName), h.ListClusters(OperatorServiceListClustersOperationName), h.GetNexusEndpoint(OperatorServiceGetNexusEndpointOperationName), h.CreateNexusEndpoint(OperatorServiceCreateNexusEndpointOperationName), h.UpdateNexusEndpoint(OperatorServiceUpdateNexusEndpointOperationName), h.DeleteNexusEndpoint(OperatorServiceDeleteNexusEndpointOperationName), h.ListNexusEndpoints(OperatorServiceListNexusEndpointsOperationName))
 	if err != nil {
@@ -126,44 +126,44 @@ func NewOperatorServiceNexusService(h OperatorServiceNexusServiceHandler) (*nexu
 	return svc, nil
 }
 
-type UnimplementedOperatorServiceNexusServiceHandler struct{}
+type UnimplementedOperatorServiceNexusHandler struct{}
 
-func (h *UnimplementedOperatorServiceNexusServiceHandler) mustEmbedUnimplementedOperatorServiceNexusServiceHandler() {
+func (h *UnimplementedOperatorServiceNexusHandler) mustEmbedUnimplementedOperatorServiceNexusHandler() {
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) AddSearchAttributes(name string) nexus.Operation[*v1.AddSearchAttributesRequest, *v1.AddSearchAttributesResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) AddSearchAttributes(name string) nexus.Operation[*v1.AddSearchAttributesRequest, *v1.AddSearchAttributesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) RemoveSearchAttributes(name string) nexus.Operation[*v1.RemoveSearchAttributesRequest, *v1.RemoveSearchAttributesResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) RemoveSearchAttributes(name string) nexus.Operation[*v1.RemoveSearchAttributesRequest, *v1.RemoveSearchAttributesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) ListSearchAttributes(name string) nexus.Operation[*v1.ListSearchAttributesRequest, *v1.ListSearchAttributesResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) ListSearchAttributes(name string) nexus.Operation[*v1.ListSearchAttributesRequest, *v1.ListSearchAttributesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) DeleteNamespace(name string) nexus.Operation[*v1.DeleteNamespaceRequest, *v1.DeleteNamespaceResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) DeleteNamespace(name string) nexus.Operation[*v1.DeleteNamespaceRequest, *v1.DeleteNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) AddOrUpdateRemoteCluster(name string) nexus.Operation[*v1.AddOrUpdateRemoteClusterRequest, *v1.AddOrUpdateRemoteClusterResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) AddOrUpdateRemoteCluster(name string) nexus.Operation[*v1.AddOrUpdateRemoteClusterRequest, *v1.AddOrUpdateRemoteClusterResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) RemoveRemoteCluster(name string) nexus.Operation[*v1.RemoveRemoteClusterRequest, *v1.RemoveRemoteClusterResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) RemoveRemoteCluster(name string) nexus.Operation[*v1.RemoveRemoteClusterRequest, *v1.RemoveRemoteClusterResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) ListClusters(name string) nexus.Operation[*v1.ListClustersRequest, *v1.ListClustersResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) ListClusters(name string) nexus.Operation[*v1.ListClustersRequest, *v1.ListClustersResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) GetNexusEndpoint(name string) nexus.Operation[*v1.GetNexusEndpointRequest, *v1.GetNexusEndpointResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) GetNexusEndpoint(name string) nexus.Operation[*v1.GetNexusEndpointRequest, *v1.GetNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) CreateNexusEndpoint(name string) nexus.Operation[*v1.CreateNexusEndpointRequest, *v1.CreateNexusEndpointResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) CreateNexusEndpoint(name string) nexus.Operation[*v1.CreateNexusEndpointRequest, *v1.CreateNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) UpdateNexusEndpoint(name string) nexus.Operation[*v1.UpdateNexusEndpointRequest, *v1.UpdateNexusEndpointResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) UpdateNexusEndpoint(name string) nexus.Operation[*v1.UpdateNexusEndpointRequest, *v1.UpdateNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) DeleteNexusEndpoint(name string) nexus.Operation[*v1.DeleteNexusEndpointRequest, *v1.DeleteNexusEndpointResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) DeleteNexusEndpoint(name string) nexus.Operation[*v1.DeleteNexusEndpointRequest, *v1.DeleteNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedOperatorServiceNexusServiceHandler) ListNexusEndpoints(name string) nexus.Operation[*v1.ListNexusEndpointsRequest, *v1.ListNexusEndpointsResponse] {
+func (h *UnimplementedOperatorServiceNexusHandler) ListNexusEndpoints(name string) nexus.Operation[*v1.ListNexusEndpointsRequest, *v1.ListNexusEndpointsResponse] {
 	panic("TODO")
 }
 
@@ -186,85 +186,277 @@ func NewOperatorServiceNexusHTTPClient(options nexus.HTTPClientOptions) (*Operat
 		client: *client,
 	}, nil
 }
-func (c *OperatorServiceNexusHTTPClient) AddSearchAttributesAsync(ctx context.Context, input *v1.AddSearchAttributesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.AddSearchAttributesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceAddSearchAttributesOperation, input, options)
+
+type OperatorServiceAddSearchAttributesOperationStartResult struct {
+	Successful *v1.AddSearchAttributesResponse
+	Pending    *nexus.OperationHandle[*v1.AddSearchAttributesResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) AddSearchAttributesAsync(ctx context.Context, input *v1.AddSearchAttributesRequest, options nexus.StartOperationOptions) (*OperatorServiceAddSearchAttributesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceAddSearchAttributesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceAddSearchAttributesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) AddSearchAttributes(ctx context.Context, input *v1.AddSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.AddSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceAddSearchAttributesOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) RemoveSearchAttributesAsync(ctx context.Context, input *v1.RemoveSearchAttributesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RemoveSearchAttributesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceRemoveSearchAttributesOperation, input, options)
+
+type OperatorServiceRemoveSearchAttributesOperationStartResult struct {
+	Successful *v1.RemoveSearchAttributesResponse
+	Pending    *nexus.OperationHandle[*v1.RemoveSearchAttributesResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) RemoveSearchAttributesAsync(ctx context.Context, input *v1.RemoveSearchAttributesRequest, options nexus.StartOperationOptions) (*OperatorServiceRemoveSearchAttributesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceRemoveSearchAttributesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceRemoveSearchAttributesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) RemoveSearchAttributes(ctx context.Context, input *v1.RemoveSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.RemoveSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceRemoveSearchAttributesOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) ListSearchAttributesAsync(ctx context.Context, input *v1.ListSearchAttributesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListSearchAttributesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceListSearchAttributesOperation, input, options)
+
+type OperatorServiceListSearchAttributesOperationStartResult struct {
+	Successful *v1.ListSearchAttributesResponse
+	Pending    *nexus.OperationHandle[*v1.ListSearchAttributesResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) ListSearchAttributesAsync(ctx context.Context, input *v1.ListSearchAttributesRequest, options nexus.StartOperationOptions) (*OperatorServiceListSearchAttributesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceListSearchAttributesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceListSearchAttributesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) ListSearchAttributes(ctx context.Context, input *v1.ListSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.ListSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListSearchAttributesOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) DeleteNamespaceAsync(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceDeleteNamespaceOperation, input, options)
+
+type OperatorServiceDeleteNamespaceOperationStartResult struct {
+	Successful *v1.DeleteNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) DeleteNamespaceAsync(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.StartOperationOptions) (*OperatorServiceDeleteNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceDeleteNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceDeleteNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) DeleteNamespace(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceDeleteNamespaceOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) AddOrUpdateRemoteClusterAsync(ctx context.Context, input *v1.AddOrUpdateRemoteClusterRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.AddOrUpdateRemoteClusterResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceAddOrUpdateRemoteClusterOperation, input, options)
+
+type OperatorServiceAddOrUpdateRemoteClusterOperationStartResult struct {
+	Successful *v1.AddOrUpdateRemoteClusterResponse
+	Pending    *nexus.OperationHandle[*v1.AddOrUpdateRemoteClusterResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) AddOrUpdateRemoteClusterAsync(ctx context.Context, input *v1.AddOrUpdateRemoteClusterRequest, options nexus.StartOperationOptions) (*OperatorServiceAddOrUpdateRemoteClusterOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceAddOrUpdateRemoteClusterOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceAddOrUpdateRemoteClusterOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) AddOrUpdateRemoteCluster(ctx context.Context, input *v1.AddOrUpdateRemoteClusterRequest, options nexus.ExecuteOperationOptions) (*v1.AddOrUpdateRemoteClusterResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceAddOrUpdateRemoteClusterOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) RemoveRemoteClusterAsync(ctx context.Context, input *v1.RemoveRemoteClusterRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RemoveRemoteClusterResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceRemoveRemoteClusterOperation, input, options)
+
+type OperatorServiceRemoveRemoteClusterOperationStartResult struct {
+	Successful *v1.RemoveRemoteClusterResponse
+	Pending    *nexus.OperationHandle[*v1.RemoveRemoteClusterResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) RemoveRemoteClusterAsync(ctx context.Context, input *v1.RemoveRemoteClusterRequest, options nexus.StartOperationOptions) (*OperatorServiceRemoveRemoteClusterOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceRemoveRemoteClusterOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceRemoveRemoteClusterOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) RemoveRemoteCluster(ctx context.Context, input *v1.RemoveRemoteClusterRequest, options nexus.ExecuteOperationOptions) (*v1.RemoveRemoteClusterResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceRemoveRemoteClusterOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) ListClustersAsync(ctx context.Context, input *v1.ListClustersRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListClustersResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceListClustersOperation, input, options)
+
+type OperatorServiceListClustersOperationStartResult struct {
+	Successful *v1.ListClustersResponse
+	Pending    *nexus.OperationHandle[*v1.ListClustersResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) ListClustersAsync(ctx context.Context, input *v1.ListClustersRequest, options nexus.StartOperationOptions) (*OperatorServiceListClustersOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceListClustersOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceListClustersOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) ListClusters(ctx context.Context, input *v1.ListClustersRequest, options nexus.ExecuteOperationOptions) (*v1.ListClustersResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListClustersOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceGetNexusEndpointOperation, input, options)
+
+type OperatorServiceGetNexusEndpointOperationStartResult struct {
+	Successful *v1.GetNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.GetNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.StartOperationOptions) (*OperatorServiceGetNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceGetNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceGetNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) GetNexusEndpoint(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.GetNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceGetNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) CreateNexusEndpointAsync(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceCreateNexusEndpointOperation, input, options)
+
+type OperatorServiceCreateNexusEndpointOperationStartResult struct {
+	Successful *v1.CreateNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.CreateNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) CreateNexusEndpointAsync(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.StartOperationOptions) (*OperatorServiceCreateNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceCreateNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceCreateNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) CreateNexusEndpoint(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceCreateNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceUpdateNexusEndpointOperation, input, options)
+
+type OperatorServiceUpdateNexusEndpointOperationStartResult struct {
+	Successful *v1.UpdateNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.StartOperationOptions) (*OperatorServiceUpdateNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceUpdateNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceUpdateNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) UpdateNexusEndpoint(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceUpdateNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) DeleteNexusEndpointAsync(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceDeleteNexusEndpointOperation, input, options)
+
+type OperatorServiceDeleteNexusEndpointOperationStartResult struct {
+	Successful *v1.DeleteNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) DeleteNexusEndpointAsync(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.StartOperationOptions) (*OperatorServiceDeleteNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceDeleteNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceDeleteNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) DeleteNexusEndpoint(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceDeleteNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *OperatorServiceNexusHTTPClient) ListNexusEndpointsAsync(ctx context.Context, input *v1.ListNexusEndpointsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListNexusEndpointsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, OperatorServiceListNexusEndpointsOperation, input, options)
+
+type OperatorServiceListNexusEndpointsOperationStartResult struct {
+	Successful *v1.ListNexusEndpointsResponse
+	Pending    *nexus.OperationHandle[*v1.ListNexusEndpointsResponse]
+	Links      []nexus.Link
+}
+
+func (c *OperatorServiceNexusHTTPClient) ListNexusEndpointsAsync(ctx context.Context, input *v1.ListNexusEndpointsRequest, options nexus.StartOperationOptions) (*OperatorServiceListNexusEndpointsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, OperatorServiceListNexusEndpointsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := OperatorServiceListNexusEndpointsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *OperatorServiceNexusHTTPClient) ListNexusEndpoints(ctx context.Context, input *v1.ListNexusEndpointsRequest, options nexus.ExecuteOperationOptions) (*v1.ListNexusEndpointsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListNexusEndpointsOperation, input, options)

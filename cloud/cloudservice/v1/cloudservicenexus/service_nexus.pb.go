@@ -276,8 +276,8 @@ const CloudServiceValidateNamespaceExportSinkOperationName = "ValidateNamespaceE
 
 var CloudServiceValidateNamespaceExportSinkOperation = nexus.NewOperationReference[*v1.ValidateNamespaceExportSinkRequest, *v1.ValidateNamespaceExportSinkResponse](CloudServiceValidateNamespaceExportSinkOperationName)
 
-type CloudServiceNexusServiceHandler interface {
-	mustEmbedUnimplementedCloudServiceNexusServiceHandler()
+type CloudServiceNexusHandler interface {
+	mustEmbedUnimplementedCloudServiceNexusHandler()
 	GetUsers(name string) nexus.Operation[*v1.GetUsersRequest, *v1.GetUsersResponse]
 	GetUser(name string) nexus.Operation[*v1.GetUserRequest, *v1.GetUserResponse]
 	CreateUser(name string) nexus.Operation[*v1.CreateUserRequest, *v1.CreateUserResponse]
@@ -327,7 +327,7 @@ type CloudServiceNexusServiceHandler interface {
 	ValidateNamespaceExportSink(name string) nexus.Operation[*v1.ValidateNamespaceExportSinkRequest, *v1.ValidateNamespaceExportSinkResponse]
 }
 
-func NewCloudServiceNexusService(h CloudServiceNexusServiceHandler) (*nexus.Service, error) {
+func NewCloudServiceNexusService(h CloudServiceNexusHandler) (*nexus.Service, error) {
 	svc := nexus.NewService(CloudServiceServiceName)
 	err := svc.Register(h.GetUsers(CloudServiceGetUsersOperationName), h.GetUser(CloudServiceGetUserOperationName), h.CreateUser(CloudServiceCreateUserOperationName), h.UpdateUser(CloudServiceUpdateUserOperationName), h.DeleteUser(CloudServiceDeleteUserOperationName), h.SetUserNamespaceAccess(CloudServiceSetUserNamespaceAccessOperationName), h.GetAsyncOperation(CloudServiceGetAsyncOperationOperationName), h.CreateNamespace(CloudServiceCreateNamespaceOperationName), h.GetNamespaces(CloudServiceGetNamespacesOperationName), h.GetNamespace(CloudServiceGetNamespaceOperationName), h.UpdateNamespace(CloudServiceUpdateNamespaceOperationName), h.RenameCustomSearchAttribute(CloudServiceRenameCustomSearchAttributeOperationName), h.DeleteNamespace(CloudServiceDeleteNamespaceOperationName), h.FailoverNamespaceRegion(CloudServiceFailoverNamespaceRegionOperationName), h.AddNamespaceRegion(CloudServiceAddNamespaceRegionOperationName), h.GetRegions(CloudServiceGetRegionsOperationName), h.GetRegion(CloudServiceGetRegionOperationName), h.GetApiKeys(CloudServiceGetApiKeysOperationName), h.GetApiKey(CloudServiceGetApiKeyOperationName), h.CreateApiKey(CloudServiceCreateApiKeyOperationName), h.UpdateApiKey(CloudServiceUpdateApiKeyOperationName), h.DeleteApiKey(CloudServiceDeleteApiKeyOperationName), h.GetNexusEndpoints(CloudServiceGetNexusEndpointsOperationName), h.GetNexusEndpoint(CloudServiceGetNexusEndpointOperationName), h.CreateNexusEndpoint(CloudServiceCreateNexusEndpointOperationName), h.UpdateNexusEndpoint(CloudServiceUpdateNexusEndpointOperationName), h.DeleteNexusEndpoint(CloudServiceDeleteNexusEndpointOperationName), h.GetUserGroups(CloudServiceGetUserGroupsOperationName), h.GetUserGroup(CloudServiceGetUserGroupOperationName), h.CreateUserGroup(CloudServiceCreateUserGroupOperationName), h.UpdateUserGroup(CloudServiceUpdateUserGroupOperationName), h.DeleteUserGroup(CloudServiceDeleteUserGroupOperationName), h.SetUserGroupNamespaceAccess(CloudServiceSetUserGroupNamespaceAccessOperationName), h.CreateServiceAccount(CloudServiceCreateServiceAccountOperationName), h.GetServiceAccount(CloudServiceGetServiceAccountOperationName), h.GetServiceAccounts(CloudServiceGetServiceAccountsOperationName), h.UpdateServiceAccount(CloudServiceUpdateServiceAccountOperationName), h.DeleteServiceAccount(CloudServiceDeleteServiceAccountOperationName), h.GetUsage(CloudServiceGetUsageOperationName), h.GetAccount(CloudServiceGetAccountOperationName), h.UpdateAccount(CloudServiceUpdateAccountOperationName), h.CreateNamespaceExportSink(CloudServiceCreateNamespaceExportSinkOperationName), h.GetNamespaceExportSink(CloudServiceGetNamespaceExportSinkOperationName), h.GetNamespaceExportSinks(CloudServiceGetNamespaceExportSinksOperationName), h.UpdateNamespaceExportSink(CloudServiceUpdateNamespaceExportSinkOperationName), h.DeleteNamespaceExportSink(CloudServiceDeleteNamespaceExportSinkOperationName), h.ValidateNamespaceExportSink(CloudServiceValidateNamespaceExportSinkOperationName))
 	if err != nil {
@@ -336,149 +336,148 @@ func NewCloudServiceNexusService(h CloudServiceNexusServiceHandler) (*nexus.Serv
 	return svc, nil
 }
 
-type UnimplementedCloudServiceNexusServiceHandler struct{}
+type UnimplementedCloudServiceNexusHandler struct{}
 
-func (h *UnimplementedCloudServiceNexusServiceHandler) mustEmbedUnimplementedCloudServiceNexusServiceHandler() {
-}
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetUsers(name string) nexus.Operation[*v1.GetUsersRequest, *v1.GetUsersResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) mustEmbedUnimplementedCloudServiceNexusHandler() {}
+func (h *UnimplementedCloudServiceNexusHandler) GetUsers(name string) nexus.Operation[*v1.GetUsersRequest, *v1.GetUsersResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetUser(name string) nexus.Operation[*v1.GetUserRequest, *v1.GetUserResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetUser(name string) nexus.Operation[*v1.GetUserRequest, *v1.GetUserResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateUser(name string) nexus.Operation[*v1.CreateUserRequest, *v1.CreateUserResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateUser(name string) nexus.Operation[*v1.CreateUserRequest, *v1.CreateUserResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateUser(name string) nexus.Operation[*v1.UpdateUserRequest, *v1.UpdateUserResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateUser(name string) nexus.Operation[*v1.UpdateUserRequest, *v1.UpdateUserResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteUser(name string) nexus.Operation[*v1.DeleteUserRequest, *v1.DeleteUserResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteUser(name string) nexus.Operation[*v1.DeleteUserRequest, *v1.DeleteUserResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) SetUserNamespaceAccess(name string) nexus.Operation[*v1.SetUserNamespaceAccessRequest, *v1.SetUserNamespaceAccessResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) SetUserNamespaceAccess(name string) nexus.Operation[*v1.SetUserNamespaceAccessRequest, *v1.SetUserNamespaceAccessResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetAsyncOperation(name string) nexus.Operation[*v1.GetAsyncOperationRequest, *v1.GetAsyncOperationResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetAsyncOperation(name string) nexus.Operation[*v1.GetAsyncOperationRequest, *v1.GetAsyncOperationResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateNamespace(name string) nexus.Operation[*v1.CreateNamespaceRequest, *v1.CreateNamespaceResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateNamespace(name string) nexus.Operation[*v1.CreateNamespaceRequest, *v1.CreateNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNamespaces(name string) nexus.Operation[*v1.GetNamespacesRequest, *v1.GetNamespacesResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNamespaces(name string) nexus.Operation[*v1.GetNamespacesRequest, *v1.GetNamespacesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNamespace(name string) nexus.Operation[*v1.GetNamespaceRequest, *v1.GetNamespaceResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNamespace(name string) nexus.Operation[*v1.GetNamespaceRequest, *v1.GetNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateNamespace(name string) nexus.Operation[*v1.UpdateNamespaceRequest, *v1.UpdateNamespaceResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateNamespace(name string) nexus.Operation[*v1.UpdateNamespaceRequest, *v1.UpdateNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) RenameCustomSearchAttribute(name string) nexus.Operation[*v1.RenameCustomSearchAttributeRequest, *v1.RenameCustomSearchAttributeResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) RenameCustomSearchAttribute(name string) nexus.Operation[*v1.RenameCustomSearchAttributeRequest, *v1.RenameCustomSearchAttributeResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteNamespace(name string) nexus.Operation[*v1.DeleteNamespaceRequest, *v1.DeleteNamespaceResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteNamespace(name string) nexus.Operation[*v1.DeleteNamespaceRequest, *v1.DeleteNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) FailoverNamespaceRegion(name string) nexus.Operation[*v1.FailoverNamespaceRegionRequest, *v1.FailoverNamespaceRegionResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) FailoverNamespaceRegion(name string) nexus.Operation[*v1.FailoverNamespaceRegionRequest, *v1.FailoverNamespaceRegionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) AddNamespaceRegion(name string) nexus.Operation[*v1.AddNamespaceRegionRequest, *v1.AddNamespaceRegionResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) AddNamespaceRegion(name string) nexus.Operation[*v1.AddNamespaceRegionRequest, *v1.AddNamespaceRegionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetRegions(name string) nexus.Operation[*v1.GetRegionsRequest, *v1.GetRegionsResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetRegions(name string) nexus.Operation[*v1.GetRegionsRequest, *v1.GetRegionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetRegion(name string) nexus.Operation[*v1.GetRegionRequest, *v1.GetRegionResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetRegion(name string) nexus.Operation[*v1.GetRegionRequest, *v1.GetRegionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetApiKeys(name string) nexus.Operation[*v1.GetApiKeysRequest, *v1.GetApiKeysResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetApiKeys(name string) nexus.Operation[*v1.GetApiKeysRequest, *v1.GetApiKeysResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetApiKey(name string) nexus.Operation[*v1.GetApiKeyRequest, *v1.GetApiKeyResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetApiKey(name string) nexus.Operation[*v1.GetApiKeyRequest, *v1.GetApiKeyResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateApiKey(name string) nexus.Operation[*v1.CreateApiKeyRequest, *v1.CreateApiKeyResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateApiKey(name string) nexus.Operation[*v1.CreateApiKeyRequest, *v1.CreateApiKeyResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateApiKey(name string) nexus.Operation[*v1.UpdateApiKeyRequest, *v1.UpdateApiKeyResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateApiKey(name string) nexus.Operation[*v1.UpdateApiKeyRequest, *v1.UpdateApiKeyResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteApiKey(name string) nexus.Operation[*v1.DeleteApiKeyRequest, *v1.DeleteApiKeyResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteApiKey(name string) nexus.Operation[*v1.DeleteApiKeyRequest, *v1.DeleteApiKeyResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNexusEndpoints(name string) nexus.Operation[*v1.GetNexusEndpointsRequest, *v1.GetNexusEndpointsResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNexusEndpoints(name string) nexus.Operation[*v1.GetNexusEndpointsRequest, *v1.GetNexusEndpointsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNexusEndpoint(name string) nexus.Operation[*v1.GetNexusEndpointRequest, *v1.GetNexusEndpointResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNexusEndpoint(name string) nexus.Operation[*v1.GetNexusEndpointRequest, *v1.GetNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateNexusEndpoint(name string) nexus.Operation[*v1.CreateNexusEndpointRequest, *v1.CreateNexusEndpointResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateNexusEndpoint(name string) nexus.Operation[*v1.CreateNexusEndpointRequest, *v1.CreateNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateNexusEndpoint(name string) nexus.Operation[*v1.UpdateNexusEndpointRequest, *v1.UpdateNexusEndpointResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateNexusEndpoint(name string) nexus.Operation[*v1.UpdateNexusEndpointRequest, *v1.UpdateNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteNexusEndpoint(name string) nexus.Operation[*v1.DeleteNexusEndpointRequest, *v1.DeleteNexusEndpointResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteNexusEndpoint(name string) nexus.Operation[*v1.DeleteNexusEndpointRequest, *v1.DeleteNexusEndpointResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetUserGroups(name string) nexus.Operation[*v1.GetUserGroupsRequest, *v1.GetUserGroupsResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetUserGroups(name string) nexus.Operation[*v1.GetUserGroupsRequest, *v1.GetUserGroupsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetUserGroup(name string) nexus.Operation[*v1.GetUserGroupRequest, *v1.GetUserGroupResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetUserGroup(name string) nexus.Operation[*v1.GetUserGroupRequest, *v1.GetUserGroupResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateUserGroup(name string) nexus.Operation[*v1.CreateUserGroupRequest, *v1.CreateUserGroupResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateUserGroup(name string) nexus.Operation[*v1.CreateUserGroupRequest, *v1.CreateUserGroupResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateUserGroup(name string) nexus.Operation[*v1.UpdateUserGroupRequest, *v1.UpdateUserGroupResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateUserGroup(name string) nexus.Operation[*v1.UpdateUserGroupRequest, *v1.UpdateUserGroupResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteUserGroup(name string) nexus.Operation[*v1.DeleteUserGroupRequest, *v1.DeleteUserGroupResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteUserGroup(name string) nexus.Operation[*v1.DeleteUserGroupRequest, *v1.DeleteUserGroupResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) SetUserGroupNamespaceAccess(name string) nexus.Operation[*v1.SetUserGroupNamespaceAccessRequest, *v1.SetUserGroupNamespaceAccessResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) SetUserGroupNamespaceAccess(name string) nexus.Operation[*v1.SetUserGroupNamespaceAccessRequest, *v1.SetUserGroupNamespaceAccessResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateServiceAccount(name string) nexus.Operation[*v1.CreateServiceAccountRequest, *v1.CreateServiceAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateServiceAccount(name string) nexus.Operation[*v1.CreateServiceAccountRequest, *v1.CreateServiceAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetServiceAccount(name string) nexus.Operation[*v1.GetServiceAccountRequest, *v1.GetServiceAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetServiceAccount(name string) nexus.Operation[*v1.GetServiceAccountRequest, *v1.GetServiceAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetServiceAccounts(name string) nexus.Operation[*v1.GetServiceAccountsRequest, *v1.GetServiceAccountsResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetServiceAccounts(name string) nexus.Operation[*v1.GetServiceAccountsRequest, *v1.GetServiceAccountsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateServiceAccount(name string) nexus.Operation[*v1.UpdateServiceAccountRequest, *v1.UpdateServiceAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateServiceAccount(name string) nexus.Operation[*v1.UpdateServiceAccountRequest, *v1.UpdateServiceAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteServiceAccount(name string) nexus.Operation[*v1.DeleteServiceAccountRequest, *v1.DeleteServiceAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteServiceAccount(name string) nexus.Operation[*v1.DeleteServiceAccountRequest, *v1.DeleteServiceAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetUsage(name string) nexus.Operation[*v1.GetUsageRequest, *v1.GetUsageResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetUsage(name string) nexus.Operation[*v1.GetUsageRequest, *v1.GetUsageResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetAccount(name string) nexus.Operation[*v1.GetAccountRequest, *v1.GetAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetAccount(name string) nexus.Operation[*v1.GetAccountRequest, *v1.GetAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateAccount(name string) nexus.Operation[*v1.UpdateAccountRequest, *v1.UpdateAccountResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateAccount(name string) nexus.Operation[*v1.UpdateAccountRequest, *v1.UpdateAccountResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) CreateNamespaceExportSink(name string) nexus.Operation[*v1.CreateNamespaceExportSinkRequest, *v1.CreateNamespaceExportSinkResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) CreateNamespaceExportSink(name string) nexus.Operation[*v1.CreateNamespaceExportSinkRequest, *v1.CreateNamespaceExportSinkResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNamespaceExportSink(name string) nexus.Operation[*v1.GetNamespaceExportSinkRequest, *v1.GetNamespaceExportSinkResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNamespaceExportSink(name string) nexus.Operation[*v1.GetNamespaceExportSinkRequest, *v1.GetNamespaceExportSinkResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) GetNamespaceExportSinks(name string) nexus.Operation[*v1.GetNamespaceExportSinksRequest, *v1.GetNamespaceExportSinksResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) GetNamespaceExportSinks(name string) nexus.Operation[*v1.GetNamespaceExportSinksRequest, *v1.GetNamespaceExportSinksResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) UpdateNamespaceExportSink(name string) nexus.Operation[*v1.UpdateNamespaceExportSinkRequest, *v1.UpdateNamespaceExportSinkResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) UpdateNamespaceExportSink(name string) nexus.Operation[*v1.UpdateNamespaceExportSinkRequest, *v1.UpdateNamespaceExportSinkResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) DeleteNamespaceExportSink(name string) nexus.Operation[*v1.DeleteNamespaceExportSinkRequest, *v1.DeleteNamespaceExportSinkResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) DeleteNamespaceExportSink(name string) nexus.Operation[*v1.DeleteNamespaceExportSinkRequest, *v1.DeleteNamespaceExportSinkResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedCloudServiceNexusServiceHandler) ValidateNamespaceExportSink(name string) nexus.Operation[*v1.ValidateNamespaceExportSinkRequest, *v1.ValidateNamespaceExportSinkResponse] {
+func (h *UnimplementedCloudServiceNexusHandler) ValidateNamespaceExportSink(name string) nexus.Operation[*v1.ValidateNamespaceExportSinkRequest, *v1.ValidateNamespaceExportSinkResponse] {
 	panic("TODO")
 }
 
@@ -501,330 +500,1082 @@ func NewCloudServiceNexusHTTPClient(options nexus.HTTPClientOptions) (*CloudServ
 		client: *client,
 	}, nil
 }
-func (c *CloudServiceNexusHTTPClient) GetUsersAsync(ctx context.Context, input *v1.GetUsersRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetUsersResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetUsersOperation, input, options)
+
+type CloudServiceGetUsersOperationStartResult struct {
+	Successful *v1.GetUsersResponse
+	Pending    *nexus.OperationHandle[*v1.GetUsersResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetUsersAsync(ctx context.Context, input *v1.GetUsersRequest, options nexus.StartOperationOptions) (*CloudServiceGetUsersOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetUsersOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetUsersOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetUsers(ctx context.Context, input *v1.GetUsersRequest, options nexus.ExecuteOperationOptions) (*v1.GetUsersResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUsersOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetUserAsync(ctx context.Context, input *v1.GetUserRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetUserResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetUserOperation, input, options)
+
+type CloudServiceGetUserOperationStartResult struct {
+	Successful *v1.GetUserResponse
+	Pending    *nexus.OperationHandle[*v1.GetUserResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetUserAsync(ctx context.Context, input *v1.GetUserRequest, options nexus.StartOperationOptions) (*CloudServiceGetUserOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetUserOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetUserOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetUser(ctx context.Context, input *v1.GetUserRequest, options nexus.ExecuteOperationOptions) (*v1.GetUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateUserAsync(ctx context.Context, input *v1.CreateUserRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateUserResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateUserOperation, input, options)
+
+type CloudServiceCreateUserOperationStartResult struct {
+	Successful *v1.CreateUserResponse
+	Pending    *nexus.OperationHandle[*v1.CreateUserResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateUserAsync(ctx context.Context, input *v1.CreateUserRequest, options nexus.StartOperationOptions) (*CloudServiceCreateUserOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateUserOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateUserOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateUser(ctx context.Context, input *v1.CreateUserRequest, options nexus.ExecuteOperationOptions) (*v1.CreateUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateUserOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateUserAsync(ctx context.Context, input *v1.UpdateUserRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateUserResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateUserOperation, input, options)
+
+type CloudServiceUpdateUserOperationStartResult struct {
+	Successful *v1.UpdateUserResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateUserResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateUserAsync(ctx context.Context, input *v1.UpdateUserRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateUserOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateUserOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateUserOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateUser(ctx context.Context, input *v1.UpdateUserRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateUserOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteUserAsync(ctx context.Context, input *v1.DeleteUserRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteUserResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteUserOperation, input, options)
+
+type CloudServiceDeleteUserOperationStartResult struct {
+	Successful *v1.DeleteUserResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteUserResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteUserAsync(ctx context.Context, input *v1.DeleteUserRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteUserOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteUserOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteUserOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteUser(ctx context.Context, input *v1.DeleteUserRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteUserOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) SetUserNamespaceAccessAsync(ctx context.Context, input *v1.SetUserNamespaceAccessRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.SetUserNamespaceAccessResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceSetUserNamespaceAccessOperation, input, options)
+
+type CloudServiceSetUserNamespaceAccessOperationStartResult struct {
+	Successful *v1.SetUserNamespaceAccessResponse
+	Pending    *nexus.OperationHandle[*v1.SetUserNamespaceAccessResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) SetUserNamespaceAccessAsync(ctx context.Context, input *v1.SetUserNamespaceAccessRequest, options nexus.StartOperationOptions) (*CloudServiceSetUserNamespaceAccessOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceSetUserNamespaceAccessOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceSetUserNamespaceAccessOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) SetUserNamespaceAccess(ctx context.Context, input *v1.SetUserNamespaceAccessRequest, options nexus.ExecuteOperationOptions) (*v1.SetUserNamespaceAccessResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceSetUserNamespaceAccessOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetAsyncOperationAsync(ctx context.Context, input *v1.GetAsyncOperationRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetAsyncOperationResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetAsyncOperationOperation, input, options)
+
+type CloudServiceGetAsyncOperationOperationStartResult struct {
+	Successful *v1.GetAsyncOperationResponse
+	Pending    *nexus.OperationHandle[*v1.GetAsyncOperationResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetAsyncOperationAsync(ctx context.Context, input *v1.GetAsyncOperationRequest, options nexus.StartOperationOptions) (*CloudServiceGetAsyncOperationOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetAsyncOperationOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetAsyncOperationOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetAsyncOperation(ctx context.Context, input *v1.GetAsyncOperationRequest, options nexus.ExecuteOperationOptions) (*v1.GetAsyncOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetAsyncOperationOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateNamespaceAsync(ctx context.Context, input *v1.CreateNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateNamespaceOperation, input, options)
+
+type CloudServiceCreateNamespaceOperationStartResult struct {
+	Successful *v1.CreateNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.CreateNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateNamespaceAsync(ctx context.Context, input *v1.CreateNamespaceRequest, options nexus.StartOperationOptions) (*CloudServiceCreateNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateNamespace(ctx context.Context, input *v1.CreateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNamespaceOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNamespacesAsync(ctx context.Context, input *v1.GetNamespacesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNamespacesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespacesOperation, input, options)
+
+type CloudServiceGetNamespacesOperationStartResult struct {
+	Successful *v1.GetNamespacesResponse
+	Pending    *nexus.OperationHandle[*v1.GetNamespacesResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNamespacesAsync(ctx context.Context, input *v1.GetNamespacesRequest, options nexus.StartOperationOptions) (*CloudServiceGetNamespacesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespacesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNamespacesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNamespaces(ctx context.Context, input *v1.GetNamespacesRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespacesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespacesOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNamespaceAsync(ctx context.Context, input *v1.GetNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceOperation, input, options)
+
+type CloudServiceGetNamespaceOperationStartResult struct {
+	Successful *v1.GetNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.GetNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNamespaceAsync(ctx context.Context, input *v1.GetNamespaceRequest, options nexus.StartOperationOptions) (*CloudServiceGetNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNamespace(ctx context.Context, input *v1.GetNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateNamespaceAsync(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNamespaceOperation, input, options)
+
+type CloudServiceUpdateNamespaceOperationStartResult struct {
+	Successful *v1.UpdateNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateNamespaceAsync(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateNamespace(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNamespaceOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) RenameCustomSearchAttributeAsync(ctx context.Context, input *v1.RenameCustomSearchAttributeRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RenameCustomSearchAttributeResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceRenameCustomSearchAttributeOperation, input, options)
+
+type CloudServiceRenameCustomSearchAttributeOperationStartResult struct {
+	Successful *v1.RenameCustomSearchAttributeResponse
+	Pending    *nexus.OperationHandle[*v1.RenameCustomSearchAttributeResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) RenameCustomSearchAttributeAsync(ctx context.Context, input *v1.RenameCustomSearchAttributeRequest, options nexus.StartOperationOptions) (*CloudServiceRenameCustomSearchAttributeOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceRenameCustomSearchAttributeOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceRenameCustomSearchAttributeOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) RenameCustomSearchAttribute(ctx context.Context, input *v1.RenameCustomSearchAttributeRequest, options nexus.ExecuteOperationOptions) (*v1.RenameCustomSearchAttributeResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceRenameCustomSearchAttributeOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteNamespaceAsync(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNamespaceOperation, input, options)
+
+type CloudServiceDeleteNamespaceOperationStartResult struct {
+	Successful *v1.DeleteNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteNamespaceAsync(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteNamespace(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNamespaceOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) FailoverNamespaceRegionAsync(ctx context.Context, input *v1.FailoverNamespaceRegionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.FailoverNamespaceRegionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceFailoverNamespaceRegionOperation, input, options)
+
+type CloudServiceFailoverNamespaceRegionOperationStartResult struct {
+	Successful *v1.FailoverNamespaceRegionResponse
+	Pending    *nexus.OperationHandle[*v1.FailoverNamespaceRegionResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) FailoverNamespaceRegionAsync(ctx context.Context, input *v1.FailoverNamespaceRegionRequest, options nexus.StartOperationOptions) (*CloudServiceFailoverNamespaceRegionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceFailoverNamespaceRegionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceFailoverNamespaceRegionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) FailoverNamespaceRegion(ctx context.Context, input *v1.FailoverNamespaceRegionRequest, options nexus.ExecuteOperationOptions) (*v1.FailoverNamespaceRegionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceFailoverNamespaceRegionOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) AddNamespaceRegionAsync(ctx context.Context, input *v1.AddNamespaceRegionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.AddNamespaceRegionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceAddNamespaceRegionOperation, input, options)
+
+type CloudServiceAddNamespaceRegionOperationStartResult struct {
+	Successful *v1.AddNamespaceRegionResponse
+	Pending    *nexus.OperationHandle[*v1.AddNamespaceRegionResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) AddNamespaceRegionAsync(ctx context.Context, input *v1.AddNamespaceRegionRequest, options nexus.StartOperationOptions) (*CloudServiceAddNamespaceRegionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceAddNamespaceRegionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceAddNamespaceRegionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) AddNamespaceRegion(ctx context.Context, input *v1.AddNamespaceRegionRequest, options nexus.ExecuteOperationOptions) (*v1.AddNamespaceRegionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceAddNamespaceRegionOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetRegionsAsync(ctx context.Context, input *v1.GetRegionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetRegionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetRegionsOperation, input, options)
+
+type CloudServiceGetRegionsOperationStartResult struct {
+	Successful *v1.GetRegionsResponse
+	Pending    *nexus.OperationHandle[*v1.GetRegionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetRegionsAsync(ctx context.Context, input *v1.GetRegionsRequest, options nexus.StartOperationOptions) (*CloudServiceGetRegionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetRegionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetRegionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetRegions(ctx context.Context, input *v1.GetRegionsRequest, options nexus.ExecuteOperationOptions) (*v1.GetRegionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetRegionsOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetRegionAsync(ctx context.Context, input *v1.GetRegionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetRegionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetRegionOperation, input, options)
+
+type CloudServiceGetRegionOperationStartResult struct {
+	Successful *v1.GetRegionResponse
+	Pending    *nexus.OperationHandle[*v1.GetRegionResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetRegionAsync(ctx context.Context, input *v1.GetRegionRequest, options nexus.StartOperationOptions) (*CloudServiceGetRegionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetRegionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetRegionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetRegion(ctx context.Context, input *v1.GetRegionRequest, options nexus.ExecuteOperationOptions) (*v1.GetRegionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetRegionOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetApiKeysAsync(ctx context.Context, input *v1.GetApiKeysRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetApiKeysResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetApiKeysOperation, input, options)
+
+type CloudServiceGetApiKeysOperationStartResult struct {
+	Successful *v1.GetApiKeysResponse
+	Pending    *nexus.OperationHandle[*v1.GetApiKeysResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetApiKeysAsync(ctx context.Context, input *v1.GetApiKeysRequest, options nexus.StartOperationOptions) (*CloudServiceGetApiKeysOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetApiKeysOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetApiKeysOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetApiKeys(ctx context.Context, input *v1.GetApiKeysRequest, options nexus.ExecuteOperationOptions) (*v1.GetApiKeysResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetApiKeysOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetApiKeyAsync(ctx context.Context, input *v1.GetApiKeyRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetApiKeyResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetApiKeyOperation, input, options)
+
+type CloudServiceGetApiKeyOperationStartResult struct {
+	Successful *v1.GetApiKeyResponse
+	Pending    *nexus.OperationHandle[*v1.GetApiKeyResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetApiKeyAsync(ctx context.Context, input *v1.GetApiKeyRequest, options nexus.StartOperationOptions) (*CloudServiceGetApiKeyOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetApiKeyOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetApiKeyOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetApiKey(ctx context.Context, input *v1.GetApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.GetApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetApiKeyOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateApiKeyAsync(ctx context.Context, input *v1.CreateApiKeyRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateApiKeyResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateApiKeyOperation, input, options)
+
+type CloudServiceCreateApiKeyOperationStartResult struct {
+	Successful *v1.CreateApiKeyResponse
+	Pending    *nexus.OperationHandle[*v1.CreateApiKeyResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateApiKeyAsync(ctx context.Context, input *v1.CreateApiKeyRequest, options nexus.StartOperationOptions) (*CloudServiceCreateApiKeyOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateApiKeyOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateApiKeyOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateApiKey(ctx context.Context, input *v1.CreateApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.CreateApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateApiKeyOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateApiKeyAsync(ctx context.Context, input *v1.UpdateApiKeyRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateApiKeyResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateApiKeyOperation, input, options)
+
+type CloudServiceUpdateApiKeyOperationStartResult struct {
+	Successful *v1.UpdateApiKeyResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateApiKeyResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateApiKeyAsync(ctx context.Context, input *v1.UpdateApiKeyRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateApiKeyOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateApiKeyOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateApiKeyOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateApiKey(ctx context.Context, input *v1.UpdateApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateApiKeyOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteApiKeyAsync(ctx context.Context, input *v1.DeleteApiKeyRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteApiKeyResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteApiKeyOperation, input, options)
+
+type CloudServiceDeleteApiKeyOperationStartResult struct {
+	Successful *v1.DeleteApiKeyResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteApiKeyResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteApiKeyAsync(ctx context.Context, input *v1.DeleteApiKeyRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteApiKeyOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteApiKeyOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteApiKeyOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteApiKey(ctx context.Context, input *v1.DeleteApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteApiKeyOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNexusEndpointsAsync(ctx context.Context, input *v1.GetNexusEndpointsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNexusEndpointsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNexusEndpointsOperation, input, options)
+
+type CloudServiceGetNexusEndpointsOperationStartResult struct {
+	Successful *v1.GetNexusEndpointsResponse
+	Pending    *nexus.OperationHandle[*v1.GetNexusEndpointsResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNexusEndpointsAsync(ctx context.Context, input *v1.GetNexusEndpointsRequest, options nexus.StartOperationOptions) (*CloudServiceGetNexusEndpointsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNexusEndpointsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNexusEndpointsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNexusEndpoints(ctx context.Context, input *v1.GetNexusEndpointsRequest, options nexus.ExecuteOperationOptions) (*v1.GetNexusEndpointsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNexusEndpointsOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNexusEndpointOperation, input, options)
+
+type CloudServiceGetNexusEndpointOperationStartResult struct {
+	Successful *v1.GetNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.GetNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.StartOperationOptions) (*CloudServiceGetNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNexusEndpoint(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.GetNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateNexusEndpointAsync(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateNexusEndpointOperation, input, options)
+
+type CloudServiceCreateNexusEndpointOperationStartResult struct {
+	Successful *v1.CreateNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.CreateNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateNexusEndpointAsync(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.StartOperationOptions) (*CloudServiceCreateNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateNexusEndpoint(ctx context.Context, input *v1.CreateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNexusEndpointOperation, input, options)
+
+type CloudServiceUpdateNexusEndpointOperationStartResult struct {
+	Successful *v1.UpdateNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateNexusEndpoint(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteNexusEndpointAsync(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteNexusEndpointResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNexusEndpointOperation, input, options)
+
+type CloudServiceDeleteNexusEndpointOperationStartResult struct {
+	Successful *v1.DeleteNexusEndpointResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteNexusEndpointResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteNexusEndpointAsync(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteNexusEndpointOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNexusEndpointOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteNexusEndpointOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteNexusEndpoint(ctx context.Context, input *v1.DeleteNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNexusEndpointOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetUserGroupsAsync(ctx context.Context, input *v1.GetUserGroupsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetUserGroupsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetUserGroupsOperation, input, options)
+
+type CloudServiceGetUserGroupsOperationStartResult struct {
+	Successful *v1.GetUserGroupsResponse
+	Pending    *nexus.OperationHandle[*v1.GetUserGroupsResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetUserGroupsAsync(ctx context.Context, input *v1.GetUserGroupsRequest, options nexus.StartOperationOptions) (*CloudServiceGetUserGroupsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetUserGroupsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetUserGroupsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetUserGroups(ctx context.Context, input *v1.GetUserGroupsRequest, options nexus.ExecuteOperationOptions) (*v1.GetUserGroupsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserGroupsOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetUserGroupAsync(ctx context.Context, input *v1.GetUserGroupRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetUserGroupResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetUserGroupOperation, input, options)
+
+type CloudServiceGetUserGroupOperationStartResult struct {
+	Successful *v1.GetUserGroupResponse
+	Pending    *nexus.OperationHandle[*v1.GetUserGroupResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetUserGroupAsync(ctx context.Context, input *v1.GetUserGroupRequest, options nexus.StartOperationOptions) (*CloudServiceGetUserGroupOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetUserGroupOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetUserGroupOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetUserGroup(ctx context.Context, input *v1.GetUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.GetUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserGroupOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateUserGroupAsync(ctx context.Context, input *v1.CreateUserGroupRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateUserGroupResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateUserGroupOperation, input, options)
+
+type CloudServiceCreateUserGroupOperationStartResult struct {
+	Successful *v1.CreateUserGroupResponse
+	Pending    *nexus.OperationHandle[*v1.CreateUserGroupResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateUserGroupAsync(ctx context.Context, input *v1.CreateUserGroupRequest, options nexus.StartOperationOptions) (*CloudServiceCreateUserGroupOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateUserGroupOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateUserGroupOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateUserGroup(ctx context.Context, input *v1.CreateUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.CreateUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateUserGroupOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateUserGroupAsync(ctx context.Context, input *v1.UpdateUserGroupRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateUserGroupResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateUserGroupOperation, input, options)
+
+type CloudServiceUpdateUserGroupOperationStartResult struct {
+	Successful *v1.UpdateUserGroupResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateUserGroupResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateUserGroupAsync(ctx context.Context, input *v1.UpdateUserGroupRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateUserGroupOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateUserGroupOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateUserGroupOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateUserGroup(ctx context.Context, input *v1.UpdateUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateUserGroupOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteUserGroupAsync(ctx context.Context, input *v1.DeleteUserGroupRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteUserGroupResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteUserGroupOperation, input, options)
+
+type CloudServiceDeleteUserGroupOperationStartResult struct {
+	Successful *v1.DeleteUserGroupResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteUserGroupResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteUserGroupAsync(ctx context.Context, input *v1.DeleteUserGroupRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteUserGroupOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteUserGroupOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteUserGroupOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteUserGroup(ctx context.Context, input *v1.DeleteUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteUserGroupOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) SetUserGroupNamespaceAccessAsync(ctx context.Context, input *v1.SetUserGroupNamespaceAccessRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.SetUserGroupNamespaceAccessResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceSetUserGroupNamespaceAccessOperation, input, options)
+
+type CloudServiceSetUserGroupNamespaceAccessOperationStartResult struct {
+	Successful *v1.SetUserGroupNamespaceAccessResponse
+	Pending    *nexus.OperationHandle[*v1.SetUserGroupNamespaceAccessResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) SetUserGroupNamespaceAccessAsync(ctx context.Context, input *v1.SetUserGroupNamespaceAccessRequest, options nexus.StartOperationOptions) (*CloudServiceSetUserGroupNamespaceAccessOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceSetUserGroupNamespaceAccessOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceSetUserGroupNamespaceAccessOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) SetUserGroupNamespaceAccess(ctx context.Context, input *v1.SetUserGroupNamespaceAccessRequest, options nexus.ExecuteOperationOptions) (*v1.SetUserGroupNamespaceAccessResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceSetUserGroupNamespaceAccessOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateServiceAccountAsync(ctx context.Context, input *v1.CreateServiceAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateServiceAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateServiceAccountOperation, input, options)
+
+type CloudServiceCreateServiceAccountOperationStartResult struct {
+	Successful *v1.CreateServiceAccountResponse
+	Pending    *nexus.OperationHandle[*v1.CreateServiceAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateServiceAccountAsync(ctx context.Context, input *v1.CreateServiceAccountRequest, options nexus.StartOperationOptions) (*CloudServiceCreateServiceAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateServiceAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateServiceAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateServiceAccount(ctx context.Context, input *v1.CreateServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.CreateServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateServiceAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetServiceAccountAsync(ctx context.Context, input *v1.GetServiceAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetServiceAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetServiceAccountOperation, input, options)
+
+type CloudServiceGetServiceAccountOperationStartResult struct {
+	Successful *v1.GetServiceAccountResponse
+	Pending    *nexus.OperationHandle[*v1.GetServiceAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetServiceAccountAsync(ctx context.Context, input *v1.GetServiceAccountRequest, options nexus.StartOperationOptions) (*CloudServiceGetServiceAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetServiceAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetServiceAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetServiceAccount(ctx context.Context, input *v1.GetServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.GetServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetServiceAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetServiceAccountsAsync(ctx context.Context, input *v1.GetServiceAccountsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetServiceAccountsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetServiceAccountsOperation, input, options)
+
+type CloudServiceGetServiceAccountsOperationStartResult struct {
+	Successful *v1.GetServiceAccountsResponse
+	Pending    *nexus.OperationHandle[*v1.GetServiceAccountsResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetServiceAccountsAsync(ctx context.Context, input *v1.GetServiceAccountsRequest, options nexus.StartOperationOptions) (*CloudServiceGetServiceAccountsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetServiceAccountsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetServiceAccountsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetServiceAccounts(ctx context.Context, input *v1.GetServiceAccountsRequest, options nexus.ExecuteOperationOptions) (*v1.GetServiceAccountsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetServiceAccountsOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateServiceAccountAsync(ctx context.Context, input *v1.UpdateServiceAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateServiceAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateServiceAccountOperation, input, options)
+
+type CloudServiceUpdateServiceAccountOperationStartResult struct {
+	Successful *v1.UpdateServiceAccountResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateServiceAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateServiceAccountAsync(ctx context.Context, input *v1.UpdateServiceAccountRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateServiceAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateServiceAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateServiceAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateServiceAccount(ctx context.Context, input *v1.UpdateServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateServiceAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteServiceAccountAsync(ctx context.Context, input *v1.DeleteServiceAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteServiceAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteServiceAccountOperation, input, options)
+
+type CloudServiceDeleteServiceAccountOperationStartResult struct {
+	Successful *v1.DeleteServiceAccountResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteServiceAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteServiceAccountAsync(ctx context.Context, input *v1.DeleteServiceAccountRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteServiceAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteServiceAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteServiceAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteServiceAccount(ctx context.Context, input *v1.DeleteServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteServiceAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetUsageAsync(ctx context.Context, input *v1.GetUsageRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetUsageResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetUsageOperation, input, options)
+
+type CloudServiceGetUsageOperationStartResult struct {
+	Successful *v1.GetUsageResponse
+	Pending    *nexus.OperationHandle[*v1.GetUsageResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetUsageAsync(ctx context.Context, input *v1.GetUsageRequest, options nexus.StartOperationOptions) (*CloudServiceGetUsageOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetUsageOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetUsageOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetUsage(ctx context.Context, input *v1.GetUsageRequest, options nexus.ExecuteOperationOptions) (*v1.GetUsageResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUsageOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetAccountAsync(ctx context.Context, input *v1.GetAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetAccountOperation, input, options)
+
+type CloudServiceGetAccountOperationStartResult struct {
+	Successful *v1.GetAccountResponse
+	Pending    *nexus.OperationHandle[*v1.GetAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetAccountAsync(ctx context.Context, input *v1.GetAccountRequest, options nexus.StartOperationOptions) (*CloudServiceGetAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetAccount(ctx context.Context, input *v1.GetAccountRequest, options nexus.ExecuteOperationOptions) (*v1.GetAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateAccountAsync(ctx context.Context, input *v1.UpdateAccountRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateAccountResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateAccountOperation, input, options)
+
+type CloudServiceUpdateAccountOperationStartResult struct {
+	Successful *v1.UpdateAccountResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateAccountResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateAccountAsync(ctx context.Context, input *v1.UpdateAccountRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateAccountOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateAccountOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateAccountOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateAccount(ctx context.Context, input *v1.UpdateAccountRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateAccountOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) CreateNamespaceExportSinkAsync(ctx context.Context, input *v1.CreateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateNamespaceExportSinkResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceCreateNamespaceExportSinkOperation, input, options)
+
+type CloudServiceCreateNamespaceExportSinkOperationStartResult struct {
+	Successful *v1.CreateNamespaceExportSinkResponse
+	Pending    *nexus.OperationHandle[*v1.CreateNamespaceExportSinkResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) CreateNamespaceExportSinkAsync(ctx context.Context, input *v1.CreateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*CloudServiceCreateNamespaceExportSinkOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceCreateNamespaceExportSinkOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceCreateNamespaceExportSinkOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) CreateNamespaceExportSink(ctx context.Context, input *v1.CreateNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNamespaceExportSinkOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinkAsync(ctx context.Context, input *v1.GetNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNamespaceExportSinkResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinkOperation, input, options)
+
+type CloudServiceGetNamespaceExportSinkOperationStartResult struct {
+	Successful *v1.GetNamespaceExportSinkResponse
+	Pending    *nexus.OperationHandle[*v1.GetNamespaceExportSinkResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinkAsync(ctx context.Context, input *v1.GetNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*CloudServiceGetNamespaceExportSinkOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinkOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNamespaceExportSinkOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSink(ctx context.Context, input *v1.GetNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinkOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinksAsync(ctx context.Context, input *v1.GetNamespaceExportSinksRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetNamespaceExportSinksResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinksOperation, input, options)
+
+type CloudServiceGetNamespaceExportSinksOperationStartResult struct {
+	Successful *v1.GetNamespaceExportSinksResponse
+	Pending    *nexus.OperationHandle[*v1.GetNamespaceExportSinksResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinksAsync(ctx context.Context, input *v1.GetNamespaceExportSinksRequest, options nexus.StartOperationOptions) (*CloudServiceGetNamespaceExportSinksOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinksOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceGetNamespaceExportSinksOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinks(ctx context.Context, input *v1.GetNamespaceExportSinksRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespaceExportSinksResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinksOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) UpdateNamespaceExportSinkAsync(ctx context.Context, input *v1.UpdateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateNamespaceExportSinkResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNamespaceExportSinkOperation, input, options)
+
+type CloudServiceUpdateNamespaceExportSinkOperationStartResult struct {
+	Successful *v1.UpdateNamespaceExportSinkResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateNamespaceExportSinkResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) UpdateNamespaceExportSinkAsync(ctx context.Context, input *v1.UpdateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*CloudServiceUpdateNamespaceExportSinkOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceUpdateNamespaceExportSinkOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceUpdateNamespaceExportSinkOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) UpdateNamespaceExportSink(ctx context.Context, input *v1.UpdateNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNamespaceExportSinkOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) DeleteNamespaceExportSinkAsync(ctx context.Context, input *v1.DeleteNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteNamespaceExportSinkResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNamespaceExportSinkOperation, input, options)
+
+type CloudServiceDeleteNamespaceExportSinkOperationStartResult struct {
+	Successful *v1.DeleteNamespaceExportSinkResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteNamespaceExportSinkResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) DeleteNamespaceExportSinkAsync(ctx context.Context, input *v1.DeleteNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*CloudServiceDeleteNamespaceExportSinkOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceDeleteNamespaceExportSinkOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceDeleteNamespaceExportSinkOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) DeleteNamespaceExportSink(ctx context.Context, input *v1.DeleteNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNamespaceExportSinkOperation, input, options)
 	return output, err
 }
-func (c *CloudServiceNexusHTTPClient) ValidateNamespaceExportSinkAsync(ctx context.Context, input *v1.ValidateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ValidateNamespaceExportSinkResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, CloudServiceValidateNamespaceExportSinkOperation, input, options)
+
+type CloudServiceValidateNamespaceExportSinkOperationStartResult struct {
+	Successful *v1.ValidateNamespaceExportSinkResponse
+	Pending    *nexus.OperationHandle[*v1.ValidateNamespaceExportSinkResponse]
+	Links      []nexus.Link
+}
+
+func (c *CloudServiceNexusHTTPClient) ValidateNamespaceExportSinkAsync(ctx context.Context, input *v1.ValidateNamespaceExportSinkRequest, options nexus.StartOperationOptions) (*CloudServiceValidateNamespaceExportSinkOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, CloudServiceValidateNamespaceExportSinkOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := CloudServiceValidateNamespaceExportSinkOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *CloudServiceNexusHTTPClient) ValidateNamespaceExportSink(ctx context.Context, input *v1.ValidateNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.ValidateNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceValidateNamespaceExportSinkOperation, input, options)

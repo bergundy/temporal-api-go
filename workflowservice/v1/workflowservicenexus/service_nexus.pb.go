@@ -411,8 +411,8 @@ const WorkflowServiceResetActivityByIdOperationName = "ResetActivityById"
 
 var WorkflowServiceResetActivityByIdOperation = nexus.NewOperationReference[*v1.ResetActivityByIdRequest, *v1.ResetActivityByIdResponse](WorkflowServiceResetActivityByIdOperationName)
 
-type WorkflowServiceNexusServiceHandler interface {
-	mustEmbedUnimplementedWorkflowServiceNexusServiceHandler()
+type WorkflowServiceNexusHandler interface {
+	mustEmbedUnimplementedWorkflowServiceNexusHandler()
 	RegisterNamespace(name string) nexus.Operation[*v1.RegisterNamespaceRequest, *v1.RegisterNamespaceResponse]
 	DescribeNamespace(name string) nexus.Operation[*v1.DescribeNamespaceRequest, *v1.DescribeNamespaceResponse]
 	ListNamespaces(name string) nexus.Operation[*v1.ListNamespacesRequest, *v1.ListNamespacesResponse]
@@ -489,7 +489,7 @@ type WorkflowServiceNexusServiceHandler interface {
 	ResetActivityById(name string) nexus.Operation[*v1.ResetActivityByIdRequest, *v1.ResetActivityByIdResponse]
 }
 
-func NewWorkflowServiceNexusService(h WorkflowServiceNexusServiceHandler) (*nexus.Service, error) {
+func NewWorkflowServiceNexusService(h WorkflowServiceNexusHandler) (*nexus.Service, error) {
 	svc := nexus.NewService(WorkflowServiceServiceName)
 	err := svc.Register(h.RegisterNamespace(WorkflowServiceRegisterNamespaceOperationName), h.DescribeNamespace(WorkflowServiceDescribeNamespaceOperationName), h.ListNamespaces(WorkflowServiceListNamespacesOperationName), h.UpdateNamespace(WorkflowServiceUpdateNamespaceOperationName), h.DeprecateNamespace(WorkflowServiceDeprecateNamespaceOperationName), h.StartWorkflowExecution(WorkflowServiceStartWorkflowExecutionOperationName), h.ExecuteMultiOperation(WorkflowServiceExecuteMultiOperationOperationName), h.GetWorkflowExecutionHistory(WorkflowServiceGetWorkflowExecutionHistoryOperationName), h.GetWorkflowExecutionHistoryReverse(WorkflowServiceGetWorkflowExecutionHistoryReverseOperationName), h.PollWorkflowTaskQueue(WorkflowServicePollWorkflowTaskQueueOperationName), h.RespondWorkflowTaskCompleted(WorkflowServiceRespondWorkflowTaskCompletedOperationName), h.RespondWorkflowTaskFailed(WorkflowServiceRespondWorkflowTaskFailedOperationName), h.PollActivityTaskQueue(WorkflowServicePollActivityTaskQueueOperationName), h.RecordActivityTaskHeartbeat(WorkflowServiceRecordActivityTaskHeartbeatOperationName), h.RecordActivityTaskHeartbeatById(WorkflowServiceRecordActivityTaskHeartbeatByIdOperationName), h.RespondActivityTaskCompleted(WorkflowServiceRespondActivityTaskCompletedOperationName), h.RespondActivityTaskCompletedById(WorkflowServiceRespondActivityTaskCompletedByIdOperationName), h.RespondActivityTaskFailed(WorkflowServiceRespondActivityTaskFailedOperationName), h.RespondActivityTaskFailedById(WorkflowServiceRespondActivityTaskFailedByIdOperationName), h.RespondActivityTaskCanceled(WorkflowServiceRespondActivityTaskCanceledOperationName), h.RespondActivityTaskCanceledById(WorkflowServiceRespondActivityTaskCanceledByIdOperationName), h.RequestCancelWorkflowExecution(WorkflowServiceRequestCancelWorkflowExecutionOperationName), h.SignalWorkflowExecution(WorkflowServiceSignalWorkflowExecutionOperationName), h.SignalWithStartWorkflowExecution(WorkflowServiceSignalWithStartWorkflowExecutionOperationName), h.ResetWorkflowExecution(WorkflowServiceResetWorkflowExecutionOperationName), h.TerminateWorkflowExecution(WorkflowServiceTerminateWorkflowExecutionOperationName), h.DeleteWorkflowExecution(WorkflowServiceDeleteWorkflowExecutionOperationName), h.ListOpenWorkflowExecutions(WorkflowServiceListOpenWorkflowExecutionsOperationName), h.ListClosedWorkflowExecutions(WorkflowServiceListClosedWorkflowExecutionsOperationName), h.ListWorkflowExecutions(WorkflowServiceListWorkflowExecutionsOperationName), h.ListArchivedWorkflowExecutions(WorkflowServiceListArchivedWorkflowExecutionsOperationName), h.ScanWorkflowExecutions(WorkflowServiceScanWorkflowExecutionsOperationName), h.CountWorkflowExecutions(WorkflowServiceCountWorkflowExecutionsOperationName), h.GetSearchAttributes(WorkflowServiceGetSearchAttributesOperationName), h.RespondQueryTaskCompleted(WorkflowServiceRespondQueryTaskCompletedOperationName), h.ResetStickyTaskQueue(WorkflowServiceResetStickyTaskQueueOperationName), h.ShutdownWorker(WorkflowServiceShutdownWorkerOperationName), h.QueryWorkflow(WorkflowServiceQueryWorkflowOperationName), h.DescribeWorkflowExecution(WorkflowServiceDescribeWorkflowExecutionOperationName), h.DescribeTaskQueue(WorkflowServiceDescribeTaskQueueOperationName), h.GetClusterInfo(WorkflowServiceGetClusterInfoOperationName), h.GetSystemInfo(WorkflowServiceGetSystemInfoOperationName), h.ListTaskQueuePartitions(WorkflowServiceListTaskQueuePartitionsOperationName), h.CreateSchedule(WorkflowServiceCreateScheduleOperationName), h.DescribeSchedule(WorkflowServiceDescribeScheduleOperationName), h.UpdateSchedule(WorkflowServiceUpdateScheduleOperationName), h.PatchSchedule(WorkflowServicePatchScheduleOperationName), h.ListScheduleMatchingTimes(WorkflowServiceListScheduleMatchingTimesOperationName), h.DeleteSchedule(WorkflowServiceDeleteScheduleOperationName), h.ListSchedules(WorkflowServiceListSchedulesOperationName), h.UpdateWorkerBuildIdCompatibility(WorkflowServiceUpdateWorkerBuildIdCompatibilityOperationName), h.GetWorkerBuildIdCompatibility(WorkflowServiceGetWorkerBuildIdCompatibilityOperationName), h.UpdateWorkerVersioningRules(WorkflowServiceUpdateWorkerVersioningRulesOperationName), h.GetWorkerVersioningRules(WorkflowServiceGetWorkerVersioningRulesOperationName), h.GetWorkerTaskReachability(WorkflowServiceGetWorkerTaskReachabilityOperationName), h.DescribeDeployment(WorkflowServiceDescribeDeploymentOperationName), h.ListDeployments(WorkflowServiceListDeploymentsOperationName), h.GetDeploymentReachability(WorkflowServiceGetDeploymentReachabilityOperationName), h.GetCurrentDeployment(WorkflowServiceGetCurrentDeploymentOperationName), h.SetCurrentDeployment(WorkflowServiceSetCurrentDeploymentOperationName), h.UpdateWorkflowExecution(WorkflowServiceUpdateWorkflowExecutionOperationName), h.PollWorkflowExecutionUpdate(WorkflowServicePollWorkflowExecutionUpdateOperationName), h.StartBatchOperation(WorkflowServiceStartBatchOperationOperationName), h.StopBatchOperation(WorkflowServiceStopBatchOperationOperationName), h.DescribeBatchOperation(WorkflowServiceDescribeBatchOperationOperationName), h.ListBatchOperations(WorkflowServiceListBatchOperationsOperationName), h.PollNexusTaskQueue(WorkflowServicePollNexusTaskQueueOperationName), h.RespondNexusTaskCompleted(WorkflowServiceRespondNexusTaskCompletedOperationName), h.RespondNexusTaskFailed(WorkflowServiceRespondNexusTaskFailedOperationName), h.UpdateActivityOptionsById(WorkflowServiceUpdateActivityOptionsByIdOperationName), h.UpdateWorkflowExecutionOptions(WorkflowServiceUpdateWorkflowExecutionOptionsOperationName), h.PauseActivityById(WorkflowServicePauseActivityByIdOperationName), h.UnpauseActivityById(WorkflowServiceUnpauseActivityByIdOperationName), h.ResetActivityById(WorkflowServiceResetActivityByIdOperationName))
 	if err != nil {
@@ -498,230 +498,230 @@ func NewWorkflowServiceNexusService(h WorkflowServiceNexusServiceHandler) (*nexu
 	return svc, nil
 }
 
-type UnimplementedWorkflowServiceNexusServiceHandler struct{}
+type UnimplementedWorkflowServiceNexusHandler struct{}
 
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) mustEmbedUnimplementedWorkflowServiceNexusServiceHandler() {
+func (h *UnimplementedWorkflowServiceNexusHandler) mustEmbedUnimplementedWorkflowServiceNexusHandler() {
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RegisterNamespace(name string) nexus.Operation[*v1.RegisterNamespaceRequest, *v1.RegisterNamespaceResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RegisterNamespace(name string) nexus.Operation[*v1.RegisterNamespaceRequest, *v1.RegisterNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeNamespace(name string) nexus.Operation[*v1.DescribeNamespaceRequest, *v1.DescribeNamespaceResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeNamespace(name string) nexus.Operation[*v1.DescribeNamespaceRequest, *v1.DescribeNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListNamespaces(name string) nexus.Operation[*v1.ListNamespacesRequest, *v1.ListNamespacesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListNamespaces(name string) nexus.Operation[*v1.ListNamespacesRequest, *v1.ListNamespacesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateNamespace(name string) nexus.Operation[*v1.UpdateNamespaceRequest, *v1.UpdateNamespaceResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateNamespace(name string) nexus.Operation[*v1.UpdateNamespaceRequest, *v1.UpdateNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DeprecateNamespace(name string) nexus.Operation[*v1.DeprecateNamespaceRequest, *v1.DeprecateNamespaceResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DeprecateNamespace(name string) nexus.Operation[*v1.DeprecateNamespaceRequest, *v1.DeprecateNamespaceResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) StartWorkflowExecution(name string) nexus.Operation[*v1.StartWorkflowExecutionRequest, *v1.StartWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) StartWorkflowExecution(name string) nexus.Operation[*v1.StartWorkflowExecutionRequest, *v1.StartWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ExecuteMultiOperation(name string) nexus.Operation[*v1.ExecuteMultiOperationRequest, *v1.ExecuteMultiOperationResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ExecuteMultiOperation(name string) nexus.Operation[*v1.ExecuteMultiOperationRequest, *v1.ExecuteMultiOperationResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetWorkflowExecutionHistory(name string) nexus.Operation[*v1.GetWorkflowExecutionHistoryRequest, *v1.GetWorkflowExecutionHistoryResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetWorkflowExecutionHistory(name string) nexus.Operation[*v1.GetWorkflowExecutionHistoryRequest, *v1.GetWorkflowExecutionHistoryResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetWorkflowExecutionHistoryReverse(name string) nexus.Operation[*v1.GetWorkflowExecutionHistoryReverseRequest, *v1.GetWorkflowExecutionHistoryReverseResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetWorkflowExecutionHistoryReverse(name string) nexus.Operation[*v1.GetWorkflowExecutionHistoryReverseRequest, *v1.GetWorkflowExecutionHistoryReverseResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PollWorkflowTaskQueue(name string) nexus.Operation[*v1.PollWorkflowTaskQueueRequest, *v1.PollWorkflowTaskQueueResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PollWorkflowTaskQueue(name string) nexus.Operation[*v1.PollWorkflowTaskQueueRequest, *v1.PollWorkflowTaskQueueResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondWorkflowTaskCompleted(name string) nexus.Operation[*v1.RespondWorkflowTaskCompletedRequest, *v1.RespondWorkflowTaskCompletedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondWorkflowTaskCompleted(name string) nexus.Operation[*v1.RespondWorkflowTaskCompletedRequest, *v1.RespondWorkflowTaskCompletedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondWorkflowTaskFailed(name string) nexus.Operation[*v1.RespondWorkflowTaskFailedRequest, *v1.RespondWorkflowTaskFailedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondWorkflowTaskFailed(name string) nexus.Operation[*v1.RespondWorkflowTaskFailedRequest, *v1.RespondWorkflowTaskFailedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PollActivityTaskQueue(name string) nexus.Operation[*v1.PollActivityTaskQueueRequest, *v1.PollActivityTaskQueueResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PollActivityTaskQueue(name string) nexus.Operation[*v1.PollActivityTaskQueueRequest, *v1.PollActivityTaskQueueResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RecordActivityTaskHeartbeat(name string) nexus.Operation[*v1.RecordActivityTaskHeartbeatRequest, *v1.RecordActivityTaskHeartbeatResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RecordActivityTaskHeartbeat(name string) nexus.Operation[*v1.RecordActivityTaskHeartbeatRequest, *v1.RecordActivityTaskHeartbeatResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RecordActivityTaskHeartbeatById(name string) nexus.Operation[*v1.RecordActivityTaskHeartbeatByIdRequest, *v1.RecordActivityTaskHeartbeatByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RecordActivityTaskHeartbeatById(name string) nexus.Operation[*v1.RecordActivityTaskHeartbeatByIdRequest, *v1.RecordActivityTaskHeartbeatByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskCompleted(name string) nexus.Operation[*v1.RespondActivityTaskCompletedRequest, *v1.RespondActivityTaskCompletedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskCompleted(name string) nexus.Operation[*v1.RespondActivityTaskCompletedRequest, *v1.RespondActivityTaskCompletedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskCompletedById(name string) nexus.Operation[*v1.RespondActivityTaskCompletedByIdRequest, *v1.RespondActivityTaskCompletedByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskCompletedById(name string) nexus.Operation[*v1.RespondActivityTaskCompletedByIdRequest, *v1.RespondActivityTaskCompletedByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskFailed(name string) nexus.Operation[*v1.RespondActivityTaskFailedRequest, *v1.RespondActivityTaskFailedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskFailed(name string) nexus.Operation[*v1.RespondActivityTaskFailedRequest, *v1.RespondActivityTaskFailedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskFailedById(name string) nexus.Operation[*v1.RespondActivityTaskFailedByIdRequest, *v1.RespondActivityTaskFailedByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskFailedById(name string) nexus.Operation[*v1.RespondActivityTaskFailedByIdRequest, *v1.RespondActivityTaskFailedByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskCanceled(name string) nexus.Operation[*v1.RespondActivityTaskCanceledRequest, *v1.RespondActivityTaskCanceledResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskCanceled(name string) nexus.Operation[*v1.RespondActivityTaskCanceledRequest, *v1.RespondActivityTaskCanceledResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondActivityTaskCanceledById(name string) nexus.Operation[*v1.RespondActivityTaskCanceledByIdRequest, *v1.RespondActivityTaskCanceledByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondActivityTaskCanceledById(name string) nexus.Operation[*v1.RespondActivityTaskCanceledByIdRequest, *v1.RespondActivityTaskCanceledByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RequestCancelWorkflowExecution(name string) nexus.Operation[*v1.RequestCancelWorkflowExecutionRequest, *v1.RequestCancelWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RequestCancelWorkflowExecution(name string) nexus.Operation[*v1.RequestCancelWorkflowExecutionRequest, *v1.RequestCancelWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) SignalWorkflowExecution(name string) nexus.Operation[*v1.SignalWorkflowExecutionRequest, *v1.SignalWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) SignalWorkflowExecution(name string) nexus.Operation[*v1.SignalWorkflowExecutionRequest, *v1.SignalWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) SignalWithStartWorkflowExecution(name string) nexus.Operation[*v1.SignalWithStartWorkflowExecutionRequest, *v1.SignalWithStartWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) SignalWithStartWorkflowExecution(name string) nexus.Operation[*v1.SignalWithStartWorkflowExecutionRequest, *v1.SignalWithStartWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ResetWorkflowExecution(name string) nexus.Operation[*v1.ResetWorkflowExecutionRequest, *v1.ResetWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ResetWorkflowExecution(name string) nexus.Operation[*v1.ResetWorkflowExecutionRequest, *v1.ResetWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) TerminateWorkflowExecution(name string) nexus.Operation[*v1.TerminateWorkflowExecutionRequest, *v1.TerminateWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) TerminateWorkflowExecution(name string) nexus.Operation[*v1.TerminateWorkflowExecutionRequest, *v1.TerminateWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DeleteWorkflowExecution(name string) nexus.Operation[*v1.DeleteWorkflowExecutionRequest, *v1.DeleteWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DeleteWorkflowExecution(name string) nexus.Operation[*v1.DeleteWorkflowExecutionRequest, *v1.DeleteWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListOpenWorkflowExecutions(name string) nexus.Operation[*v1.ListOpenWorkflowExecutionsRequest, *v1.ListOpenWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListOpenWorkflowExecutions(name string) nexus.Operation[*v1.ListOpenWorkflowExecutionsRequest, *v1.ListOpenWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListClosedWorkflowExecutions(name string) nexus.Operation[*v1.ListClosedWorkflowExecutionsRequest, *v1.ListClosedWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListClosedWorkflowExecutions(name string) nexus.Operation[*v1.ListClosedWorkflowExecutionsRequest, *v1.ListClosedWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListWorkflowExecutions(name string) nexus.Operation[*v1.ListWorkflowExecutionsRequest, *v1.ListWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListWorkflowExecutions(name string) nexus.Operation[*v1.ListWorkflowExecutionsRequest, *v1.ListWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListArchivedWorkflowExecutions(name string) nexus.Operation[*v1.ListArchivedWorkflowExecutionsRequest, *v1.ListArchivedWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListArchivedWorkflowExecutions(name string) nexus.Operation[*v1.ListArchivedWorkflowExecutionsRequest, *v1.ListArchivedWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ScanWorkflowExecutions(name string) nexus.Operation[*v1.ScanWorkflowExecutionsRequest, *v1.ScanWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ScanWorkflowExecutions(name string) nexus.Operation[*v1.ScanWorkflowExecutionsRequest, *v1.ScanWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) CountWorkflowExecutions(name string) nexus.Operation[*v1.CountWorkflowExecutionsRequest, *v1.CountWorkflowExecutionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) CountWorkflowExecutions(name string) nexus.Operation[*v1.CountWorkflowExecutionsRequest, *v1.CountWorkflowExecutionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetSearchAttributes(name string) nexus.Operation[*v1.GetSearchAttributesRequest, *v1.GetSearchAttributesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetSearchAttributes(name string) nexus.Operation[*v1.GetSearchAttributesRequest, *v1.GetSearchAttributesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondQueryTaskCompleted(name string) nexus.Operation[*v1.RespondQueryTaskCompletedRequest, *v1.RespondQueryTaskCompletedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondQueryTaskCompleted(name string) nexus.Operation[*v1.RespondQueryTaskCompletedRequest, *v1.RespondQueryTaskCompletedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ResetStickyTaskQueue(name string) nexus.Operation[*v1.ResetStickyTaskQueueRequest, *v1.ResetStickyTaskQueueResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ResetStickyTaskQueue(name string) nexus.Operation[*v1.ResetStickyTaskQueueRequest, *v1.ResetStickyTaskQueueResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ShutdownWorker(name string) nexus.Operation[*v1.ShutdownWorkerRequest, *v1.ShutdownWorkerResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ShutdownWorker(name string) nexus.Operation[*v1.ShutdownWorkerRequest, *v1.ShutdownWorkerResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) QueryWorkflow(name string) nexus.Operation[*v1.QueryWorkflowRequest, *v1.QueryWorkflowResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) QueryWorkflow(name string) nexus.Operation[*v1.QueryWorkflowRequest, *v1.QueryWorkflowResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeWorkflowExecution(name string) nexus.Operation[*v1.DescribeWorkflowExecutionRequest, *v1.DescribeWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeWorkflowExecution(name string) nexus.Operation[*v1.DescribeWorkflowExecutionRequest, *v1.DescribeWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeTaskQueue(name string) nexus.Operation[*v1.DescribeTaskQueueRequest, *v1.DescribeTaskQueueResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeTaskQueue(name string) nexus.Operation[*v1.DescribeTaskQueueRequest, *v1.DescribeTaskQueueResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetClusterInfo(name string) nexus.Operation[*v1.GetClusterInfoRequest, *v1.GetClusterInfoResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetClusterInfo(name string) nexus.Operation[*v1.GetClusterInfoRequest, *v1.GetClusterInfoResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetSystemInfo(name string) nexus.Operation[*v1.GetSystemInfoRequest, *v1.GetSystemInfoResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetSystemInfo(name string) nexus.Operation[*v1.GetSystemInfoRequest, *v1.GetSystemInfoResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListTaskQueuePartitions(name string) nexus.Operation[*v1.ListTaskQueuePartitionsRequest, *v1.ListTaskQueuePartitionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListTaskQueuePartitions(name string) nexus.Operation[*v1.ListTaskQueuePartitionsRequest, *v1.ListTaskQueuePartitionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) CreateSchedule(name string) nexus.Operation[*v1.CreateScheduleRequest, *v1.CreateScheduleResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) CreateSchedule(name string) nexus.Operation[*v1.CreateScheduleRequest, *v1.CreateScheduleResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeSchedule(name string) nexus.Operation[*v1.DescribeScheduleRequest, *v1.DescribeScheduleResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeSchedule(name string) nexus.Operation[*v1.DescribeScheduleRequest, *v1.DescribeScheduleResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateSchedule(name string) nexus.Operation[*v1.UpdateScheduleRequest, *v1.UpdateScheduleResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateSchedule(name string) nexus.Operation[*v1.UpdateScheduleRequest, *v1.UpdateScheduleResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PatchSchedule(name string) nexus.Operation[*v1.PatchScheduleRequest, *v1.PatchScheduleResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PatchSchedule(name string) nexus.Operation[*v1.PatchScheduleRequest, *v1.PatchScheduleResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListScheduleMatchingTimes(name string) nexus.Operation[*v1.ListScheduleMatchingTimesRequest, *v1.ListScheduleMatchingTimesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListScheduleMatchingTimes(name string) nexus.Operation[*v1.ListScheduleMatchingTimesRequest, *v1.ListScheduleMatchingTimesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DeleteSchedule(name string) nexus.Operation[*v1.DeleteScheduleRequest, *v1.DeleteScheduleResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DeleteSchedule(name string) nexus.Operation[*v1.DeleteScheduleRequest, *v1.DeleteScheduleResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListSchedules(name string) nexus.Operation[*v1.ListSchedulesRequest, *v1.ListSchedulesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListSchedules(name string) nexus.Operation[*v1.ListSchedulesRequest, *v1.ListSchedulesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateWorkerBuildIdCompatibility(name string) nexus.Operation[*v1.UpdateWorkerBuildIdCompatibilityRequest, *v1.UpdateWorkerBuildIdCompatibilityResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateWorkerBuildIdCompatibility(name string) nexus.Operation[*v1.UpdateWorkerBuildIdCompatibilityRequest, *v1.UpdateWorkerBuildIdCompatibilityResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetWorkerBuildIdCompatibility(name string) nexus.Operation[*v1.GetWorkerBuildIdCompatibilityRequest, *v1.GetWorkerBuildIdCompatibilityResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetWorkerBuildIdCompatibility(name string) nexus.Operation[*v1.GetWorkerBuildIdCompatibilityRequest, *v1.GetWorkerBuildIdCompatibilityResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateWorkerVersioningRules(name string) nexus.Operation[*v1.UpdateWorkerVersioningRulesRequest, *v1.UpdateWorkerVersioningRulesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateWorkerVersioningRules(name string) nexus.Operation[*v1.UpdateWorkerVersioningRulesRequest, *v1.UpdateWorkerVersioningRulesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetWorkerVersioningRules(name string) nexus.Operation[*v1.GetWorkerVersioningRulesRequest, *v1.GetWorkerVersioningRulesResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetWorkerVersioningRules(name string) nexus.Operation[*v1.GetWorkerVersioningRulesRequest, *v1.GetWorkerVersioningRulesResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetWorkerTaskReachability(name string) nexus.Operation[*v1.GetWorkerTaskReachabilityRequest, *v1.GetWorkerTaskReachabilityResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetWorkerTaskReachability(name string) nexus.Operation[*v1.GetWorkerTaskReachabilityRequest, *v1.GetWorkerTaskReachabilityResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeDeployment(name string) nexus.Operation[*v1.DescribeDeploymentRequest, *v1.DescribeDeploymentResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeDeployment(name string) nexus.Operation[*v1.DescribeDeploymentRequest, *v1.DescribeDeploymentResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListDeployments(name string) nexus.Operation[*v1.ListDeploymentsRequest, *v1.ListDeploymentsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListDeployments(name string) nexus.Operation[*v1.ListDeploymentsRequest, *v1.ListDeploymentsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetDeploymentReachability(name string) nexus.Operation[*v1.GetDeploymentReachabilityRequest, *v1.GetDeploymentReachabilityResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetDeploymentReachability(name string) nexus.Operation[*v1.GetDeploymentReachabilityRequest, *v1.GetDeploymentReachabilityResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) GetCurrentDeployment(name string) nexus.Operation[*v1.GetCurrentDeploymentRequest, *v1.GetCurrentDeploymentResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) GetCurrentDeployment(name string) nexus.Operation[*v1.GetCurrentDeploymentRequest, *v1.GetCurrentDeploymentResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) SetCurrentDeployment(name string) nexus.Operation[*v1.SetCurrentDeploymentRequest, *v1.SetCurrentDeploymentResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) SetCurrentDeployment(name string) nexus.Operation[*v1.SetCurrentDeploymentRequest, *v1.SetCurrentDeploymentResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateWorkflowExecution(name string) nexus.Operation[*v1.UpdateWorkflowExecutionRequest, *v1.UpdateWorkflowExecutionResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateWorkflowExecution(name string) nexus.Operation[*v1.UpdateWorkflowExecutionRequest, *v1.UpdateWorkflowExecutionResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PollWorkflowExecutionUpdate(name string) nexus.Operation[*v1.PollWorkflowExecutionUpdateRequest, *v1.PollWorkflowExecutionUpdateResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PollWorkflowExecutionUpdate(name string) nexus.Operation[*v1.PollWorkflowExecutionUpdateRequest, *v1.PollWorkflowExecutionUpdateResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) StartBatchOperation(name string) nexus.Operation[*v1.StartBatchOperationRequest, *v1.StartBatchOperationResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) StartBatchOperation(name string) nexus.Operation[*v1.StartBatchOperationRequest, *v1.StartBatchOperationResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) StopBatchOperation(name string) nexus.Operation[*v1.StopBatchOperationRequest, *v1.StopBatchOperationResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) StopBatchOperation(name string) nexus.Operation[*v1.StopBatchOperationRequest, *v1.StopBatchOperationResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) DescribeBatchOperation(name string) nexus.Operation[*v1.DescribeBatchOperationRequest, *v1.DescribeBatchOperationResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) DescribeBatchOperation(name string) nexus.Operation[*v1.DescribeBatchOperationRequest, *v1.DescribeBatchOperationResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ListBatchOperations(name string) nexus.Operation[*v1.ListBatchOperationsRequest, *v1.ListBatchOperationsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ListBatchOperations(name string) nexus.Operation[*v1.ListBatchOperationsRequest, *v1.ListBatchOperationsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PollNexusTaskQueue(name string) nexus.Operation[*v1.PollNexusTaskQueueRequest, *v1.PollNexusTaskQueueResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PollNexusTaskQueue(name string) nexus.Operation[*v1.PollNexusTaskQueueRequest, *v1.PollNexusTaskQueueResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondNexusTaskCompleted(name string) nexus.Operation[*v1.RespondNexusTaskCompletedRequest, *v1.RespondNexusTaskCompletedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondNexusTaskCompleted(name string) nexus.Operation[*v1.RespondNexusTaskCompletedRequest, *v1.RespondNexusTaskCompletedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) RespondNexusTaskFailed(name string) nexus.Operation[*v1.RespondNexusTaskFailedRequest, *v1.RespondNexusTaskFailedResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) RespondNexusTaskFailed(name string) nexus.Operation[*v1.RespondNexusTaskFailedRequest, *v1.RespondNexusTaskFailedResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateActivityOptionsById(name string) nexus.Operation[*v1.UpdateActivityOptionsByIdRequest, *v1.UpdateActivityOptionsByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateActivityOptionsById(name string) nexus.Operation[*v1.UpdateActivityOptionsByIdRequest, *v1.UpdateActivityOptionsByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UpdateWorkflowExecutionOptions(name string) nexus.Operation[*v1.UpdateWorkflowExecutionOptionsRequest, *v1.UpdateWorkflowExecutionOptionsResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UpdateWorkflowExecutionOptions(name string) nexus.Operation[*v1.UpdateWorkflowExecutionOptionsRequest, *v1.UpdateWorkflowExecutionOptionsResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) PauseActivityById(name string) nexus.Operation[*v1.PauseActivityByIdRequest, *v1.PauseActivityByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) PauseActivityById(name string) nexus.Operation[*v1.PauseActivityByIdRequest, *v1.PauseActivityByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) UnpauseActivityById(name string) nexus.Operation[*v1.UnpauseActivityByIdRequest, *v1.UnpauseActivityByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) UnpauseActivityById(name string) nexus.Operation[*v1.UnpauseActivityByIdRequest, *v1.UnpauseActivityByIdResponse] {
 	panic("TODO")
 }
-func (h *UnimplementedWorkflowServiceNexusServiceHandler) ResetActivityById(name string) nexus.Operation[*v1.ResetActivityByIdRequest, *v1.ResetActivityByIdResponse] {
+func (h *UnimplementedWorkflowServiceNexusHandler) ResetActivityById(name string) nexus.Operation[*v1.ResetActivityByIdRequest, *v1.ResetActivityByIdResponse] {
 	panic("TODO")
 }
 
@@ -744,519 +744,1703 @@ func NewWorkflowServiceNexusHTTPClient(options nexus.HTTPClientOptions) (*Workfl
 		client: *client,
 	}, nil
 }
-func (c *WorkflowServiceNexusHTTPClient) RegisterNamespaceAsync(ctx context.Context, input *v1.RegisterNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RegisterNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRegisterNamespaceOperation, input, options)
+
+type WorkflowServiceRegisterNamespaceOperationStartResult struct {
+	Successful *v1.RegisterNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.RegisterNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RegisterNamespaceAsync(ctx context.Context, input *v1.RegisterNamespaceRequest, options nexus.StartOperationOptions) (*WorkflowServiceRegisterNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRegisterNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRegisterNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RegisterNamespace(ctx context.Context, input *v1.RegisterNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.RegisterNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRegisterNamespaceOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeNamespaceAsync(ctx context.Context, input *v1.DescribeNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeNamespaceOperation, input, options)
+
+type WorkflowServiceDescribeNamespaceOperationStartResult struct {
+	Successful *v1.DescribeNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeNamespaceAsync(ctx context.Context, input *v1.DescribeNamespaceRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeNamespace(ctx context.Context, input *v1.DescribeNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeNamespaceOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListNamespacesAsync(ctx context.Context, input *v1.ListNamespacesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListNamespacesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListNamespacesOperation, input, options)
+
+type WorkflowServiceListNamespacesOperationStartResult struct {
+	Successful *v1.ListNamespacesResponse
+	Pending    *nexus.OperationHandle[*v1.ListNamespacesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListNamespacesAsync(ctx context.Context, input *v1.ListNamespacesRequest, options nexus.StartOperationOptions) (*WorkflowServiceListNamespacesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListNamespacesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListNamespacesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListNamespaces(ctx context.Context, input *v1.ListNamespacesRequest, options nexus.ExecuteOperationOptions) (*v1.ListNamespacesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListNamespacesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateNamespaceAsync(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateNamespaceOperation, input, options)
+
+type WorkflowServiceUpdateNamespaceOperationStartResult struct {
+	Successful *v1.UpdateNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateNamespaceAsync(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateNamespace(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateNamespaceOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DeprecateNamespaceAsync(ctx context.Context, input *v1.DeprecateNamespaceRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeprecateNamespaceResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDeprecateNamespaceOperation, input, options)
+
+type WorkflowServiceDeprecateNamespaceOperationStartResult struct {
+	Successful *v1.DeprecateNamespaceResponse
+	Pending    *nexus.OperationHandle[*v1.DeprecateNamespaceResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DeprecateNamespaceAsync(ctx context.Context, input *v1.DeprecateNamespaceRequest, options nexus.StartOperationOptions) (*WorkflowServiceDeprecateNamespaceOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDeprecateNamespaceOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDeprecateNamespaceOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DeprecateNamespace(ctx context.Context, input *v1.DeprecateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DeprecateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeprecateNamespaceOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) StartWorkflowExecutionAsync(ctx context.Context, input *v1.StartWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.StartWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceStartWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceStartWorkflowExecutionOperationStartResult struct {
+	Successful *v1.StartWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.StartWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) StartWorkflowExecutionAsync(ctx context.Context, input *v1.StartWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceStartWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceStartWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceStartWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) StartWorkflowExecution(ctx context.Context, input *v1.StartWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.StartWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStartWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ExecuteMultiOperationAsync(ctx context.Context, input *v1.ExecuteMultiOperationRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ExecuteMultiOperationResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceExecuteMultiOperationOperation, input, options)
+
+type WorkflowServiceExecuteMultiOperationOperationStartResult struct {
+	Successful *v1.ExecuteMultiOperationResponse
+	Pending    *nexus.OperationHandle[*v1.ExecuteMultiOperationResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ExecuteMultiOperationAsync(ctx context.Context, input *v1.ExecuteMultiOperationRequest, options nexus.StartOperationOptions) (*WorkflowServiceExecuteMultiOperationOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceExecuteMultiOperationOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceExecuteMultiOperationOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ExecuteMultiOperation(ctx context.Context, input *v1.ExecuteMultiOperationRequest, options nexus.ExecuteOperationOptions) (*v1.ExecuteMultiOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceExecuteMultiOperationOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryAsync(ctx context.Context, input *v1.GetWorkflowExecutionHistoryRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetWorkflowExecutionHistoryResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryOperation, input, options)
+
+type WorkflowServiceGetWorkflowExecutionHistoryOperationStartResult struct {
+	Successful *v1.GetWorkflowExecutionHistoryResponse
+	Pending    *nexus.OperationHandle[*v1.GetWorkflowExecutionHistoryResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryAsync(ctx context.Context, input *v1.GetWorkflowExecutionHistoryRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetWorkflowExecutionHistoryOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetWorkflowExecutionHistoryOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistory(ctx context.Context, input *v1.GetWorkflowExecutionHistoryRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkflowExecutionHistoryResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryReverseAsync(ctx context.Context, input *v1.GetWorkflowExecutionHistoryReverseRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetWorkflowExecutionHistoryReverseResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryReverseOperation, input, options)
+
+type WorkflowServiceGetWorkflowExecutionHistoryReverseOperationStartResult struct {
+	Successful *v1.GetWorkflowExecutionHistoryReverseResponse
+	Pending    *nexus.OperationHandle[*v1.GetWorkflowExecutionHistoryReverseResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryReverseAsync(ctx context.Context, input *v1.GetWorkflowExecutionHistoryReverseRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetWorkflowExecutionHistoryReverseOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryReverseOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetWorkflowExecutionHistoryReverseOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryReverse(ctx context.Context, input *v1.GetWorkflowExecutionHistoryReverseRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkflowExecutionHistoryReverseResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryReverseOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PollWorkflowTaskQueueAsync(ctx context.Context, input *v1.PollWorkflowTaskQueueRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PollWorkflowTaskQueueResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePollWorkflowTaskQueueOperation, input, options)
+
+type WorkflowServicePollWorkflowTaskQueueOperationStartResult struct {
+	Successful *v1.PollWorkflowTaskQueueResponse
+	Pending    *nexus.OperationHandle[*v1.PollWorkflowTaskQueueResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PollWorkflowTaskQueueAsync(ctx context.Context, input *v1.PollWorkflowTaskQueueRequest, options nexus.StartOperationOptions) (*WorkflowServicePollWorkflowTaskQueueOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePollWorkflowTaskQueueOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePollWorkflowTaskQueueOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PollWorkflowTaskQueue(ctx context.Context, input *v1.PollWorkflowTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.PollWorkflowTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollWorkflowTaskQueueOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskCompletedAsync(ctx context.Context, input *v1.RespondWorkflowTaskCompletedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondWorkflowTaskCompletedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskCompletedOperation, input, options)
+
+type WorkflowServiceRespondWorkflowTaskCompletedOperationStartResult struct {
+	Successful *v1.RespondWorkflowTaskCompletedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondWorkflowTaskCompletedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskCompletedAsync(ctx context.Context, input *v1.RespondWorkflowTaskCompletedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondWorkflowTaskCompletedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskCompletedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondWorkflowTaskCompletedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskCompleted(ctx context.Context, input *v1.RespondWorkflowTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondWorkflowTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskCompletedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskFailedAsync(ctx context.Context, input *v1.RespondWorkflowTaskFailedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondWorkflowTaskFailedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskFailedOperation, input, options)
+
+type WorkflowServiceRespondWorkflowTaskFailedOperationStartResult struct {
+	Successful *v1.RespondWorkflowTaskFailedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondWorkflowTaskFailedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskFailedAsync(ctx context.Context, input *v1.RespondWorkflowTaskFailedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondWorkflowTaskFailedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskFailedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondWorkflowTaskFailedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskFailed(ctx context.Context, input *v1.RespondWorkflowTaskFailedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondWorkflowTaskFailedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskFailedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PollActivityTaskQueueAsync(ctx context.Context, input *v1.PollActivityTaskQueueRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PollActivityTaskQueueResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePollActivityTaskQueueOperation, input, options)
+
+type WorkflowServicePollActivityTaskQueueOperationStartResult struct {
+	Successful *v1.PollActivityTaskQueueResponse
+	Pending    *nexus.OperationHandle[*v1.PollActivityTaskQueueResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PollActivityTaskQueueAsync(ctx context.Context, input *v1.PollActivityTaskQueueRequest, options nexus.StartOperationOptions) (*WorkflowServicePollActivityTaskQueueOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePollActivityTaskQueueOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePollActivityTaskQueueOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PollActivityTaskQueue(ctx context.Context, input *v1.PollActivityTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.PollActivityTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollActivityTaskQueueOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatAsync(ctx context.Context, input *v1.RecordActivityTaskHeartbeatRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RecordActivityTaskHeartbeatResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatOperation, input, options)
+
+type WorkflowServiceRecordActivityTaskHeartbeatOperationStartResult struct {
+	Successful *v1.RecordActivityTaskHeartbeatResponse
+	Pending    *nexus.OperationHandle[*v1.RecordActivityTaskHeartbeatResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatAsync(ctx context.Context, input *v1.RecordActivityTaskHeartbeatRequest, options nexus.StartOperationOptions) (*WorkflowServiceRecordActivityTaskHeartbeatOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRecordActivityTaskHeartbeatOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeat(ctx context.Context, input *v1.RecordActivityTaskHeartbeatRequest, options nexus.ExecuteOperationOptions) (*v1.RecordActivityTaskHeartbeatResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatByIdAsync(ctx context.Context, input *v1.RecordActivityTaskHeartbeatByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RecordActivityTaskHeartbeatByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatByIdOperation, input, options)
+
+type WorkflowServiceRecordActivityTaskHeartbeatByIdOperationStartResult struct {
+	Successful *v1.RecordActivityTaskHeartbeatByIdResponse
+	Pending    *nexus.OperationHandle[*v1.RecordActivityTaskHeartbeatByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatByIdAsync(ctx context.Context, input *v1.RecordActivityTaskHeartbeatByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceRecordActivityTaskHeartbeatByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRecordActivityTaskHeartbeatByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatById(ctx context.Context, input *v1.RecordActivityTaskHeartbeatByIdRequest, options nexus.ExecuteOperationOptions) (*v1.RecordActivityTaskHeartbeatByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedAsync(ctx context.Context, input *v1.RespondActivityTaskCompletedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskCompletedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskCompletedOperationStartResult struct {
+	Successful *v1.RespondActivityTaskCompletedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskCompletedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedAsync(ctx context.Context, input *v1.RespondActivityTaskCompletedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskCompletedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskCompletedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompleted(ctx context.Context, input *v1.RespondActivityTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedByIdAsync(ctx context.Context, input *v1.RespondActivityTaskCompletedByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskCompletedByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedByIdOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskCompletedByIdOperationStartResult struct {
+	Successful *v1.RespondActivityTaskCompletedByIdResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskCompletedByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedByIdAsync(ctx context.Context, input *v1.RespondActivityTaskCompletedByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskCompletedByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskCompletedByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedById(ctx context.Context, input *v1.RespondActivityTaskCompletedByIdRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCompletedByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedAsync(ctx context.Context, input *v1.RespondActivityTaskFailedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskFailedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskFailedOperationStartResult struct {
+	Successful *v1.RespondActivityTaskFailedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskFailedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedAsync(ctx context.Context, input *v1.RespondActivityTaskFailedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskFailedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskFailedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailed(ctx context.Context, input *v1.RespondActivityTaskFailedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskFailedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedByIdAsync(ctx context.Context, input *v1.RespondActivityTaskFailedByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskFailedByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedByIdOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskFailedByIdOperationStartResult struct {
+	Successful *v1.RespondActivityTaskFailedByIdResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskFailedByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedByIdAsync(ctx context.Context, input *v1.RespondActivityTaskFailedByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskFailedByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskFailedByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedById(ctx context.Context, input *v1.RespondActivityTaskFailedByIdRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskFailedByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledAsync(ctx context.Context, input *v1.RespondActivityTaskCanceledRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskCanceledResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskCanceledOperationStartResult struct {
+	Successful *v1.RespondActivityTaskCanceledResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskCanceledResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledAsync(ctx context.Context, input *v1.RespondActivityTaskCanceledRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskCanceledOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskCanceledOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceled(ctx context.Context, input *v1.RespondActivityTaskCanceledRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCanceledResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledByIdAsync(ctx context.Context, input *v1.RespondActivityTaskCanceledByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondActivityTaskCanceledByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledByIdOperation, input, options)
+
+type WorkflowServiceRespondActivityTaskCanceledByIdOperationStartResult struct {
+	Successful *v1.RespondActivityTaskCanceledByIdResponse
+	Pending    *nexus.OperationHandle[*v1.RespondActivityTaskCanceledByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledByIdAsync(ctx context.Context, input *v1.RespondActivityTaskCanceledByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondActivityTaskCanceledByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondActivityTaskCanceledByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledById(ctx context.Context, input *v1.RespondActivityTaskCanceledByIdRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCanceledByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RequestCancelWorkflowExecutionAsync(ctx context.Context, input *v1.RequestCancelWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RequestCancelWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRequestCancelWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceRequestCancelWorkflowExecutionOperationStartResult struct {
+	Successful *v1.RequestCancelWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.RequestCancelWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RequestCancelWorkflowExecutionAsync(ctx context.Context, input *v1.RequestCancelWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceRequestCancelWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRequestCancelWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRequestCancelWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RequestCancelWorkflowExecution(ctx context.Context, input *v1.RequestCancelWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.RequestCancelWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRequestCancelWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) SignalWorkflowExecutionAsync(ctx context.Context, input *v1.SignalWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.SignalWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceSignalWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceSignalWorkflowExecutionOperationStartResult struct {
+	Successful *v1.SignalWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.SignalWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) SignalWorkflowExecutionAsync(ctx context.Context, input *v1.SignalWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceSignalWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceSignalWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceSignalWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) SignalWorkflowExecution(ctx context.Context, input *v1.SignalWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.SignalWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSignalWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) SignalWithStartWorkflowExecutionAsync(ctx context.Context, input *v1.SignalWithStartWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.SignalWithStartWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceSignalWithStartWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceSignalWithStartWorkflowExecutionOperationStartResult struct {
+	Successful *v1.SignalWithStartWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.SignalWithStartWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) SignalWithStartWorkflowExecutionAsync(ctx context.Context, input *v1.SignalWithStartWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceSignalWithStartWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceSignalWithStartWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceSignalWithStartWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) SignalWithStartWorkflowExecution(ctx context.Context, input *v1.SignalWithStartWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.SignalWithStartWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSignalWithStartWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ResetWorkflowExecutionAsync(ctx context.Context, input *v1.ResetWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ResetWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceResetWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceResetWorkflowExecutionOperationStartResult struct {
+	Successful *v1.ResetWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.ResetWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ResetWorkflowExecutionAsync(ctx context.Context, input *v1.ResetWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceResetWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceResetWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceResetWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ResetWorkflowExecution(ctx context.Context, input *v1.ResetWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.ResetWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) TerminateWorkflowExecutionAsync(ctx context.Context, input *v1.TerminateWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.TerminateWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceTerminateWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceTerminateWorkflowExecutionOperationStartResult struct {
+	Successful *v1.TerminateWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.TerminateWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) TerminateWorkflowExecutionAsync(ctx context.Context, input *v1.TerminateWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceTerminateWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceTerminateWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceTerminateWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) TerminateWorkflowExecution(ctx context.Context, input *v1.TerminateWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.TerminateWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceTerminateWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DeleteWorkflowExecutionAsync(ctx context.Context, input *v1.DeleteWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDeleteWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceDeleteWorkflowExecutionOperationStartResult struct {
+	Successful *v1.DeleteWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DeleteWorkflowExecutionAsync(ctx context.Context, input *v1.DeleteWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceDeleteWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDeleteWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDeleteWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DeleteWorkflowExecution(ctx context.Context, input *v1.DeleteWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeleteWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListOpenWorkflowExecutionsAsync(ctx context.Context, input *v1.ListOpenWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListOpenWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListOpenWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceListOpenWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.ListOpenWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.ListOpenWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListOpenWorkflowExecutionsAsync(ctx context.Context, input *v1.ListOpenWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListOpenWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListOpenWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListOpenWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListOpenWorkflowExecutions(ctx context.Context, input *v1.ListOpenWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListOpenWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListOpenWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListClosedWorkflowExecutionsAsync(ctx context.Context, input *v1.ListClosedWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListClosedWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListClosedWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceListClosedWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.ListClosedWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.ListClosedWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListClosedWorkflowExecutionsAsync(ctx context.Context, input *v1.ListClosedWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListClosedWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListClosedWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListClosedWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListClosedWorkflowExecutions(ctx context.Context, input *v1.ListClosedWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListClosedWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListClosedWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListWorkflowExecutionsAsync(ctx context.Context, input *v1.ListWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceListWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.ListWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.ListWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListWorkflowExecutionsAsync(ctx context.Context, input *v1.ListWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListWorkflowExecutions(ctx context.Context, input *v1.ListWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListArchivedWorkflowExecutionsAsync(ctx context.Context, input *v1.ListArchivedWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListArchivedWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListArchivedWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceListArchivedWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.ListArchivedWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.ListArchivedWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListArchivedWorkflowExecutionsAsync(ctx context.Context, input *v1.ListArchivedWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListArchivedWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListArchivedWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListArchivedWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListArchivedWorkflowExecutions(ctx context.Context, input *v1.ListArchivedWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListArchivedWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListArchivedWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ScanWorkflowExecutionsAsync(ctx context.Context, input *v1.ScanWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ScanWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceScanWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceScanWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.ScanWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.ScanWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ScanWorkflowExecutionsAsync(ctx context.Context, input *v1.ScanWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceScanWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceScanWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceScanWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ScanWorkflowExecutions(ctx context.Context, input *v1.ScanWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ScanWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceScanWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) CountWorkflowExecutionsAsync(ctx context.Context, input *v1.CountWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CountWorkflowExecutionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceCountWorkflowExecutionsOperation, input, options)
+
+type WorkflowServiceCountWorkflowExecutionsOperationStartResult struct {
+	Successful *v1.CountWorkflowExecutionsResponse
+	Pending    *nexus.OperationHandle[*v1.CountWorkflowExecutionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) CountWorkflowExecutionsAsync(ctx context.Context, input *v1.CountWorkflowExecutionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceCountWorkflowExecutionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceCountWorkflowExecutionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceCountWorkflowExecutionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) CountWorkflowExecutions(ctx context.Context, input *v1.CountWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.CountWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceCountWorkflowExecutionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetSearchAttributesAsync(ctx context.Context, input *v1.GetSearchAttributesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetSearchAttributesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetSearchAttributesOperation, input, options)
+
+type WorkflowServiceGetSearchAttributesOperationStartResult struct {
+	Successful *v1.GetSearchAttributesResponse
+	Pending    *nexus.OperationHandle[*v1.GetSearchAttributesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetSearchAttributesAsync(ctx context.Context, input *v1.GetSearchAttributesRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetSearchAttributesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetSearchAttributesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetSearchAttributesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetSearchAttributes(ctx context.Context, input *v1.GetSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.GetSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetSearchAttributesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondQueryTaskCompletedAsync(ctx context.Context, input *v1.RespondQueryTaskCompletedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondQueryTaskCompletedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondQueryTaskCompletedOperation, input, options)
+
+type WorkflowServiceRespondQueryTaskCompletedOperationStartResult struct {
+	Successful *v1.RespondQueryTaskCompletedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondQueryTaskCompletedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondQueryTaskCompletedAsync(ctx context.Context, input *v1.RespondQueryTaskCompletedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondQueryTaskCompletedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondQueryTaskCompletedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondQueryTaskCompletedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondQueryTaskCompleted(ctx context.Context, input *v1.RespondQueryTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondQueryTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondQueryTaskCompletedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ResetStickyTaskQueueAsync(ctx context.Context, input *v1.ResetStickyTaskQueueRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ResetStickyTaskQueueResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceResetStickyTaskQueueOperation, input, options)
+
+type WorkflowServiceResetStickyTaskQueueOperationStartResult struct {
+	Successful *v1.ResetStickyTaskQueueResponse
+	Pending    *nexus.OperationHandle[*v1.ResetStickyTaskQueueResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ResetStickyTaskQueueAsync(ctx context.Context, input *v1.ResetStickyTaskQueueRequest, options nexus.StartOperationOptions) (*WorkflowServiceResetStickyTaskQueueOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceResetStickyTaskQueueOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceResetStickyTaskQueueOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ResetStickyTaskQueue(ctx context.Context, input *v1.ResetStickyTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.ResetStickyTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetStickyTaskQueueOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ShutdownWorkerAsync(ctx context.Context, input *v1.ShutdownWorkerRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ShutdownWorkerResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceShutdownWorkerOperation, input, options)
+
+type WorkflowServiceShutdownWorkerOperationStartResult struct {
+	Successful *v1.ShutdownWorkerResponse
+	Pending    *nexus.OperationHandle[*v1.ShutdownWorkerResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ShutdownWorkerAsync(ctx context.Context, input *v1.ShutdownWorkerRequest, options nexus.StartOperationOptions) (*WorkflowServiceShutdownWorkerOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceShutdownWorkerOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceShutdownWorkerOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ShutdownWorker(ctx context.Context, input *v1.ShutdownWorkerRequest, options nexus.ExecuteOperationOptions) (*v1.ShutdownWorkerResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceShutdownWorkerOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) QueryWorkflowAsync(ctx context.Context, input *v1.QueryWorkflowRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.QueryWorkflowResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceQueryWorkflowOperation, input, options)
+
+type WorkflowServiceQueryWorkflowOperationStartResult struct {
+	Successful *v1.QueryWorkflowResponse
+	Pending    *nexus.OperationHandle[*v1.QueryWorkflowResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) QueryWorkflowAsync(ctx context.Context, input *v1.QueryWorkflowRequest, options nexus.StartOperationOptions) (*WorkflowServiceQueryWorkflowOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceQueryWorkflowOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceQueryWorkflowOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) QueryWorkflow(ctx context.Context, input *v1.QueryWorkflowRequest, options nexus.ExecuteOperationOptions) (*v1.QueryWorkflowResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceQueryWorkflowOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeWorkflowExecutionAsync(ctx context.Context, input *v1.DescribeWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceDescribeWorkflowExecutionOperationStartResult struct {
+	Successful *v1.DescribeWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeWorkflowExecutionAsync(ctx context.Context, input *v1.DescribeWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeWorkflowExecution(ctx context.Context, input *v1.DescribeWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeTaskQueueAsync(ctx context.Context, input *v1.DescribeTaskQueueRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeTaskQueueResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeTaskQueueOperation, input, options)
+
+type WorkflowServiceDescribeTaskQueueOperationStartResult struct {
+	Successful *v1.DescribeTaskQueueResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeTaskQueueResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeTaskQueueAsync(ctx context.Context, input *v1.DescribeTaskQueueRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeTaskQueueOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeTaskQueueOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeTaskQueueOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeTaskQueue(ctx context.Context, input *v1.DescribeTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeTaskQueueOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetClusterInfoAsync(ctx context.Context, input *v1.GetClusterInfoRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetClusterInfoResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetClusterInfoOperation, input, options)
+
+type WorkflowServiceGetClusterInfoOperationStartResult struct {
+	Successful *v1.GetClusterInfoResponse
+	Pending    *nexus.OperationHandle[*v1.GetClusterInfoResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetClusterInfoAsync(ctx context.Context, input *v1.GetClusterInfoRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetClusterInfoOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetClusterInfoOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetClusterInfoOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetClusterInfo(ctx context.Context, input *v1.GetClusterInfoRequest, options nexus.ExecuteOperationOptions) (*v1.GetClusterInfoResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetClusterInfoOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetSystemInfoAsync(ctx context.Context, input *v1.GetSystemInfoRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetSystemInfoResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetSystemInfoOperation, input, options)
+
+type WorkflowServiceGetSystemInfoOperationStartResult struct {
+	Successful *v1.GetSystemInfoResponse
+	Pending    *nexus.OperationHandle[*v1.GetSystemInfoResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetSystemInfoAsync(ctx context.Context, input *v1.GetSystemInfoRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetSystemInfoOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetSystemInfoOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetSystemInfoOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetSystemInfo(ctx context.Context, input *v1.GetSystemInfoRequest, options nexus.ExecuteOperationOptions) (*v1.GetSystemInfoResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetSystemInfoOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListTaskQueuePartitionsAsync(ctx context.Context, input *v1.ListTaskQueuePartitionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListTaskQueuePartitionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListTaskQueuePartitionsOperation, input, options)
+
+type WorkflowServiceListTaskQueuePartitionsOperationStartResult struct {
+	Successful *v1.ListTaskQueuePartitionsResponse
+	Pending    *nexus.OperationHandle[*v1.ListTaskQueuePartitionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListTaskQueuePartitionsAsync(ctx context.Context, input *v1.ListTaskQueuePartitionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListTaskQueuePartitionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListTaskQueuePartitionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListTaskQueuePartitionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListTaskQueuePartitions(ctx context.Context, input *v1.ListTaskQueuePartitionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListTaskQueuePartitionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListTaskQueuePartitionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) CreateScheduleAsync(ctx context.Context, input *v1.CreateScheduleRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.CreateScheduleResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceCreateScheduleOperation, input, options)
+
+type WorkflowServiceCreateScheduleOperationStartResult struct {
+	Successful *v1.CreateScheduleResponse
+	Pending    *nexus.OperationHandle[*v1.CreateScheduleResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) CreateScheduleAsync(ctx context.Context, input *v1.CreateScheduleRequest, options nexus.StartOperationOptions) (*WorkflowServiceCreateScheduleOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceCreateScheduleOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceCreateScheduleOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) CreateSchedule(ctx context.Context, input *v1.CreateScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.CreateScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceCreateScheduleOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeScheduleAsync(ctx context.Context, input *v1.DescribeScheduleRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeScheduleResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeScheduleOperation, input, options)
+
+type WorkflowServiceDescribeScheduleOperationStartResult struct {
+	Successful *v1.DescribeScheduleResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeScheduleResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeScheduleAsync(ctx context.Context, input *v1.DescribeScheduleRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeScheduleOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeScheduleOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeScheduleOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeSchedule(ctx context.Context, input *v1.DescribeScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeScheduleOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateScheduleAsync(ctx context.Context, input *v1.UpdateScheduleRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateScheduleResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateScheduleOperation, input, options)
+
+type WorkflowServiceUpdateScheduleOperationStartResult struct {
+	Successful *v1.UpdateScheduleResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateScheduleResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateScheduleAsync(ctx context.Context, input *v1.UpdateScheduleRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateScheduleOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateScheduleOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateScheduleOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateSchedule(ctx context.Context, input *v1.UpdateScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateScheduleOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PatchScheduleAsync(ctx context.Context, input *v1.PatchScheduleRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PatchScheduleResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePatchScheduleOperation, input, options)
+
+type WorkflowServicePatchScheduleOperationStartResult struct {
+	Successful *v1.PatchScheduleResponse
+	Pending    *nexus.OperationHandle[*v1.PatchScheduleResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PatchScheduleAsync(ctx context.Context, input *v1.PatchScheduleRequest, options nexus.StartOperationOptions) (*WorkflowServicePatchScheduleOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePatchScheduleOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePatchScheduleOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PatchSchedule(ctx context.Context, input *v1.PatchScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.PatchScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePatchScheduleOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListScheduleMatchingTimesAsync(ctx context.Context, input *v1.ListScheduleMatchingTimesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListScheduleMatchingTimesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListScheduleMatchingTimesOperation, input, options)
+
+type WorkflowServiceListScheduleMatchingTimesOperationStartResult struct {
+	Successful *v1.ListScheduleMatchingTimesResponse
+	Pending    *nexus.OperationHandle[*v1.ListScheduleMatchingTimesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListScheduleMatchingTimesAsync(ctx context.Context, input *v1.ListScheduleMatchingTimesRequest, options nexus.StartOperationOptions) (*WorkflowServiceListScheduleMatchingTimesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListScheduleMatchingTimesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListScheduleMatchingTimesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListScheduleMatchingTimes(ctx context.Context, input *v1.ListScheduleMatchingTimesRequest, options nexus.ExecuteOperationOptions) (*v1.ListScheduleMatchingTimesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListScheduleMatchingTimesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DeleteScheduleAsync(ctx context.Context, input *v1.DeleteScheduleRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DeleteScheduleResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDeleteScheduleOperation, input, options)
+
+type WorkflowServiceDeleteScheduleOperationStartResult struct {
+	Successful *v1.DeleteScheduleResponse
+	Pending    *nexus.OperationHandle[*v1.DeleteScheduleResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DeleteScheduleAsync(ctx context.Context, input *v1.DeleteScheduleRequest, options nexus.StartOperationOptions) (*WorkflowServiceDeleteScheduleOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDeleteScheduleOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDeleteScheduleOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DeleteSchedule(ctx context.Context, input *v1.DeleteScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeleteScheduleOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListSchedulesAsync(ctx context.Context, input *v1.ListSchedulesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListSchedulesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListSchedulesOperation, input, options)
+
+type WorkflowServiceListSchedulesOperationStartResult struct {
+	Successful *v1.ListSchedulesResponse
+	Pending    *nexus.OperationHandle[*v1.ListSchedulesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListSchedulesAsync(ctx context.Context, input *v1.ListSchedulesRequest, options nexus.StartOperationOptions) (*WorkflowServiceListSchedulesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListSchedulesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListSchedulesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListSchedules(ctx context.Context, input *v1.ListSchedulesRequest, options nexus.ExecuteOperationOptions) (*v1.ListSchedulesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListSchedulesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerBuildIdCompatibilityAsync(ctx context.Context, input *v1.UpdateWorkerBuildIdCompatibilityRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateWorkerBuildIdCompatibilityResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkerBuildIdCompatibilityOperation, input, options)
+
+type WorkflowServiceUpdateWorkerBuildIdCompatibilityOperationStartResult struct {
+	Successful *v1.UpdateWorkerBuildIdCompatibilityResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateWorkerBuildIdCompatibilityResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerBuildIdCompatibilityAsync(ctx context.Context, input *v1.UpdateWorkerBuildIdCompatibilityRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateWorkerBuildIdCompatibilityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkerBuildIdCompatibilityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateWorkerBuildIdCompatibilityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerBuildIdCompatibility(ctx context.Context, input *v1.UpdateWorkerBuildIdCompatibilityRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateWorkerBuildIdCompatibilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkerBuildIdCompatibilityOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetWorkerBuildIdCompatibilityAsync(ctx context.Context, input *v1.GetWorkerBuildIdCompatibilityRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetWorkerBuildIdCompatibilityResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerBuildIdCompatibilityOperation, input, options)
+
+type WorkflowServiceGetWorkerBuildIdCompatibilityOperationStartResult struct {
+	Successful *v1.GetWorkerBuildIdCompatibilityResponse
+	Pending    *nexus.OperationHandle[*v1.GetWorkerBuildIdCompatibilityResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetWorkerBuildIdCompatibilityAsync(ctx context.Context, input *v1.GetWorkerBuildIdCompatibilityRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetWorkerBuildIdCompatibilityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerBuildIdCompatibilityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetWorkerBuildIdCompatibilityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetWorkerBuildIdCompatibility(ctx context.Context, input *v1.GetWorkerBuildIdCompatibilityRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkerBuildIdCompatibilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerBuildIdCompatibilityOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerVersioningRulesAsync(ctx context.Context, input *v1.UpdateWorkerVersioningRulesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateWorkerVersioningRulesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkerVersioningRulesOperation, input, options)
+
+type WorkflowServiceUpdateWorkerVersioningRulesOperationStartResult struct {
+	Successful *v1.UpdateWorkerVersioningRulesResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateWorkerVersioningRulesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerVersioningRulesAsync(ctx context.Context, input *v1.UpdateWorkerVersioningRulesRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateWorkerVersioningRulesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkerVersioningRulesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateWorkerVersioningRulesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerVersioningRules(ctx context.Context, input *v1.UpdateWorkerVersioningRulesRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateWorkerVersioningRulesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkerVersioningRulesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetWorkerVersioningRulesAsync(ctx context.Context, input *v1.GetWorkerVersioningRulesRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetWorkerVersioningRulesResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerVersioningRulesOperation, input, options)
+
+type WorkflowServiceGetWorkerVersioningRulesOperationStartResult struct {
+	Successful *v1.GetWorkerVersioningRulesResponse
+	Pending    *nexus.OperationHandle[*v1.GetWorkerVersioningRulesResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetWorkerVersioningRulesAsync(ctx context.Context, input *v1.GetWorkerVersioningRulesRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetWorkerVersioningRulesOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerVersioningRulesOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetWorkerVersioningRulesOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetWorkerVersioningRules(ctx context.Context, input *v1.GetWorkerVersioningRulesRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkerVersioningRulesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerVersioningRulesOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetWorkerTaskReachabilityAsync(ctx context.Context, input *v1.GetWorkerTaskReachabilityRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetWorkerTaskReachabilityResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerTaskReachabilityOperation, input, options)
+
+type WorkflowServiceGetWorkerTaskReachabilityOperationStartResult struct {
+	Successful *v1.GetWorkerTaskReachabilityResponse
+	Pending    *nexus.OperationHandle[*v1.GetWorkerTaskReachabilityResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetWorkerTaskReachabilityAsync(ctx context.Context, input *v1.GetWorkerTaskReachabilityRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetWorkerTaskReachabilityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetWorkerTaskReachabilityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetWorkerTaskReachabilityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetWorkerTaskReachability(ctx context.Context, input *v1.GetWorkerTaskReachabilityRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkerTaskReachabilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerTaskReachabilityOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeDeploymentAsync(ctx context.Context, input *v1.DescribeDeploymentRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeDeploymentResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeDeploymentOperation, input, options)
+
+type WorkflowServiceDescribeDeploymentOperationStartResult struct {
+	Successful *v1.DescribeDeploymentResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeDeploymentResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeDeploymentAsync(ctx context.Context, input *v1.DescribeDeploymentRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeDeploymentOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeDeploymentOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeDeploymentOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeDeployment(ctx context.Context, input *v1.DescribeDeploymentRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeDeploymentResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeDeploymentOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListDeploymentsAsync(ctx context.Context, input *v1.ListDeploymentsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListDeploymentsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListDeploymentsOperation, input, options)
+
+type WorkflowServiceListDeploymentsOperationStartResult struct {
+	Successful *v1.ListDeploymentsResponse
+	Pending    *nexus.OperationHandle[*v1.ListDeploymentsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListDeploymentsAsync(ctx context.Context, input *v1.ListDeploymentsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListDeploymentsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListDeploymentsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListDeploymentsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListDeployments(ctx context.Context, input *v1.ListDeploymentsRequest, options nexus.ExecuteOperationOptions) (*v1.ListDeploymentsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListDeploymentsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetDeploymentReachabilityAsync(ctx context.Context, input *v1.GetDeploymentReachabilityRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetDeploymentReachabilityResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetDeploymentReachabilityOperation, input, options)
+
+type WorkflowServiceGetDeploymentReachabilityOperationStartResult struct {
+	Successful *v1.GetDeploymentReachabilityResponse
+	Pending    *nexus.OperationHandle[*v1.GetDeploymentReachabilityResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetDeploymentReachabilityAsync(ctx context.Context, input *v1.GetDeploymentReachabilityRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetDeploymentReachabilityOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetDeploymentReachabilityOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetDeploymentReachabilityOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetDeploymentReachability(ctx context.Context, input *v1.GetDeploymentReachabilityRequest, options nexus.ExecuteOperationOptions) (*v1.GetDeploymentReachabilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetDeploymentReachabilityOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) GetCurrentDeploymentAsync(ctx context.Context, input *v1.GetCurrentDeploymentRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.GetCurrentDeploymentResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceGetCurrentDeploymentOperation, input, options)
+
+type WorkflowServiceGetCurrentDeploymentOperationStartResult struct {
+	Successful *v1.GetCurrentDeploymentResponse
+	Pending    *nexus.OperationHandle[*v1.GetCurrentDeploymentResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) GetCurrentDeploymentAsync(ctx context.Context, input *v1.GetCurrentDeploymentRequest, options nexus.StartOperationOptions) (*WorkflowServiceGetCurrentDeploymentOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceGetCurrentDeploymentOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceGetCurrentDeploymentOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) GetCurrentDeployment(ctx context.Context, input *v1.GetCurrentDeploymentRequest, options nexus.ExecuteOperationOptions) (*v1.GetCurrentDeploymentResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetCurrentDeploymentOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) SetCurrentDeploymentAsync(ctx context.Context, input *v1.SetCurrentDeploymentRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.SetCurrentDeploymentResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceSetCurrentDeploymentOperation, input, options)
+
+type WorkflowServiceSetCurrentDeploymentOperationStartResult struct {
+	Successful *v1.SetCurrentDeploymentResponse
+	Pending    *nexus.OperationHandle[*v1.SetCurrentDeploymentResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) SetCurrentDeploymentAsync(ctx context.Context, input *v1.SetCurrentDeploymentRequest, options nexus.StartOperationOptions) (*WorkflowServiceSetCurrentDeploymentOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceSetCurrentDeploymentOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceSetCurrentDeploymentOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) SetCurrentDeployment(ctx context.Context, input *v1.SetCurrentDeploymentRequest, options nexus.ExecuteOperationOptions) (*v1.SetCurrentDeploymentResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSetCurrentDeploymentOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionAsync(ctx context.Context, input *v1.UpdateWorkflowExecutionRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateWorkflowExecutionResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOperation, input, options)
+
+type WorkflowServiceUpdateWorkflowExecutionOperationStartResult struct {
+	Successful *v1.UpdateWorkflowExecutionResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateWorkflowExecutionResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionAsync(ctx context.Context, input *v1.UpdateWorkflowExecutionRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateWorkflowExecutionOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateWorkflowExecutionOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecution(ctx context.Context, input *v1.UpdateWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PollWorkflowExecutionUpdateAsync(ctx context.Context, input *v1.PollWorkflowExecutionUpdateRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PollWorkflowExecutionUpdateResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePollWorkflowExecutionUpdateOperation, input, options)
+
+type WorkflowServicePollWorkflowExecutionUpdateOperationStartResult struct {
+	Successful *v1.PollWorkflowExecutionUpdateResponse
+	Pending    *nexus.OperationHandle[*v1.PollWorkflowExecutionUpdateResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PollWorkflowExecutionUpdateAsync(ctx context.Context, input *v1.PollWorkflowExecutionUpdateRequest, options nexus.StartOperationOptions) (*WorkflowServicePollWorkflowExecutionUpdateOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePollWorkflowExecutionUpdateOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePollWorkflowExecutionUpdateOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PollWorkflowExecutionUpdate(ctx context.Context, input *v1.PollWorkflowExecutionUpdateRequest, options nexus.ExecuteOperationOptions) (*v1.PollWorkflowExecutionUpdateResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollWorkflowExecutionUpdateOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) StartBatchOperationAsync(ctx context.Context, input *v1.StartBatchOperationRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.StartBatchOperationResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceStartBatchOperationOperation, input, options)
+
+type WorkflowServiceStartBatchOperationOperationStartResult struct {
+	Successful *v1.StartBatchOperationResponse
+	Pending    *nexus.OperationHandle[*v1.StartBatchOperationResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) StartBatchOperationAsync(ctx context.Context, input *v1.StartBatchOperationRequest, options nexus.StartOperationOptions) (*WorkflowServiceStartBatchOperationOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceStartBatchOperationOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceStartBatchOperationOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) StartBatchOperation(ctx context.Context, input *v1.StartBatchOperationRequest, options nexus.ExecuteOperationOptions) (*v1.StartBatchOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStartBatchOperationOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) StopBatchOperationAsync(ctx context.Context, input *v1.StopBatchOperationRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.StopBatchOperationResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceStopBatchOperationOperation, input, options)
+
+type WorkflowServiceStopBatchOperationOperationStartResult struct {
+	Successful *v1.StopBatchOperationResponse
+	Pending    *nexus.OperationHandle[*v1.StopBatchOperationResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) StopBatchOperationAsync(ctx context.Context, input *v1.StopBatchOperationRequest, options nexus.StartOperationOptions) (*WorkflowServiceStopBatchOperationOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceStopBatchOperationOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceStopBatchOperationOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) StopBatchOperation(ctx context.Context, input *v1.StopBatchOperationRequest, options nexus.ExecuteOperationOptions) (*v1.StopBatchOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStopBatchOperationOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) DescribeBatchOperationAsync(ctx context.Context, input *v1.DescribeBatchOperationRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.DescribeBatchOperationResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeBatchOperationOperation, input, options)
+
+type WorkflowServiceDescribeBatchOperationOperationStartResult struct {
+	Successful *v1.DescribeBatchOperationResponse
+	Pending    *nexus.OperationHandle[*v1.DescribeBatchOperationResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) DescribeBatchOperationAsync(ctx context.Context, input *v1.DescribeBatchOperationRequest, options nexus.StartOperationOptions) (*WorkflowServiceDescribeBatchOperationOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceDescribeBatchOperationOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceDescribeBatchOperationOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) DescribeBatchOperation(ctx context.Context, input *v1.DescribeBatchOperationRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeBatchOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeBatchOperationOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ListBatchOperationsAsync(ctx context.Context, input *v1.ListBatchOperationsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ListBatchOperationsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceListBatchOperationsOperation, input, options)
+
+type WorkflowServiceListBatchOperationsOperationStartResult struct {
+	Successful *v1.ListBatchOperationsResponse
+	Pending    *nexus.OperationHandle[*v1.ListBatchOperationsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ListBatchOperationsAsync(ctx context.Context, input *v1.ListBatchOperationsRequest, options nexus.StartOperationOptions) (*WorkflowServiceListBatchOperationsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceListBatchOperationsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceListBatchOperationsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ListBatchOperations(ctx context.Context, input *v1.ListBatchOperationsRequest, options nexus.ExecuteOperationOptions) (*v1.ListBatchOperationsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListBatchOperationsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PollNexusTaskQueueAsync(ctx context.Context, input *v1.PollNexusTaskQueueRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PollNexusTaskQueueResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePollNexusTaskQueueOperation, input, options)
+
+type WorkflowServicePollNexusTaskQueueOperationStartResult struct {
+	Successful *v1.PollNexusTaskQueueResponse
+	Pending    *nexus.OperationHandle[*v1.PollNexusTaskQueueResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PollNexusTaskQueueAsync(ctx context.Context, input *v1.PollNexusTaskQueueRequest, options nexus.StartOperationOptions) (*WorkflowServicePollNexusTaskQueueOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePollNexusTaskQueueOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePollNexusTaskQueueOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PollNexusTaskQueue(ctx context.Context, input *v1.PollNexusTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.PollNexusTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollNexusTaskQueueOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskCompletedAsync(ctx context.Context, input *v1.RespondNexusTaskCompletedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondNexusTaskCompletedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskCompletedOperation, input, options)
+
+type WorkflowServiceRespondNexusTaskCompletedOperationStartResult struct {
+	Successful *v1.RespondNexusTaskCompletedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondNexusTaskCompletedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskCompletedAsync(ctx context.Context, input *v1.RespondNexusTaskCompletedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondNexusTaskCompletedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskCompletedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondNexusTaskCompletedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskCompleted(ctx context.Context, input *v1.RespondNexusTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondNexusTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskCompletedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskFailedAsync(ctx context.Context, input *v1.RespondNexusTaskFailedRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.RespondNexusTaskFailedResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskFailedOperation, input, options)
+
+type WorkflowServiceRespondNexusTaskFailedOperationStartResult struct {
+	Successful *v1.RespondNexusTaskFailedResponse
+	Pending    *nexus.OperationHandle[*v1.RespondNexusTaskFailedResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskFailedAsync(ctx context.Context, input *v1.RespondNexusTaskFailedRequest, options nexus.StartOperationOptions) (*WorkflowServiceRespondNexusTaskFailedOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskFailedOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceRespondNexusTaskFailedOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskFailed(ctx context.Context, input *v1.RespondNexusTaskFailedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondNexusTaskFailedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskFailedOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateActivityOptionsByIdAsync(ctx context.Context, input *v1.UpdateActivityOptionsByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateActivityOptionsByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateActivityOptionsByIdOperation, input, options)
+
+type WorkflowServiceUpdateActivityOptionsByIdOperationStartResult struct {
+	Successful *v1.UpdateActivityOptionsByIdResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateActivityOptionsByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateActivityOptionsByIdAsync(ctx context.Context, input *v1.UpdateActivityOptionsByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateActivityOptionsByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateActivityOptionsByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateActivityOptionsByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateActivityOptionsById(ctx context.Context, input *v1.UpdateActivityOptionsByIdRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateActivityOptionsByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateActivityOptionsByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionOptionsAsync(ctx context.Context, input *v1.UpdateWorkflowExecutionOptionsRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UpdateWorkflowExecutionOptionsResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOptionsOperation, input, options)
+
+type WorkflowServiceUpdateWorkflowExecutionOptionsOperationStartResult struct {
+	Successful *v1.UpdateWorkflowExecutionOptionsResponse
+	Pending    *nexus.OperationHandle[*v1.UpdateWorkflowExecutionOptionsResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionOptionsAsync(ctx context.Context, input *v1.UpdateWorkflowExecutionOptionsRequest, options nexus.StartOperationOptions) (*WorkflowServiceUpdateWorkflowExecutionOptionsOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOptionsOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUpdateWorkflowExecutionOptionsOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionOptions(ctx context.Context, input *v1.UpdateWorkflowExecutionOptionsRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateWorkflowExecutionOptionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOptionsOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) PauseActivityByIdAsync(ctx context.Context, input *v1.PauseActivityByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.PauseActivityByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServicePauseActivityByIdOperation, input, options)
+
+type WorkflowServicePauseActivityByIdOperationStartResult struct {
+	Successful *v1.PauseActivityByIdResponse
+	Pending    *nexus.OperationHandle[*v1.PauseActivityByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) PauseActivityByIdAsync(ctx context.Context, input *v1.PauseActivityByIdRequest, options nexus.StartOperationOptions) (*WorkflowServicePauseActivityByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServicePauseActivityByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServicePauseActivityByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) PauseActivityById(ctx context.Context, input *v1.PauseActivityByIdRequest, options nexus.ExecuteOperationOptions) (*v1.PauseActivityByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePauseActivityByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) UnpauseActivityByIdAsync(ctx context.Context, input *v1.UnpauseActivityByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.UnpauseActivityByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceUnpauseActivityByIdOperation, input, options)
+
+type WorkflowServiceUnpauseActivityByIdOperationStartResult struct {
+	Successful *v1.UnpauseActivityByIdResponse
+	Pending    *nexus.OperationHandle[*v1.UnpauseActivityByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) UnpauseActivityByIdAsync(ctx context.Context, input *v1.UnpauseActivityByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceUnpauseActivityByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceUnpauseActivityByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceUnpauseActivityByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) UnpauseActivityById(ctx context.Context, input *v1.UnpauseActivityByIdRequest, options nexus.ExecuteOperationOptions) (*v1.UnpauseActivityByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUnpauseActivityByIdOperation, input, options)
 	return output, err
 }
-func (c *WorkflowServiceNexusHTTPClient) ResetActivityByIdAsync(ctx context.Context, input *v1.ResetActivityByIdRequest, options nexus.StartOperationOptions) (*nexus.ClientStartOperationResult[*v1.ResetActivityByIdResponse], error) {
-	return nexus.StartOperation(ctx, &c.client, WorkflowServiceResetActivityByIdOperation, input, options)
+
+type WorkflowServiceResetActivityByIdOperationStartResult struct {
+	Successful *v1.ResetActivityByIdResponse
+	Pending    *nexus.OperationHandle[*v1.ResetActivityByIdResponse]
+	Links      []nexus.Link
+}
+
+func (c *WorkflowServiceNexusHTTPClient) ResetActivityByIdAsync(ctx context.Context, input *v1.ResetActivityByIdRequest, options nexus.StartOperationOptions) (*WorkflowServiceResetActivityByIdOperationStartResult, error) {
+	res, err := nexus.StartOperation(ctx, &c.client, WorkflowServiceResetActivityByIdOperation, input, options)
+	if err != nil {
+		return nil, err
+	}
+	typed := WorkflowServiceResetActivityByIdOperationStartResult{
+		Successful: res.Successful,
+		Pending:    res.Pending,
+		Links:      res.Links,
+	}
+	return &typed, nil
 }
 func (c *WorkflowServiceNexusHTTPClient) ResetActivityById(ctx context.Context, input *v1.ResetActivityByIdRequest, options nexus.ExecuteOperationOptions) (*v1.ResetActivityByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetActivityByIdOperation, input, options)

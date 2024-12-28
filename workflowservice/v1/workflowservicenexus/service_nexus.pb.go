@@ -767,6 +767,9 @@ func (c *WorkflowServiceNexusHTTPClient) RegisterNamespace(ctx context.Context, 
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRegisterNamespaceOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRegisterNamespaceHandle(id string) (*nexus.OperationHandle[*v1.RegisterNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRegisterNamespaceOperation, id)
+}
 
 type WorkflowServiceDescribeNamespaceOperationStartResult struct {
 	Successful *v1.DescribeNamespaceResponse
@@ -789,6 +792,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeNamespaceAsync(ctx context.Cont
 func (c *WorkflowServiceNexusHTTPClient) DescribeNamespace(ctx context.Context, input *v1.DescribeNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeNamespaceOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeNamespaceHandle(id string) (*nexus.OperationHandle[*v1.DescribeNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeNamespaceOperation, id)
 }
 
 type WorkflowServiceListNamespacesOperationStartResult struct {
@@ -813,6 +819,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListNamespaces(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListNamespacesOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewListNamespacesHandle(id string) (*nexus.OperationHandle[*v1.ListNamespacesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListNamespacesOperation, id)
+}
 
 type WorkflowServiceUpdateNamespaceOperationStartResult struct {
 	Successful *v1.UpdateNamespaceResponse
@@ -835,6 +844,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateNamespaceAsync(ctx context.Contex
 func (c *WorkflowServiceNexusHTTPClient) UpdateNamespace(ctx context.Context, input *v1.UpdateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateNamespaceOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateNamespaceHandle(id string) (*nexus.OperationHandle[*v1.UpdateNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateNamespaceOperation, id)
 }
 
 type WorkflowServiceDeprecateNamespaceOperationStartResult struct {
@@ -859,6 +871,9 @@ func (c *WorkflowServiceNexusHTTPClient) DeprecateNamespace(ctx context.Context,
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeprecateNamespaceOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDeprecateNamespaceHandle(id string) (*nexus.OperationHandle[*v1.DeprecateNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDeprecateNamespaceOperation, id)
+}
 
 type WorkflowServiceStartWorkflowExecutionOperationStartResult struct {
 	Successful *v1.StartWorkflowExecutionResponse
@@ -881,6 +896,9 @@ func (c *WorkflowServiceNexusHTTPClient) StartWorkflowExecutionAsync(ctx context
 func (c *WorkflowServiceNexusHTTPClient) StartWorkflowExecution(ctx context.Context, input *v1.StartWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.StartWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStartWorkflowExecutionOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewStartWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.StartWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceStartWorkflowExecutionOperation, id)
 }
 
 type WorkflowServiceExecuteMultiOperationOperationStartResult struct {
@@ -905,6 +923,9 @@ func (c *WorkflowServiceNexusHTTPClient) ExecuteMultiOperation(ctx context.Conte
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceExecuteMultiOperationOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewExecuteMultiOperationHandle(id string) (*nexus.OperationHandle[*v1.ExecuteMultiOperationResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceExecuteMultiOperationOperation, id)
+}
 
 type WorkflowServiceGetWorkflowExecutionHistoryOperationStartResult struct {
 	Successful *v1.GetWorkflowExecutionHistoryResponse
@@ -927,6 +948,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryAsync(ctx co
 func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistory(ctx context.Context, input *v1.GetWorkflowExecutionHistoryRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkflowExecutionHistoryResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetWorkflowExecutionHistoryHandle(id string) (*nexus.OperationHandle[*v1.GetWorkflowExecutionHistoryResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetWorkflowExecutionHistoryOperation, id)
 }
 
 type WorkflowServiceGetWorkflowExecutionHistoryReverseOperationStartResult struct {
@@ -951,6 +975,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetWorkflowExecutionHistoryReverse(ctx 
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkflowExecutionHistoryReverseOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewGetWorkflowExecutionHistoryReverseHandle(id string) (*nexus.OperationHandle[*v1.GetWorkflowExecutionHistoryReverseResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetWorkflowExecutionHistoryReverseOperation, id)
+}
 
 type WorkflowServicePollWorkflowTaskQueueOperationStartResult struct {
 	Successful *v1.PollWorkflowTaskQueueResponse
@@ -973,6 +1000,9 @@ func (c *WorkflowServiceNexusHTTPClient) PollWorkflowTaskQueueAsync(ctx context.
 func (c *WorkflowServiceNexusHTTPClient) PollWorkflowTaskQueue(ctx context.Context, input *v1.PollWorkflowTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.PollWorkflowTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollWorkflowTaskQueueOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewPollWorkflowTaskQueueHandle(id string) (*nexus.OperationHandle[*v1.PollWorkflowTaskQueueResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePollWorkflowTaskQueueOperation, id)
 }
 
 type WorkflowServiceRespondWorkflowTaskCompletedOperationStartResult struct {
@@ -997,6 +1027,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskCompleted(ctx contex
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskCompletedOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondWorkflowTaskCompletedHandle(id string) (*nexus.OperationHandle[*v1.RespondWorkflowTaskCompletedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondWorkflowTaskCompletedOperation, id)
+}
 
 type WorkflowServiceRespondWorkflowTaskFailedOperationStartResult struct {
 	Successful *v1.RespondWorkflowTaskFailedResponse
@@ -1019,6 +1052,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskFailedAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) RespondWorkflowTaskFailed(ctx context.Context, input *v1.RespondWorkflowTaskFailedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondWorkflowTaskFailedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondWorkflowTaskFailedOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRespondWorkflowTaskFailedHandle(id string) (*nexus.OperationHandle[*v1.RespondWorkflowTaskFailedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondWorkflowTaskFailedOperation, id)
 }
 
 type WorkflowServicePollActivityTaskQueueOperationStartResult struct {
@@ -1043,6 +1079,9 @@ func (c *WorkflowServiceNexusHTTPClient) PollActivityTaskQueue(ctx context.Conte
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollActivityTaskQueueOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewPollActivityTaskQueueHandle(id string) (*nexus.OperationHandle[*v1.PollActivityTaskQueueResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePollActivityTaskQueueOperation, id)
+}
 
 type WorkflowServiceRecordActivityTaskHeartbeatOperationStartResult struct {
 	Successful *v1.RecordActivityTaskHeartbeatResponse
@@ -1065,6 +1104,9 @@ func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatAsync(ctx co
 func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeat(ctx context.Context, input *v1.RecordActivityTaskHeartbeatRequest, options nexus.ExecuteOperationOptions) (*v1.RecordActivityTaskHeartbeatResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRecordActivityTaskHeartbeatHandle(id string) (*nexus.OperationHandle[*v1.RecordActivityTaskHeartbeatResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRecordActivityTaskHeartbeatOperation, id)
 }
 
 type WorkflowServiceRecordActivityTaskHeartbeatByIdOperationStartResult struct {
@@ -1089,6 +1131,9 @@ func (c *WorkflowServiceNexusHTTPClient) RecordActivityTaskHeartbeatById(ctx con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRecordActivityTaskHeartbeatByIdOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRecordActivityTaskHeartbeatByIdHandle(id string) (*nexus.OperationHandle[*v1.RecordActivityTaskHeartbeatByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRecordActivityTaskHeartbeatByIdOperation, id)
+}
 
 type WorkflowServiceRespondActivityTaskCompletedOperationStartResult struct {
 	Successful *v1.RespondActivityTaskCompletedResponse
@@ -1111,6 +1156,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedAsync(ctx c
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompleted(ctx context.Context, input *v1.RespondActivityTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskCompletedHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskCompletedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskCompletedOperation, id)
 }
 
 type WorkflowServiceRespondActivityTaskCompletedByIdOperationStartResult struct {
@@ -1135,6 +1183,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCompletedById(ctx co
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCompletedByIdOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskCompletedByIdHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskCompletedByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskCompletedByIdOperation, id)
+}
 
 type WorkflowServiceRespondActivityTaskFailedOperationStartResult struct {
 	Successful *v1.RespondActivityTaskFailedResponse
@@ -1157,6 +1208,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailed(ctx context.Context, input *v1.RespondActivityTaskFailedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskFailedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskFailedHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskFailedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskFailedOperation, id)
 }
 
 type WorkflowServiceRespondActivityTaskFailedByIdOperationStartResult struct {
@@ -1181,6 +1235,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskFailedById(ctx conte
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskFailedByIdOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskFailedByIdHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskFailedByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskFailedByIdOperation, id)
+}
 
 type WorkflowServiceRespondActivityTaskCanceledOperationStartResult struct {
 	Successful *v1.RespondActivityTaskCanceledResponse
@@ -1203,6 +1260,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledAsync(ctx co
 func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceled(ctx context.Context, input *v1.RespondActivityTaskCanceledRequest, options nexus.ExecuteOperationOptions) (*v1.RespondActivityTaskCanceledResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskCanceledHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskCanceledResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskCanceledOperation, id)
 }
 
 type WorkflowServiceRespondActivityTaskCanceledByIdOperationStartResult struct {
@@ -1227,6 +1287,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondActivityTaskCanceledById(ctx con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondActivityTaskCanceledByIdOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondActivityTaskCanceledByIdHandle(id string) (*nexus.OperationHandle[*v1.RespondActivityTaskCanceledByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondActivityTaskCanceledByIdOperation, id)
+}
 
 type WorkflowServiceRequestCancelWorkflowExecutionOperationStartResult struct {
 	Successful *v1.RequestCancelWorkflowExecutionResponse
@@ -1249,6 +1312,9 @@ func (c *WorkflowServiceNexusHTTPClient) RequestCancelWorkflowExecutionAsync(ctx
 func (c *WorkflowServiceNexusHTTPClient) RequestCancelWorkflowExecution(ctx context.Context, input *v1.RequestCancelWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.RequestCancelWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRequestCancelWorkflowExecutionOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRequestCancelWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.RequestCancelWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRequestCancelWorkflowExecutionOperation, id)
 }
 
 type WorkflowServiceSignalWorkflowExecutionOperationStartResult struct {
@@ -1273,6 +1339,9 @@ func (c *WorkflowServiceNexusHTTPClient) SignalWorkflowExecution(ctx context.Con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSignalWorkflowExecutionOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewSignalWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.SignalWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceSignalWorkflowExecutionOperation, id)
+}
 
 type WorkflowServiceSignalWithStartWorkflowExecutionOperationStartResult struct {
 	Successful *v1.SignalWithStartWorkflowExecutionResponse
@@ -1295,6 +1364,9 @@ func (c *WorkflowServiceNexusHTTPClient) SignalWithStartWorkflowExecutionAsync(c
 func (c *WorkflowServiceNexusHTTPClient) SignalWithStartWorkflowExecution(ctx context.Context, input *v1.SignalWithStartWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.SignalWithStartWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSignalWithStartWorkflowExecutionOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewSignalWithStartWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.SignalWithStartWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceSignalWithStartWorkflowExecutionOperation, id)
 }
 
 type WorkflowServiceResetWorkflowExecutionOperationStartResult struct {
@@ -1319,6 +1391,9 @@ func (c *WorkflowServiceNexusHTTPClient) ResetWorkflowExecution(ctx context.Cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetWorkflowExecutionOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewResetWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.ResetWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceResetWorkflowExecutionOperation, id)
+}
 
 type WorkflowServiceTerminateWorkflowExecutionOperationStartResult struct {
 	Successful *v1.TerminateWorkflowExecutionResponse
@@ -1341,6 +1416,9 @@ func (c *WorkflowServiceNexusHTTPClient) TerminateWorkflowExecutionAsync(ctx con
 func (c *WorkflowServiceNexusHTTPClient) TerminateWorkflowExecution(ctx context.Context, input *v1.TerminateWorkflowExecutionRequest, options nexus.ExecuteOperationOptions) (*v1.TerminateWorkflowExecutionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceTerminateWorkflowExecutionOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewTerminateWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.TerminateWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceTerminateWorkflowExecutionOperation, id)
 }
 
 type WorkflowServiceDeleteWorkflowExecutionOperationStartResult struct {
@@ -1365,6 +1443,9 @@ func (c *WorkflowServiceNexusHTTPClient) DeleteWorkflowExecution(ctx context.Con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeleteWorkflowExecutionOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDeleteWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.DeleteWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDeleteWorkflowExecutionOperation, id)
+}
 
 type WorkflowServiceListOpenWorkflowExecutionsOperationStartResult struct {
 	Successful *v1.ListOpenWorkflowExecutionsResponse
@@ -1387,6 +1468,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListOpenWorkflowExecutionsAsync(ctx con
 func (c *WorkflowServiceNexusHTTPClient) ListOpenWorkflowExecutions(ctx context.Context, input *v1.ListOpenWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListOpenWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListOpenWorkflowExecutionsOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewListOpenWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.ListOpenWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListOpenWorkflowExecutionsOperation, id)
 }
 
 type WorkflowServiceListClosedWorkflowExecutionsOperationStartResult struct {
@@ -1411,6 +1495,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListClosedWorkflowExecutions(ctx contex
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListClosedWorkflowExecutionsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewListClosedWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.ListClosedWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListClosedWorkflowExecutionsOperation, id)
+}
 
 type WorkflowServiceListWorkflowExecutionsOperationStartResult struct {
 	Successful *v1.ListWorkflowExecutionsResponse
@@ -1433,6 +1520,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListWorkflowExecutionsAsync(ctx context
 func (c *WorkflowServiceNexusHTTPClient) ListWorkflowExecutions(ctx context.Context, input *v1.ListWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ListWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListWorkflowExecutionsOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewListWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.ListWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListWorkflowExecutionsOperation, id)
 }
 
 type WorkflowServiceListArchivedWorkflowExecutionsOperationStartResult struct {
@@ -1457,6 +1547,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListArchivedWorkflowExecutions(ctx cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListArchivedWorkflowExecutionsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewListArchivedWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.ListArchivedWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListArchivedWorkflowExecutionsOperation, id)
+}
 
 type WorkflowServiceScanWorkflowExecutionsOperationStartResult struct {
 	Successful *v1.ScanWorkflowExecutionsResponse
@@ -1479,6 +1572,9 @@ func (c *WorkflowServiceNexusHTTPClient) ScanWorkflowExecutionsAsync(ctx context
 func (c *WorkflowServiceNexusHTTPClient) ScanWorkflowExecutions(ctx context.Context, input *v1.ScanWorkflowExecutionsRequest, options nexus.ExecuteOperationOptions) (*v1.ScanWorkflowExecutionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceScanWorkflowExecutionsOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewScanWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.ScanWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceScanWorkflowExecutionsOperation, id)
 }
 
 type WorkflowServiceCountWorkflowExecutionsOperationStartResult struct {
@@ -1503,6 +1599,9 @@ func (c *WorkflowServiceNexusHTTPClient) CountWorkflowExecutions(ctx context.Con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceCountWorkflowExecutionsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewCountWorkflowExecutionsHandle(id string) (*nexus.OperationHandle[*v1.CountWorkflowExecutionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceCountWorkflowExecutionsOperation, id)
+}
 
 type WorkflowServiceGetSearchAttributesOperationStartResult struct {
 	Successful *v1.GetSearchAttributesResponse
@@ -1525,6 +1624,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetSearchAttributesAsync(ctx context.Co
 func (c *WorkflowServiceNexusHTTPClient) GetSearchAttributes(ctx context.Context, input *v1.GetSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.GetSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetSearchAttributesOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetSearchAttributesHandle(id string) (*nexus.OperationHandle[*v1.GetSearchAttributesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetSearchAttributesOperation, id)
 }
 
 type WorkflowServiceRespondQueryTaskCompletedOperationStartResult struct {
@@ -1549,6 +1651,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondQueryTaskCompleted(ctx context.C
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondQueryTaskCompletedOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondQueryTaskCompletedHandle(id string) (*nexus.OperationHandle[*v1.RespondQueryTaskCompletedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondQueryTaskCompletedOperation, id)
+}
 
 type WorkflowServiceResetStickyTaskQueueOperationStartResult struct {
 	Successful *v1.ResetStickyTaskQueueResponse
@@ -1571,6 +1676,9 @@ func (c *WorkflowServiceNexusHTTPClient) ResetStickyTaskQueueAsync(ctx context.C
 func (c *WorkflowServiceNexusHTTPClient) ResetStickyTaskQueue(ctx context.Context, input *v1.ResetStickyTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.ResetStickyTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetStickyTaskQueueOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewResetStickyTaskQueueHandle(id string) (*nexus.OperationHandle[*v1.ResetStickyTaskQueueResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceResetStickyTaskQueueOperation, id)
 }
 
 type WorkflowServiceShutdownWorkerOperationStartResult struct {
@@ -1595,6 +1703,9 @@ func (c *WorkflowServiceNexusHTTPClient) ShutdownWorker(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceShutdownWorkerOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewShutdownWorkerHandle(id string) (*nexus.OperationHandle[*v1.ShutdownWorkerResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceShutdownWorkerOperation, id)
+}
 
 type WorkflowServiceQueryWorkflowOperationStartResult struct {
 	Successful *v1.QueryWorkflowResponse
@@ -1617,6 +1728,9 @@ func (c *WorkflowServiceNexusHTTPClient) QueryWorkflowAsync(ctx context.Context,
 func (c *WorkflowServiceNexusHTTPClient) QueryWorkflow(ctx context.Context, input *v1.QueryWorkflowRequest, options nexus.ExecuteOperationOptions) (*v1.QueryWorkflowResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceQueryWorkflowOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewQueryWorkflowHandle(id string) (*nexus.OperationHandle[*v1.QueryWorkflowResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceQueryWorkflowOperation, id)
 }
 
 type WorkflowServiceDescribeWorkflowExecutionOperationStartResult struct {
@@ -1641,6 +1755,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeWorkflowExecution(ctx context.C
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeWorkflowExecutionOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.DescribeWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeWorkflowExecutionOperation, id)
+}
 
 type WorkflowServiceDescribeTaskQueueOperationStartResult struct {
 	Successful *v1.DescribeTaskQueueResponse
@@ -1663,6 +1780,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeTaskQueueAsync(ctx context.Cont
 func (c *WorkflowServiceNexusHTTPClient) DescribeTaskQueue(ctx context.Context, input *v1.DescribeTaskQueueRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeTaskQueueResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeTaskQueueOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeTaskQueueHandle(id string) (*nexus.OperationHandle[*v1.DescribeTaskQueueResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeTaskQueueOperation, id)
 }
 
 type WorkflowServiceGetClusterInfoOperationStartResult struct {
@@ -1687,6 +1807,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetClusterInfo(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetClusterInfoOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewGetClusterInfoHandle(id string) (*nexus.OperationHandle[*v1.GetClusterInfoResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetClusterInfoOperation, id)
+}
 
 type WorkflowServiceGetSystemInfoOperationStartResult struct {
 	Successful *v1.GetSystemInfoResponse
@@ -1709,6 +1832,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetSystemInfoAsync(ctx context.Context,
 func (c *WorkflowServiceNexusHTTPClient) GetSystemInfo(ctx context.Context, input *v1.GetSystemInfoRequest, options nexus.ExecuteOperationOptions) (*v1.GetSystemInfoResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetSystemInfoOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetSystemInfoHandle(id string) (*nexus.OperationHandle[*v1.GetSystemInfoResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetSystemInfoOperation, id)
 }
 
 type WorkflowServiceListTaskQueuePartitionsOperationStartResult struct {
@@ -1733,6 +1859,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListTaskQueuePartitions(ctx context.Con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListTaskQueuePartitionsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewListTaskQueuePartitionsHandle(id string) (*nexus.OperationHandle[*v1.ListTaskQueuePartitionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListTaskQueuePartitionsOperation, id)
+}
 
 type WorkflowServiceCreateScheduleOperationStartResult struct {
 	Successful *v1.CreateScheduleResponse
@@ -1755,6 +1884,9 @@ func (c *WorkflowServiceNexusHTTPClient) CreateScheduleAsync(ctx context.Context
 func (c *WorkflowServiceNexusHTTPClient) CreateSchedule(ctx context.Context, input *v1.CreateScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.CreateScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceCreateScheduleOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewCreateScheduleHandle(id string) (*nexus.OperationHandle[*v1.CreateScheduleResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceCreateScheduleOperation, id)
 }
 
 type WorkflowServiceDescribeScheduleOperationStartResult struct {
@@ -1779,6 +1911,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeSchedule(ctx context.Context, i
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeScheduleOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeScheduleHandle(id string) (*nexus.OperationHandle[*v1.DescribeScheduleResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeScheduleOperation, id)
+}
 
 type WorkflowServiceUpdateScheduleOperationStartResult struct {
 	Successful *v1.UpdateScheduleResponse
@@ -1801,6 +1936,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateScheduleAsync(ctx context.Context
 func (c *WorkflowServiceNexusHTTPClient) UpdateSchedule(ctx context.Context, input *v1.UpdateScheduleRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateScheduleResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateScheduleOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateScheduleHandle(id string) (*nexus.OperationHandle[*v1.UpdateScheduleResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateScheduleOperation, id)
 }
 
 type WorkflowServicePatchScheduleOperationStartResult struct {
@@ -1825,6 +1963,9 @@ func (c *WorkflowServiceNexusHTTPClient) PatchSchedule(ctx context.Context, inpu
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePatchScheduleOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewPatchScheduleHandle(id string) (*nexus.OperationHandle[*v1.PatchScheduleResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePatchScheduleOperation, id)
+}
 
 type WorkflowServiceListScheduleMatchingTimesOperationStartResult struct {
 	Successful *v1.ListScheduleMatchingTimesResponse
@@ -1847,6 +1988,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListScheduleMatchingTimesAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) ListScheduleMatchingTimes(ctx context.Context, input *v1.ListScheduleMatchingTimesRequest, options nexus.ExecuteOperationOptions) (*v1.ListScheduleMatchingTimesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListScheduleMatchingTimesOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewListScheduleMatchingTimesHandle(id string) (*nexus.OperationHandle[*v1.ListScheduleMatchingTimesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListScheduleMatchingTimesOperation, id)
 }
 
 type WorkflowServiceDeleteScheduleOperationStartResult struct {
@@ -1871,6 +2015,9 @@ func (c *WorkflowServiceNexusHTTPClient) DeleteSchedule(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDeleteScheduleOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDeleteScheduleHandle(id string) (*nexus.OperationHandle[*v1.DeleteScheduleResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDeleteScheduleOperation, id)
+}
 
 type WorkflowServiceListSchedulesOperationStartResult struct {
 	Successful *v1.ListSchedulesResponse
@@ -1893,6 +2040,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListSchedulesAsync(ctx context.Context,
 func (c *WorkflowServiceNexusHTTPClient) ListSchedules(ctx context.Context, input *v1.ListSchedulesRequest, options nexus.ExecuteOperationOptions) (*v1.ListSchedulesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListSchedulesOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewListSchedulesHandle(id string) (*nexus.OperationHandle[*v1.ListSchedulesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListSchedulesOperation, id)
 }
 
 type WorkflowServiceUpdateWorkerBuildIdCompatibilityOperationStartResult struct {
@@ -1917,6 +2067,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerBuildIdCompatibility(ctx co
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkerBuildIdCompatibilityOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateWorkerBuildIdCompatibilityHandle(id string) (*nexus.OperationHandle[*v1.UpdateWorkerBuildIdCompatibilityResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateWorkerBuildIdCompatibilityOperation, id)
+}
 
 type WorkflowServiceGetWorkerBuildIdCompatibilityOperationStartResult struct {
 	Successful *v1.GetWorkerBuildIdCompatibilityResponse
@@ -1939,6 +2092,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetWorkerBuildIdCompatibilityAsync(ctx 
 func (c *WorkflowServiceNexusHTTPClient) GetWorkerBuildIdCompatibility(ctx context.Context, input *v1.GetWorkerBuildIdCompatibilityRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkerBuildIdCompatibilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerBuildIdCompatibilityOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetWorkerBuildIdCompatibilityHandle(id string) (*nexus.OperationHandle[*v1.GetWorkerBuildIdCompatibilityResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetWorkerBuildIdCompatibilityOperation, id)
 }
 
 type WorkflowServiceUpdateWorkerVersioningRulesOperationStartResult struct {
@@ -1963,6 +2119,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateWorkerVersioningRules(ctx context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkerVersioningRulesOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateWorkerVersioningRulesHandle(id string) (*nexus.OperationHandle[*v1.UpdateWorkerVersioningRulesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateWorkerVersioningRulesOperation, id)
+}
 
 type WorkflowServiceGetWorkerVersioningRulesOperationStartResult struct {
 	Successful *v1.GetWorkerVersioningRulesResponse
@@ -1985,6 +2144,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetWorkerVersioningRulesAsync(ctx conte
 func (c *WorkflowServiceNexusHTTPClient) GetWorkerVersioningRules(ctx context.Context, input *v1.GetWorkerVersioningRulesRequest, options nexus.ExecuteOperationOptions) (*v1.GetWorkerVersioningRulesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerVersioningRulesOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetWorkerVersioningRulesHandle(id string) (*nexus.OperationHandle[*v1.GetWorkerVersioningRulesResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetWorkerVersioningRulesOperation, id)
 }
 
 type WorkflowServiceGetWorkerTaskReachabilityOperationStartResult struct {
@@ -2009,6 +2171,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetWorkerTaskReachability(ctx context.C
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetWorkerTaskReachabilityOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewGetWorkerTaskReachabilityHandle(id string) (*nexus.OperationHandle[*v1.GetWorkerTaskReachabilityResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetWorkerTaskReachabilityOperation, id)
+}
 
 type WorkflowServiceDescribeDeploymentOperationStartResult struct {
 	Successful *v1.DescribeDeploymentResponse
@@ -2031,6 +2196,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeDeploymentAsync(ctx context.Con
 func (c *WorkflowServiceNexusHTTPClient) DescribeDeployment(ctx context.Context, input *v1.DescribeDeploymentRequest, options nexus.ExecuteOperationOptions) (*v1.DescribeDeploymentResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeDeploymentOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeDeploymentHandle(id string) (*nexus.OperationHandle[*v1.DescribeDeploymentResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeDeploymentOperation, id)
 }
 
 type WorkflowServiceListDeploymentsOperationStartResult struct {
@@ -2055,6 +2223,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListDeployments(ctx context.Context, in
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListDeploymentsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewListDeploymentsHandle(id string) (*nexus.OperationHandle[*v1.ListDeploymentsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListDeploymentsOperation, id)
+}
 
 type WorkflowServiceGetDeploymentReachabilityOperationStartResult struct {
 	Successful *v1.GetDeploymentReachabilityResponse
@@ -2077,6 +2248,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetDeploymentReachabilityAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) GetDeploymentReachability(ctx context.Context, input *v1.GetDeploymentReachabilityRequest, options nexus.ExecuteOperationOptions) (*v1.GetDeploymentReachabilityResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetDeploymentReachabilityOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewGetDeploymentReachabilityHandle(id string) (*nexus.OperationHandle[*v1.GetDeploymentReachabilityResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetDeploymentReachabilityOperation, id)
 }
 
 type WorkflowServiceGetCurrentDeploymentOperationStartResult struct {
@@ -2101,6 +2275,9 @@ func (c *WorkflowServiceNexusHTTPClient) GetCurrentDeployment(ctx context.Contex
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceGetCurrentDeploymentOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewGetCurrentDeploymentHandle(id string) (*nexus.OperationHandle[*v1.GetCurrentDeploymentResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceGetCurrentDeploymentOperation, id)
+}
 
 type WorkflowServiceSetCurrentDeploymentOperationStartResult struct {
 	Successful *v1.SetCurrentDeploymentResponse
@@ -2123,6 +2300,9 @@ func (c *WorkflowServiceNexusHTTPClient) SetCurrentDeploymentAsync(ctx context.C
 func (c *WorkflowServiceNexusHTTPClient) SetCurrentDeployment(ctx context.Context, input *v1.SetCurrentDeploymentRequest, options nexus.ExecuteOperationOptions) (*v1.SetCurrentDeploymentResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceSetCurrentDeploymentOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewSetCurrentDeploymentHandle(id string) (*nexus.OperationHandle[*v1.SetCurrentDeploymentResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceSetCurrentDeploymentOperation, id)
 }
 
 type WorkflowServiceUpdateWorkflowExecutionOperationStartResult struct {
@@ -2147,6 +2327,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecution(ctx context.Con
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateWorkflowExecutionHandle(id string) (*nexus.OperationHandle[*v1.UpdateWorkflowExecutionResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateWorkflowExecutionOperation, id)
+}
 
 type WorkflowServicePollWorkflowExecutionUpdateOperationStartResult struct {
 	Successful *v1.PollWorkflowExecutionUpdateResponse
@@ -2169,6 +2352,9 @@ func (c *WorkflowServiceNexusHTTPClient) PollWorkflowExecutionUpdateAsync(ctx co
 func (c *WorkflowServiceNexusHTTPClient) PollWorkflowExecutionUpdate(ctx context.Context, input *v1.PollWorkflowExecutionUpdateRequest, options nexus.ExecuteOperationOptions) (*v1.PollWorkflowExecutionUpdateResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollWorkflowExecutionUpdateOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewPollWorkflowExecutionUpdateHandle(id string) (*nexus.OperationHandle[*v1.PollWorkflowExecutionUpdateResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePollWorkflowExecutionUpdateOperation, id)
 }
 
 type WorkflowServiceStartBatchOperationOperationStartResult struct {
@@ -2193,6 +2379,9 @@ func (c *WorkflowServiceNexusHTTPClient) StartBatchOperation(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStartBatchOperationOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewStartBatchOperationHandle(id string) (*nexus.OperationHandle[*v1.StartBatchOperationResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceStartBatchOperationOperation, id)
+}
 
 type WorkflowServiceStopBatchOperationOperationStartResult struct {
 	Successful *v1.StopBatchOperationResponse
@@ -2215,6 +2404,9 @@ func (c *WorkflowServiceNexusHTTPClient) StopBatchOperationAsync(ctx context.Con
 func (c *WorkflowServiceNexusHTTPClient) StopBatchOperation(ctx context.Context, input *v1.StopBatchOperationRequest, options nexus.ExecuteOperationOptions) (*v1.StopBatchOperationResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceStopBatchOperationOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewStopBatchOperationHandle(id string) (*nexus.OperationHandle[*v1.StopBatchOperationResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceStopBatchOperationOperation, id)
 }
 
 type WorkflowServiceDescribeBatchOperationOperationStartResult struct {
@@ -2239,6 +2431,9 @@ func (c *WorkflowServiceNexusHTTPClient) DescribeBatchOperation(ctx context.Cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceDescribeBatchOperationOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewDescribeBatchOperationHandle(id string) (*nexus.OperationHandle[*v1.DescribeBatchOperationResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceDescribeBatchOperationOperation, id)
+}
 
 type WorkflowServiceListBatchOperationsOperationStartResult struct {
 	Successful *v1.ListBatchOperationsResponse
@@ -2261,6 +2456,9 @@ func (c *WorkflowServiceNexusHTTPClient) ListBatchOperationsAsync(ctx context.Co
 func (c *WorkflowServiceNexusHTTPClient) ListBatchOperations(ctx context.Context, input *v1.ListBatchOperationsRequest, options nexus.ExecuteOperationOptions) (*v1.ListBatchOperationsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceListBatchOperationsOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewListBatchOperationsHandle(id string) (*nexus.OperationHandle[*v1.ListBatchOperationsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceListBatchOperationsOperation, id)
 }
 
 type WorkflowServicePollNexusTaskQueueOperationStartResult struct {
@@ -2285,6 +2483,9 @@ func (c *WorkflowServiceNexusHTTPClient) PollNexusTaskQueue(ctx context.Context,
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePollNexusTaskQueueOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewPollNexusTaskQueueHandle(id string) (*nexus.OperationHandle[*v1.PollNexusTaskQueueResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePollNexusTaskQueueOperation, id)
+}
 
 type WorkflowServiceRespondNexusTaskCompletedOperationStartResult struct {
 	Successful *v1.RespondNexusTaskCompletedResponse
@@ -2307,6 +2508,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskCompletedAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskCompleted(ctx context.Context, input *v1.RespondNexusTaskCompletedRequest, options nexus.ExecuteOperationOptions) (*v1.RespondNexusTaskCompletedResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskCompletedOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewRespondNexusTaskCompletedHandle(id string) (*nexus.OperationHandle[*v1.RespondNexusTaskCompletedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondNexusTaskCompletedOperation, id)
 }
 
 type WorkflowServiceRespondNexusTaskFailedOperationStartResult struct {
@@ -2331,6 +2535,9 @@ func (c *WorkflowServiceNexusHTTPClient) RespondNexusTaskFailed(ctx context.Cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceRespondNexusTaskFailedOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewRespondNexusTaskFailedHandle(id string) (*nexus.OperationHandle[*v1.RespondNexusTaskFailedResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceRespondNexusTaskFailedOperation, id)
+}
 
 type WorkflowServiceUpdateActivityOptionsByIdOperationStartResult struct {
 	Successful *v1.UpdateActivityOptionsByIdResponse
@@ -2353,6 +2560,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateActivityOptionsByIdAsync(ctx cont
 func (c *WorkflowServiceNexusHTTPClient) UpdateActivityOptionsById(ctx context.Context, input *v1.UpdateActivityOptionsByIdRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateActivityOptionsByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateActivityOptionsByIdOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateActivityOptionsByIdHandle(id string) (*nexus.OperationHandle[*v1.UpdateActivityOptionsByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateActivityOptionsByIdOperation, id)
 }
 
 type WorkflowServiceUpdateWorkflowExecutionOptionsOperationStartResult struct {
@@ -2377,6 +2587,9 @@ func (c *WorkflowServiceNexusHTTPClient) UpdateWorkflowExecutionOptions(ctx cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUpdateWorkflowExecutionOptionsOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewUpdateWorkflowExecutionOptionsHandle(id string) (*nexus.OperationHandle[*v1.UpdateWorkflowExecutionOptionsResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUpdateWorkflowExecutionOptionsOperation, id)
+}
 
 type WorkflowServicePauseActivityByIdOperationStartResult struct {
 	Successful *v1.PauseActivityByIdResponse
@@ -2399,6 +2612,9 @@ func (c *WorkflowServiceNexusHTTPClient) PauseActivityByIdAsync(ctx context.Cont
 func (c *WorkflowServiceNexusHTTPClient) PauseActivityById(ctx context.Context, input *v1.PauseActivityByIdRequest, options nexus.ExecuteOperationOptions) (*v1.PauseActivityByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServicePauseActivityByIdOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewPauseActivityByIdHandle(id string) (*nexus.OperationHandle[*v1.PauseActivityByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServicePauseActivityByIdOperation, id)
 }
 
 type WorkflowServiceUnpauseActivityByIdOperationStartResult struct {
@@ -2423,6 +2639,9 @@ func (c *WorkflowServiceNexusHTTPClient) UnpauseActivityById(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceUnpauseActivityByIdOperation, input, options)
 	return output, err
 }
+func (c *WorkflowServiceNexusHTTPClient) NewUnpauseActivityByIdHandle(id string) (*nexus.OperationHandle[*v1.UnpauseActivityByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceUnpauseActivityByIdOperation, id)
+}
 
 type WorkflowServiceResetActivityByIdOperationStartResult struct {
 	Successful *v1.ResetActivityByIdResponse
@@ -2445,4 +2664,7 @@ func (c *WorkflowServiceNexusHTTPClient) ResetActivityByIdAsync(ctx context.Cont
 func (c *WorkflowServiceNexusHTTPClient) ResetActivityById(ctx context.Context, input *v1.ResetActivityByIdRequest, options nexus.ExecuteOperationOptions) (*v1.ResetActivityByIdResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, WorkflowServiceResetActivityByIdOperation, input, options)
 	return output, err
+}
+func (c *WorkflowServiceNexusHTTPClient) NewResetActivityByIdHandle(id string) (*nexus.OperationHandle[*v1.ResetActivityByIdResponse], error) {
+	return nexus.NewHandle(&c.client, WorkflowServiceResetActivityByIdOperation, id)
 }

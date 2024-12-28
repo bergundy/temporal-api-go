@@ -209,6 +209,9 @@ func (c *OperatorServiceNexusHTTPClient) AddSearchAttributes(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceAddSearchAttributesOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewAddSearchAttributesHandle(id string) (*nexus.OperationHandle[*v1.AddSearchAttributesResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceAddSearchAttributesOperation, id)
+}
 
 type OperatorServiceRemoveSearchAttributesOperationStartResult struct {
 	Successful *v1.RemoveSearchAttributesResponse
@@ -231,6 +234,9 @@ func (c *OperatorServiceNexusHTTPClient) RemoveSearchAttributesAsync(ctx context
 func (c *OperatorServiceNexusHTTPClient) RemoveSearchAttributes(ctx context.Context, input *v1.RemoveSearchAttributesRequest, options nexus.ExecuteOperationOptions) (*v1.RemoveSearchAttributesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceRemoveSearchAttributesOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewRemoveSearchAttributesHandle(id string) (*nexus.OperationHandle[*v1.RemoveSearchAttributesResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceRemoveSearchAttributesOperation, id)
 }
 
 type OperatorServiceListSearchAttributesOperationStartResult struct {
@@ -255,6 +261,9 @@ func (c *OperatorServiceNexusHTTPClient) ListSearchAttributes(ctx context.Contex
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListSearchAttributesOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewListSearchAttributesHandle(id string) (*nexus.OperationHandle[*v1.ListSearchAttributesResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceListSearchAttributesOperation, id)
+}
 
 type OperatorServiceDeleteNamespaceOperationStartResult struct {
 	Successful *v1.DeleteNamespaceResponse
@@ -277,6 +286,9 @@ func (c *OperatorServiceNexusHTTPClient) DeleteNamespaceAsync(ctx context.Contex
 func (c *OperatorServiceNexusHTTPClient) DeleteNamespace(ctx context.Context, input *v1.DeleteNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceDeleteNamespaceOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewDeleteNamespaceHandle(id string) (*nexus.OperationHandle[*v1.DeleteNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceDeleteNamespaceOperation, id)
 }
 
 type OperatorServiceAddOrUpdateRemoteClusterOperationStartResult struct {
@@ -301,6 +313,9 @@ func (c *OperatorServiceNexusHTTPClient) AddOrUpdateRemoteCluster(ctx context.Co
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceAddOrUpdateRemoteClusterOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewAddOrUpdateRemoteClusterHandle(id string) (*nexus.OperationHandle[*v1.AddOrUpdateRemoteClusterResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceAddOrUpdateRemoteClusterOperation, id)
+}
 
 type OperatorServiceRemoveRemoteClusterOperationStartResult struct {
 	Successful *v1.RemoveRemoteClusterResponse
@@ -323,6 +338,9 @@ func (c *OperatorServiceNexusHTTPClient) RemoveRemoteClusterAsync(ctx context.Co
 func (c *OperatorServiceNexusHTTPClient) RemoveRemoteCluster(ctx context.Context, input *v1.RemoveRemoteClusterRequest, options nexus.ExecuteOperationOptions) (*v1.RemoveRemoteClusterResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceRemoveRemoteClusterOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewRemoveRemoteClusterHandle(id string) (*nexus.OperationHandle[*v1.RemoveRemoteClusterResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceRemoveRemoteClusterOperation, id)
 }
 
 type OperatorServiceListClustersOperationStartResult struct {
@@ -347,6 +365,9 @@ func (c *OperatorServiceNexusHTTPClient) ListClusters(ctx context.Context, input
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListClustersOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewListClustersHandle(id string) (*nexus.OperationHandle[*v1.ListClustersResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceListClustersOperation, id)
+}
 
 type OperatorServiceGetNexusEndpointOperationStartResult struct {
 	Successful *v1.GetNexusEndpointResponse
@@ -369,6 +390,9 @@ func (c *OperatorServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Conte
 func (c *OperatorServiceNexusHTTPClient) GetNexusEndpoint(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.GetNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceGetNexusEndpointOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewGetNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.GetNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceGetNexusEndpointOperation, id)
 }
 
 type OperatorServiceCreateNexusEndpointOperationStartResult struct {
@@ -393,6 +417,9 @@ func (c *OperatorServiceNexusHTTPClient) CreateNexusEndpoint(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceCreateNexusEndpointOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewCreateNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.CreateNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceCreateNexusEndpointOperation, id)
+}
 
 type OperatorServiceUpdateNexusEndpointOperationStartResult struct {
 	Successful *v1.UpdateNexusEndpointResponse
@@ -415,6 +442,9 @@ func (c *OperatorServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Co
 func (c *OperatorServiceNexusHTTPClient) UpdateNexusEndpoint(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceUpdateNexusEndpointOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewUpdateNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.UpdateNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceUpdateNexusEndpointOperation, id)
 }
 
 type OperatorServiceDeleteNexusEndpointOperationStartResult struct {
@@ -439,6 +469,9 @@ func (c *OperatorServiceNexusHTTPClient) DeleteNexusEndpoint(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceDeleteNexusEndpointOperation, input, options)
 	return output, err
 }
+func (c *OperatorServiceNexusHTTPClient) NewDeleteNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.DeleteNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceDeleteNexusEndpointOperation, id)
+}
 
 type OperatorServiceListNexusEndpointsOperationStartResult struct {
 	Successful *v1.ListNexusEndpointsResponse
@@ -461,4 +494,7 @@ func (c *OperatorServiceNexusHTTPClient) ListNexusEndpointsAsync(ctx context.Con
 func (c *OperatorServiceNexusHTTPClient) ListNexusEndpoints(ctx context.Context, input *v1.ListNexusEndpointsRequest, options nexus.ExecuteOperationOptions) (*v1.ListNexusEndpointsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, OperatorServiceListNexusEndpointsOperation, input, options)
 	return output, err
+}
+func (c *OperatorServiceNexusHTTPClient) NewListNexusEndpointsHandle(id string) (*nexus.OperationHandle[*v1.ListNexusEndpointsResponse], error) {
+	return nexus.NewHandle(&c.client, OperatorServiceListNexusEndpointsOperation, id)
 }

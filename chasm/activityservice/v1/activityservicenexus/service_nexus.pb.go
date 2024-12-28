@@ -140,6 +140,9 @@ func (c *ActivityServiceNexusHTTPClient) ExecuteActivity(ctx context.Context, in
 	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceExecuteActivityOperation, input, options)
 	return output, err
 }
+func (c *ActivityServiceNexusHTTPClient) NewExecuteActivityHandle(id string) (*nexus.OperationHandle[*v1.ExecuteActivityResponse], error) {
+	return nexus.NewHandle(&c.client, ActivityServiceExecuteActivityOperation, id)
+}
 
 type ActivityServiceDescribeActivityOperationStartResult struct {
 	Successful *v1.DescribeActivityResponse
@@ -163,6 +166,9 @@ func (c *ActivityServiceNexusHTTPClient) DescribeActivity(ctx context.Context, i
 	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceDescribeActivityOperation, input, options)
 	return output, err
 }
+func (c *ActivityServiceNexusHTTPClient) NewDescribeActivityHandle(id string) (*nexus.OperationHandle[*v1.DescribeActivityResponse], error) {
+	return nexus.NewHandle(&c.client, ActivityServiceDescribeActivityOperation, id)
+}
 
 type ActivityServiceListActivitiesOperationStartResult struct {
 	Successful *v1.ListActivitiesResponse
@@ -185,4 +191,7 @@ func (c *ActivityServiceNexusHTTPClient) ListActivitiesAsync(ctx context.Context
 func (c *ActivityServiceNexusHTTPClient) ListActivities(ctx context.Context, input *v1.ListActivitiesRequest, options nexus.ExecuteOperationOptions) (*v1.ListActivitiesResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, ActivityServiceListActivitiesOperation, input, options)
 	return output, err
+}
+func (c *ActivityServiceNexusHTTPClient) NewListActivitiesHandle(id string) (*nexus.OperationHandle[*v1.ListActivitiesResponse], error) {
+	return nexus.NewHandle(&c.client, ActivityServiceListActivitiesOperation, id)
 }

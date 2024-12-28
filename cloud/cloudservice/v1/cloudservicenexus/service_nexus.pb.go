@@ -523,6 +523,9 @@ func (c *CloudServiceNexusHTTPClient) GetUsers(ctx context.Context, input *v1.Ge
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUsersOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetUsersHandle(id string) (*nexus.OperationHandle[*v1.GetUsersResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetUsersOperation, id)
+}
 
 type CloudServiceGetUserOperationStartResult struct {
 	Successful *v1.GetUserResponse
@@ -545,6 +548,9 @@ func (c *CloudServiceNexusHTTPClient) GetUserAsync(ctx context.Context, input *v
 func (c *CloudServiceNexusHTTPClient) GetUser(ctx context.Context, input *v1.GetUserRequest, options nexus.ExecuteOperationOptions) (*v1.GetUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetUserHandle(id string) (*nexus.OperationHandle[*v1.GetUserResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetUserOperation, id)
 }
 
 type CloudServiceCreateUserOperationStartResult struct {
@@ -569,6 +575,9 @@ func (c *CloudServiceNexusHTTPClient) CreateUser(ctx context.Context, input *v1.
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateUserOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewCreateUserHandle(id string) (*nexus.OperationHandle[*v1.CreateUserResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateUserOperation, id)
+}
 
 type CloudServiceUpdateUserOperationStartResult struct {
 	Successful *v1.UpdateUserResponse
@@ -591,6 +600,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateUserAsync(ctx context.Context, input
 func (c *CloudServiceNexusHTTPClient) UpdateUser(ctx context.Context, input *v1.UpdateUserRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateUserResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateUserOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewUpdateUserHandle(id string) (*nexus.OperationHandle[*v1.UpdateUserResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateUserOperation, id)
 }
 
 type CloudServiceDeleteUserOperationStartResult struct {
@@ -615,6 +627,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteUser(ctx context.Context, input *v1.
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteUserOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewDeleteUserHandle(id string) (*nexus.OperationHandle[*v1.DeleteUserResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteUserOperation, id)
+}
 
 type CloudServiceSetUserNamespaceAccessOperationStartResult struct {
 	Successful *v1.SetUserNamespaceAccessResponse
@@ -637,6 +652,9 @@ func (c *CloudServiceNexusHTTPClient) SetUserNamespaceAccessAsync(ctx context.Co
 func (c *CloudServiceNexusHTTPClient) SetUserNamespaceAccess(ctx context.Context, input *v1.SetUserNamespaceAccessRequest, options nexus.ExecuteOperationOptions) (*v1.SetUserNamespaceAccessResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceSetUserNamespaceAccessOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewSetUserNamespaceAccessHandle(id string) (*nexus.OperationHandle[*v1.SetUserNamespaceAccessResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceSetUserNamespaceAccessOperation, id)
 }
 
 type CloudServiceGetAsyncOperationOperationStartResult struct {
@@ -661,6 +679,9 @@ func (c *CloudServiceNexusHTTPClient) GetAsyncOperation(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetAsyncOperationOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetAsyncOperationHandle(id string) (*nexus.OperationHandle[*v1.GetAsyncOperationResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetAsyncOperationOperation, id)
+}
 
 type CloudServiceCreateNamespaceOperationStartResult struct {
 	Successful *v1.CreateNamespaceResponse
@@ -683,6 +704,9 @@ func (c *CloudServiceNexusHTTPClient) CreateNamespaceAsync(ctx context.Context, 
 func (c *CloudServiceNexusHTTPClient) CreateNamespace(ctx context.Context, input *v1.CreateNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNamespaceOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewCreateNamespaceHandle(id string) (*nexus.OperationHandle[*v1.CreateNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateNamespaceOperation, id)
 }
 
 type CloudServiceGetNamespacesOperationStartResult struct {
@@ -707,6 +731,9 @@ func (c *CloudServiceNexusHTTPClient) GetNamespaces(ctx context.Context, input *
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespacesOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetNamespacesHandle(id string) (*nexus.OperationHandle[*v1.GetNamespacesResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNamespacesOperation, id)
+}
 
 type CloudServiceGetNamespaceOperationStartResult struct {
 	Successful *v1.GetNamespaceResponse
@@ -729,6 +756,9 @@ func (c *CloudServiceNexusHTTPClient) GetNamespaceAsync(ctx context.Context, inp
 func (c *CloudServiceNexusHTTPClient) GetNamespace(ctx context.Context, input *v1.GetNamespaceRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespaceResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetNamespaceHandle(id string) (*nexus.OperationHandle[*v1.GetNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNamespaceOperation, id)
 }
 
 type CloudServiceUpdateNamespaceOperationStartResult struct {
@@ -753,6 +783,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateNamespace(ctx context.Context, input
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNamespaceOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateNamespaceHandle(id string) (*nexus.OperationHandle[*v1.UpdateNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateNamespaceOperation, id)
+}
 
 type CloudServiceRenameCustomSearchAttributeOperationStartResult struct {
 	Successful *v1.RenameCustomSearchAttributeResponse
@@ -775,6 +808,9 @@ func (c *CloudServiceNexusHTTPClient) RenameCustomSearchAttributeAsync(ctx conte
 func (c *CloudServiceNexusHTTPClient) RenameCustomSearchAttribute(ctx context.Context, input *v1.RenameCustomSearchAttributeRequest, options nexus.ExecuteOperationOptions) (*v1.RenameCustomSearchAttributeResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceRenameCustomSearchAttributeOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewRenameCustomSearchAttributeHandle(id string) (*nexus.OperationHandle[*v1.RenameCustomSearchAttributeResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceRenameCustomSearchAttributeOperation, id)
 }
 
 type CloudServiceDeleteNamespaceOperationStartResult struct {
@@ -799,6 +835,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteNamespace(ctx context.Context, input
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNamespaceOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewDeleteNamespaceHandle(id string) (*nexus.OperationHandle[*v1.DeleteNamespaceResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteNamespaceOperation, id)
+}
 
 type CloudServiceFailoverNamespaceRegionOperationStartResult struct {
 	Successful *v1.FailoverNamespaceRegionResponse
@@ -821,6 +860,9 @@ func (c *CloudServiceNexusHTTPClient) FailoverNamespaceRegionAsync(ctx context.C
 func (c *CloudServiceNexusHTTPClient) FailoverNamespaceRegion(ctx context.Context, input *v1.FailoverNamespaceRegionRequest, options nexus.ExecuteOperationOptions) (*v1.FailoverNamespaceRegionResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceFailoverNamespaceRegionOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewFailoverNamespaceRegionHandle(id string) (*nexus.OperationHandle[*v1.FailoverNamespaceRegionResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceFailoverNamespaceRegionOperation, id)
 }
 
 type CloudServiceAddNamespaceRegionOperationStartResult struct {
@@ -845,6 +887,9 @@ func (c *CloudServiceNexusHTTPClient) AddNamespaceRegion(ctx context.Context, in
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceAddNamespaceRegionOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewAddNamespaceRegionHandle(id string) (*nexus.OperationHandle[*v1.AddNamespaceRegionResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceAddNamespaceRegionOperation, id)
+}
 
 type CloudServiceGetRegionsOperationStartResult struct {
 	Successful *v1.GetRegionsResponse
@@ -867,6 +912,9 @@ func (c *CloudServiceNexusHTTPClient) GetRegionsAsync(ctx context.Context, input
 func (c *CloudServiceNexusHTTPClient) GetRegions(ctx context.Context, input *v1.GetRegionsRequest, options nexus.ExecuteOperationOptions) (*v1.GetRegionsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetRegionsOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetRegionsHandle(id string) (*nexus.OperationHandle[*v1.GetRegionsResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetRegionsOperation, id)
 }
 
 type CloudServiceGetRegionOperationStartResult struct {
@@ -891,6 +939,9 @@ func (c *CloudServiceNexusHTTPClient) GetRegion(ctx context.Context, input *v1.G
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetRegionOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetRegionHandle(id string) (*nexus.OperationHandle[*v1.GetRegionResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetRegionOperation, id)
+}
 
 type CloudServiceGetApiKeysOperationStartResult struct {
 	Successful *v1.GetApiKeysResponse
@@ -913,6 +964,9 @@ func (c *CloudServiceNexusHTTPClient) GetApiKeysAsync(ctx context.Context, input
 func (c *CloudServiceNexusHTTPClient) GetApiKeys(ctx context.Context, input *v1.GetApiKeysRequest, options nexus.ExecuteOperationOptions) (*v1.GetApiKeysResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetApiKeysOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetApiKeysHandle(id string) (*nexus.OperationHandle[*v1.GetApiKeysResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetApiKeysOperation, id)
 }
 
 type CloudServiceGetApiKeyOperationStartResult struct {
@@ -937,6 +991,9 @@ func (c *CloudServiceNexusHTTPClient) GetApiKey(ctx context.Context, input *v1.G
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetApiKeyOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetApiKeyHandle(id string) (*nexus.OperationHandle[*v1.GetApiKeyResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetApiKeyOperation, id)
+}
 
 type CloudServiceCreateApiKeyOperationStartResult struct {
 	Successful *v1.CreateApiKeyResponse
@@ -959,6 +1016,9 @@ func (c *CloudServiceNexusHTTPClient) CreateApiKeyAsync(ctx context.Context, inp
 func (c *CloudServiceNexusHTTPClient) CreateApiKey(ctx context.Context, input *v1.CreateApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.CreateApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateApiKeyOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewCreateApiKeyHandle(id string) (*nexus.OperationHandle[*v1.CreateApiKeyResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateApiKeyOperation, id)
 }
 
 type CloudServiceUpdateApiKeyOperationStartResult struct {
@@ -983,6 +1043,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateApiKey(ctx context.Context, input *v
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateApiKeyOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateApiKeyHandle(id string) (*nexus.OperationHandle[*v1.UpdateApiKeyResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateApiKeyOperation, id)
+}
 
 type CloudServiceDeleteApiKeyOperationStartResult struct {
 	Successful *v1.DeleteApiKeyResponse
@@ -1005,6 +1068,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteApiKeyAsync(ctx context.Context, inp
 func (c *CloudServiceNexusHTTPClient) DeleteApiKey(ctx context.Context, input *v1.DeleteApiKeyRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteApiKeyResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteApiKeyOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewDeleteApiKeyHandle(id string) (*nexus.OperationHandle[*v1.DeleteApiKeyResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteApiKeyOperation, id)
 }
 
 type CloudServiceGetNexusEndpointsOperationStartResult struct {
@@ -1029,6 +1095,9 @@ func (c *CloudServiceNexusHTTPClient) GetNexusEndpoints(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNexusEndpointsOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetNexusEndpointsHandle(id string) (*nexus.OperationHandle[*v1.GetNexusEndpointsResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNexusEndpointsOperation, id)
+}
 
 type CloudServiceGetNexusEndpointOperationStartResult struct {
 	Successful *v1.GetNexusEndpointResponse
@@ -1051,6 +1120,9 @@ func (c *CloudServiceNexusHTTPClient) GetNexusEndpointAsync(ctx context.Context,
 func (c *CloudServiceNexusHTTPClient) GetNexusEndpoint(ctx context.Context, input *v1.GetNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.GetNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNexusEndpointOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.GetNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNexusEndpointOperation, id)
 }
 
 type CloudServiceCreateNexusEndpointOperationStartResult struct {
@@ -1075,6 +1147,9 @@ func (c *CloudServiceNexusHTTPClient) CreateNexusEndpoint(ctx context.Context, i
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNexusEndpointOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewCreateNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.CreateNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateNexusEndpointOperation, id)
+}
 
 type CloudServiceUpdateNexusEndpointOperationStartResult struct {
 	Successful *v1.UpdateNexusEndpointResponse
@@ -1097,6 +1172,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateNexusEndpointAsync(ctx context.Conte
 func (c *CloudServiceNexusHTTPClient) UpdateNexusEndpoint(ctx context.Context, input *v1.UpdateNexusEndpointRequest, options nexus.ExecuteOperationOptions) (*v1.UpdateNexusEndpointResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNexusEndpointOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewUpdateNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.UpdateNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateNexusEndpointOperation, id)
 }
 
 type CloudServiceDeleteNexusEndpointOperationStartResult struct {
@@ -1121,6 +1199,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteNexusEndpoint(ctx context.Context, i
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNexusEndpointOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewDeleteNexusEndpointHandle(id string) (*nexus.OperationHandle[*v1.DeleteNexusEndpointResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteNexusEndpointOperation, id)
+}
 
 type CloudServiceGetUserGroupsOperationStartResult struct {
 	Successful *v1.GetUserGroupsResponse
@@ -1143,6 +1224,9 @@ func (c *CloudServiceNexusHTTPClient) GetUserGroupsAsync(ctx context.Context, in
 func (c *CloudServiceNexusHTTPClient) GetUserGroups(ctx context.Context, input *v1.GetUserGroupsRequest, options nexus.ExecuteOperationOptions) (*v1.GetUserGroupsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserGroupsOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetUserGroupsHandle(id string) (*nexus.OperationHandle[*v1.GetUserGroupsResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetUserGroupsOperation, id)
 }
 
 type CloudServiceGetUserGroupOperationStartResult struct {
@@ -1167,6 +1251,9 @@ func (c *CloudServiceNexusHTTPClient) GetUserGroup(ctx context.Context, input *v
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUserGroupOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetUserGroupHandle(id string) (*nexus.OperationHandle[*v1.GetUserGroupResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetUserGroupOperation, id)
+}
 
 type CloudServiceCreateUserGroupOperationStartResult struct {
 	Successful *v1.CreateUserGroupResponse
@@ -1189,6 +1276,9 @@ func (c *CloudServiceNexusHTTPClient) CreateUserGroupAsync(ctx context.Context, 
 func (c *CloudServiceNexusHTTPClient) CreateUserGroup(ctx context.Context, input *v1.CreateUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.CreateUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateUserGroupOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewCreateUserGroupHandle(id string) (*nexus.OperationHandle[*v1.CreateUserGroupResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateUserGroupOperation, id)
 }
 
 type CloudServiceUpdateUserGroupOperationStartResult struct {
@@ -1213,6 +1303,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateUserGroup(ctx context.Context, input
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateUserGroupOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateUserGroupHandle(id string) (*nexus.OperationHandle[*v1.UpdateUserGroupResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateUserGroupOperation, id)
+}
 
 type CloudServiceDeleteUserGroupOperationStartResult struct {
 	Successful *v1.DeleteUserGroupResponse
@@ -1235,6 +1328,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteUserGroupAsync(ctx context.Context, 
 func (c *CloudServiceNexusHTTPClient) DeleteUserGroup(ctx context.Context, input *v1.DeleteUserGroupRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteUserGroupResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteUserGroupOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewDeleteUserGroupHandle(id string) (*nexus.OperationHandle[*v1.DeleteUserGroupResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteUserGroupOperation, id)
 }
 
 type CloudServiceSetUserGroupNamespaceAccessOperationStartResult struct {
@@ -1259,6 +1355,9 @@ func (c *CloudServiceNexusHTTPClient) SetUserGroupNamespaceAccess(ctx context.Co
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceSetUserGroupNamespaceAccessOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewSetUserGroupNamespaceAccessHandle(id string) (*nexus.OperationHandle[*v1.SetUserGroupNamespaceAccessResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceSetUserGroupNamespaceAccessOperation, id)
+}
 
 type CloudServiceCreateServiceAccountOperationStartResult struct {
 	Successful *v1.CreateServiceAccountResponse
@@ -1281,6 +1380,9 @@ func (c *CloudServiceNexusHTTPClient) CreateServiceAccountAsync(ctx context.Cont
 func (c *CloudServiceNexusHTTPClient) CreateServiceAccount(ctx context.Context, input *v1.CreateServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.CreateServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateServiceAccountOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewCreateServiceAccountHandle(id string) (*nexus.OperationHandle[*v1.CreateServiceAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateServiceAccountOperation, id)
 }
 
 type CloudServiceGetServiceAccountOperationStartResult struct {
@@ -1305,6 +1407,9 @@ func (c *CloudServiceNexusHTTPClient) GetServiceAccount(ctx context.Context, inp
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetServiceAccountOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetServiceAccountHandle(id string) (*nexus.OperationHandle[*v1.GetServiceAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetServiceAccountOperation, id)
+}
 
 type CloudServiceGetServiceAccountsOperationStartResult struct {
 	Successful *v1.GetServiceAccountsResponse
@@ -1327,6 +1432,9 @@ func (c *CloudServiceNexusHTTPClient) GetServiceAccountsAsync(ctx context.Contex
 func (c *CloudServiceNexusHTTPClient) GetServiceAccounts(ctx context.Context, input *v1.GetServiceAccountsRequest, options nexus.ExecuteOperationOptions) (*v1.GetServiceAccountsResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetServiceAccountsOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetServiceAccountsHandle(id string) (*nexus.OperationHandle[*v1.GetServiceAccountsResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetServiceAccountsOperation, id)
 }
 
 type CloudServiceUpdateServiceAccountOperationStartResult struct {
@@ -1351,6 +1459,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateServiceAccount(ctx context.Context, 
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateServiceAccountOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateServiceAccountHandle(id string) (*nexus.OperationHandle[*v1.UpdateServiceAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateServiceAccountOperation, id)
+}
 
 type CloudServiceDeleteServiceAccountOperationStartResult struct {
 	Successful *v1.DeleteServiceAccountResponse
@@ -1373,6 +1484,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteServiceAccountAsync(ctx context.Cont
 func (c *CloudServiceNexusHTTPClient) DeleteServiceAccount(ctx context.Context, input *v1.DeleteServiceAccountRequest, options nexus.ExecuteOperationOptions) (*v1.DeleteServiceAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteServiceAccountOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewDeleteServiceAccountHandle(id string) (*nexus.OperationHandle[*v1.DeleteServiceAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteServiceAccountOperation, id)
 }
 
 type CloudServiceGetUsageOperationStartResult struct {
@@ -1397,6 +1511,9 @@ func (c *CloudServiceNexusHTTPClient) GetUsage(ctx context.Context, input *v1.Ge
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetUsageOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetUsageHandle(id string) (*nexus.OperationHandle[*v1.GetUsageResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetUsageOperation, id)
+}
 
 type CloudServiceGetAccountOperationStartResult struct {
 	Successful *v1.GetAccountResponse
@@ -1419,6 +1536,9 @@ func (c *CloudServiceNexusHTTPClient) GetAccountAsync(ctx context.Context, input
 func (c *CloudServiceNexusHTTPClient) GetAccount(ctx context.Context, input *v1.GetAccountRequest, options nexus.ExecuteOperationOptions) (*v1.GetAccountResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetAccountOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetAccountHandle(id string) (*nexus.OperationHandle[*v1.GetAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetAccountOperation, id)
 }
 
 type CloudServiceUpdateAccountOperationStartResult struct {
@@ -1443,6 +1563,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateAccount(ctx context.Context, input *
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateAccountOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateAccountHandle(id string) (*nexus.OperationHandle[*v1.UpdateAccountResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateAccountOperation, id)
+}
 
 type CloudServiceCreateNamespaceExportSinkOperationStartResult struct {
 	Successful *v1.CreateNamespaceExportSinkResponse
@@ -1465,6 +1588,9 @@ func (c *CloudServiceNexusHTTPClient) CreateNamespaceExportSinkAsync(ctx context
 func (c *CloudServiceNexusHTTPClient) CreateNamespaceExportSink(ctx context.Context, input *v1.CreateNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.CreateNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceCreateNamespaceExportSinkOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewCreateNamespaceExportSinkHandle(id string) (*nexus.OperationHandle[*v1.CreateNamespaceExportSinkResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceCreateNamespaceExportSinkOperation, id)
 }
 
 type CloudServiceGetNamespaceExportSinkOperationStartResult struct {
@@ -1489,6 +1615,9 @@ func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSink(ctx context.Context
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinkOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewGetNamespaceExportSinkHandle(id string) (*nexus.OperationHandle[*v1.GetNamespaceExportSinkResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNamespaceExportSinkOperation, id)
+}
 
 type CloudServiceGetNamespaceExportSinksOperationStartResult struct {
 	Successful *v1.GetNamespaceExportSinksResponse
@@ -1511,6 +1640,9 @@ func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinksAsync(ctx context.C
 func (c *CloudServiceNexusHTTPClient) GetNamespaceExportSinks(ctx context.Context, input *v1.GetNamespaceExportSinksRequest, options nexus.ExecuteOperationOptions) (*v1.GetNamespaceExportSinksResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceGetNamespaceExportSinksOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewGetNamespaceExportSinksHandle(id string) (*nexus.OperationHandle[*v1.GetNamespaceExportSinksResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceGetNamespaceExportSinksOperation, id)
 }
 
 type CloudServiceUpdateNamespaceExportSinkOperationStartResult struct {
@@ -1535,6 +1667,9 @@ func (c *CloudServiceNexusHTTPClient) UpdateNamespaceExportSink(ctx context.Cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceUpdateNamespaceExportSinkOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewUpdateNamespaceExportSinkHandle(id string) (*nexus.OperationHandle[*v1.UpdateNamespaceExportSinkResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceUpdateNamespaceExportSinkOperation, id)
+}
 
 type CloudServiceDeleteNamespaceExportSinkOperationStartResult struct {
 	Successful *v1.DeleteNamespaceExportSinkResponse
@@ -1558,6 +1693,9 @@ func (c *CloudServiceNexusHTTPClient) DeleteNamespaceExportSink(ctx context.Cont
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceDeleteNamespaceExportSinkOperation, input, options)
 	return output, err
 }
+func (c *CloudServiceNexusHTTPClient) NewDeleteNamespaceExportSinkHandle(id string) (*nexus.OperationHandle[*v1.DeleteNamespaceExportSinkResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceDeleteNamespaceExportSinkOperation, id)
+}
 
 type CloudServiceValidateNamespaceExportSinkOperationStartResult struct {
 	Successful *v1.ValidateNamespaceExportSinkResponse
@@ -1580,4 +1718,7 @@ func (c *CloudServiceNexusHTTPClient) ValidateNamespaceExportSinkAsync(ctx conte
 func (c *CloudServiceNexusHTTPClient) ValidateNamespaceExportSink(ctx context.Context, input *v1.ValidateNamespaceExportSinkRequest, options nexus.ExecuteOperationOptions) (*v1.ValidateNamespaceExportSinkResponse, error) {
 	output, err := nexus.ExecuteOperation(ctx, &c.client, CloudServiceValidateNamespaceExportSinkOperation, input, options)
 	return output, err
+}
+func (c *CloudServiceNexusHTTPClient) NewValidateNamespaceExportSinkHandle(id string) (*nexus.OperationHandle[*v1.ValidateNamespaceExportSinkResponse], error) {
+	return nexus.NewHandle(&c.client, CloudServiceValidateNamespaceExportSinkOperation, id)
 }

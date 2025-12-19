@@ -57,9 +57,12 @@ go-grpc: clean .go-helpers-installed $(PROTO_OUT)
 		--output=$(PROTO_OUT) \
 		--exclude=internal \
 		--exclude=proto/api/google \
+		--exclude=proto/api/nexusannotations \
 		-p go-grpc_out=$(PROTO_PATHS) \
 		-p grpc-gateway_out=allow_patch_feature=false,$(PROTO_PATHS) \
-		-p go-helpers_out=$(PROTO_PATHS)
+		-p go-helpers_out=$(PROTO_PATHS) \
+		-p go-nexus_out=$(PROTO_PATHS) \
+		-p go-nexus_opt=include-operation-tags=exposed
 
 	mv -f $(PROTO_OUT)/temporal/api/* $(PROTO_OUT) && rm -rf $(PROTO_OUT)/temporal
 
@@ -105,9 +108,10 @@ gen-proto-desc:
 
 ##### Plugins & tools #####
 grpc-install:
-	@printf $(COLOR) "Install/update grpc and plugins..."
+	@printf $(COLOR) "Install/update grpc and nexus plugins..."
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest 
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+	@go install github.com/bergundy/protoc-gen-go-nexus/cmd/protoc-gen-go-nexus@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 
 mockgen-install:

@@ -10,6 +10,7 @@ import (
 	reflect "reflect"
 	unsafe "unsafe"
 
+	_ "github.com/bergundy/nexus-proto-annotations/go/nexus/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -26,7 +27,7 @@ var File_temporal_api_workflowservice_v1_service_proto protoreflect.FileDescript
 
 const file_temporal_api_workflowservice_v1_service_proto_rawDesc = "" +
 	"\n" +
-	"-temporal/api/workflowservice/v1/service.proto\x12\x1ftemporal.api.workflowservice.v1\x1a6temporal/api/workflowservice/v1/request_response.proto\x1a\x1cgoogle/api/annotations.proto2\x9d\xd6\x01\n" +
+	"-temporal/api/workflowservice/v1/service.proto\x12\x1ftemporal.api.workflowservice.v1\x1a6temporal/api/workflowservice/v1/request_response.proto\x1a\x1cgoogle/api/annotations.proto\x1a!nexusannotations/v1/options.proto2\xaa\xd6\x01\n" +
 	"\x0fWorkflowService\x12\xc3\x01\n" +
 	"\x11RegisterNamespace\x129.temporal.api.workflowservice.v1.RegisterNamespaceRequest\x1a:.temporal.api.workflowservice.v1.RegisterNamespaceResponse\"7\x82\xd3\xe4\x93\x021:\x01*Z\x17:\x01*\"\x12/api/v1/namespaces\"\x13/cluster/namespaces\x12\xd5\x01\n" +
 	"\x11DescribeNamespace\x129.temporal.api.workflowservice.v1.DescribeNamespaceRequest\x1a:.temporal.api.workflowservice.v1.DescribeNamespaceResponse\"I\x82\xd3\xe4\x93\x02CZ \x12\x1e/api/v1/namespaces/{namespace}\x12\x1f/cluster/namespaces/{namespace}\x12\xb4\x01\n" +
@@ -50,8 +51,8 @@ const file_temporal_api_workflowservice_v1_service_proto_rawDesc = "" +
 	"\x1bRespondActivityTaskCanceled\x12C.temporal.api.workflowservice.v1.RespondActivityTaskCanceledRequest\x1aD.temporal.api.workflowservice.v1.RespondActivityTaskCanceledResponse\"k\x82\xd3\xe4\x93\x02e:\x01*Z5:\x01*\"0/api/v1/namespaces/{namespace}/activities/cancel\")/namespaces/{namespace}/activities/cancel\x12\xad\x02\n" +
 	"\x1fRespondActivityTaskCanceledById\x12G.temporal.api.workflowservice.v1.RespondActivityTaskCanceledByIdRequest\x1aH.temporal.api.workflowservice.v1.RespondActivityTaskCanceledByIdResponse\"w\x82\xd3\xe4\x93\x02q:\x01*Z;:\x01*\"6/api/v1/namespaces/{namespace}/activities/cancel-by-id\"//namespaces/{namespace}/activities/cancel-by-id\x12\xe0\x02\n" +
 	"\x1eRequestCancelWorkflowExecution\x12F.temporal.api.workflowservice.v1.RequestCancelWorkflowExecutionRequest\x1aG.temporal.api.workflowservice.v1.RequestCancelWorkflowExecutionResponse\"\xac\x01\x82\xd3\xe4\x93\x02\xa5\x01:\x01*ZU:\x01*\"P/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/cancel\"I/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/cancel\x12\xe7\x02\n" +
-	"\x17SignalWorkflowExecution\x12?.temporal.api.workflowservice.v1.SignalWorkflowExecutionRequest\x1a@.temporal.api.workflowservice.v1.SignalWorkflowExecutionResponse\"\xc8\x01\x82\xd3\xe4\x93\x02\xc1\x01:\x01*Zc:\x01*\"^/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/signal/{signal_name}\"W/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/signal/{signal_name}\x12\xf2\x02\n" +
-	" SignalWithStartWorkflowExecution\x12H.temporal.api.workflowservice.v1.SignalWithStartWorkflowExecutionRequest\x1aI.temporal.api.workflowservice.v1.SignalWithStartWorkflowExecutionResponse\"\xb8\x01\x82\xd3\xe4\x93\x02\xb1\x01:\x01*Z[:\x01*\"V/api/v1/namespaces/{namespace}/workflows/{workflow_id}/signal-with-start/{signal_name}\"O/namespaces/{namespace}/workflows/{workflow_id}/signal-with-start/{signal_name}\x12\xc6\x02\n" +
+	"\x17SignalWorkflowExecution\x12?.temporal.api.workflowservice.v1.SignalWorkflowExecutionRequest\x1a@.temporal.api.workflowservice.v1.SignalWorkflowExecutionResponse\"\xc8\x01\x82\xd3\xe4\x93\x02\xc1\x01:\x01*Zc:\x01*\"^/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/signal/{signal_name}\"W/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/signal/{signal_name}\x12\xff\x02\n" +
+	" SignalWithStartWorkflowExecution\x12H.temporal.api.workflowservice.v1.SignalWithStartWorkflowExecutionRequest\x1aI.temporal.api.workflowservice.v1.SignalWithStartWorkflowExecutionResponse\"\xc5\x01҂\x04\t\x12\aexposed\x82\xd3\xe4\x93\x02\xb1\x01:\x01*Z[:\x01*\"V/api/v1/namespaces/{namespace}/workflows/{workflow_id}/signal-with-start/{signal_name}\"O/namespaces/{namespace}/workflows/{workflow_id}/signal-with-start/{signal_name}\x12\xc6\x02\n" +
 	"\x16ResetWorkflowExecution\x12>.temporal.api.workflowservice.v1.ResetWorkflowExecutionRequest\x1a?.temporal.api.workflowservice.v1.ResetWorkflowExecutionResponse\"\xaa\x01\x82\xd3\xe4\x93\x02\xa3\x01:\x01*ZT:\x01*\"O/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/reset\"H/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/reset\x12\xda\x02\n" +
 	"\x1aTerminateWorkflowExecution\x12B.temporal.api.workflowservice.v1.TerminateWorkflowExecutionRequest\x1aC.temporal.api.workflowservice.v1.TerminateWorkflowExecutionResponse\"\xb2\x01\x82\xd3\xe4\x93\x02\xab\x01:\x01*ZX:\x01*\"S/api/v1/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/terminate\"L/namespaces/{namespace}/workflows/{workflow_execution.workflow_id}/terminate\x12\x9e\x01\n" +
 	"\x17DeleteWorkflowExecution\x12?.temporal.api.workflowservice.v1.DeleteWorkflowExecutionRequest\x1a@.temporal.api.workflowservice.v1.DeleteWorkflowExecutionResponse\"\x00\x12\xa7\x01\n" +

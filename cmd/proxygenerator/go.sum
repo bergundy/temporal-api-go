@@ -1,3 +1,5 @@
+github.com/bergundy/nexus-proto-annotations v0.1.0 h1:A4dwYmbD/a9fx267DgtJq8j5Tcuw49Z7JfZcGKFeSdQ=
+github.com/bergundy/nexus-proto-annotations v0.1.0/go.mod h1:fw4ftU2X2TA6g3vO6pblwotc9OYJhNQJEPyatps6DdA=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-logr/logr v1.4.2 h1:6pFjapn8bFcIbiKo3XT4j/BhANplGihG6tvd+8rYgrY=

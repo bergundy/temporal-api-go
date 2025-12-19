@@ -1,6 +1,6 @@
 module go.temporal.io/api/cmd/proxygenerator
 
-go 1.22.0
+go 1.23.4
 
 toolchain go1.24.0
 
@@ -13,6 +13,7 @@ require (
 )
 
 require (
+	github.com/bergundy/nexus-proto-annotations v0.1.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.1 // indirect
 	golang.org/x/mod v0.23.0 // indirect
 	golang.org/x/net v0.35.0 // indirect

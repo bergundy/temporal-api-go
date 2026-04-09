@@ -129,6 +129,12 @@ const (
 	WorkflowService_RequestCancelActivityExecution_FullMethodName               = "/temporal.api.workflowservice.v1.WorkflowService/RequestCancelActivityExecution"
 	WorkflowService_TerminateActivityExecution_FullMethodName                   = "/temporal.api.workflowservice.v1.WorkflowService/TerminateActivityExecution"
 	WorkflowService_DeleteActivityExecution_FullMethodName                      = "/temporal.api.workflowservice.v1.WorkflowService/DeleteActivityExecution"
+	WorkflowService_StartUpdatableTimerExecution_FullMethodName                 = "/temporal.api.workflowservice.v1.WorkflowService/StartUpdatableTimerExecution"
+	WorkflowService_UpdateUpdatableTimerExecution_FullMethodName                = "/temporal.api.workflowservice.v1.WorkflowService/UpdateUpdatableTimerExecution"
+	WorkflowService_DescribeUpdatableTimerExecution_FullMethodName              = "/temporal.api.workflowservice.v1.WorkflowService/DescribeUpdatableTimerExecution"
+	WorkflowService_PollUpdatableTimerExecution_FullMethodName                  = "/temporal.api.workflowservice.v1.WorkflowService/PollUpdatableTimerExecution"
+	WorkflowService_TerminateUpdatableTimerExecution_FullMethodName             = "/temporal.api.workflowservice.v1.WorkflowService/TerminateUpdatableTimerExecution"
+	WorkflowService_ListUpdatableTimerExecutions_FullMethodName                 = "/temporal.api.workflowservice.v1.WorkflowService/ListUpdatableTimerExecutions"
 )
 
 // WorkflowServiceClient is the client API for WorkflowService service.
@@ -794,6 +800,25 @@ type WorkflowServiceClient interface {
 	//
 	//	aip.dev/not-precedent: Activity deletion not exposed to HTTP, users should use cancel or terminate. --)
 	DeleteActivityExecution(ctx context.Context, in *DeleteActivityExecutionRequest, opts ...grpc.CallOption) (*DeleteActivityExecutionResponse, error)
+	// StartUpdatableTimerExecution creates a new updatable timer with the given deadline.
+	//
+	// The timer will fire when the deadline is reached. The deadline can be updated via
+	// UpdateUpdatableTimerExecution.
+	StartUpdatableTimerExecution(ctx context.Context, in *StartUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*StartUpdatableTimerExecutionResponse, error)
+	// UpdateUpdatableTimerExecution updates the deadline of a running updatable timer.
+	UpdateUpdatableTimerExecution(ctx context.Context, in *UpdateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*UpdateUpdatableTimerExecutionResponse, error)
+	// DescribeUpdatableTimerExecution returns information about an updatable timer execution.
+	// It can be used to:
+	// - Get current timer info without waiting
+	// - Long-poll for next state change and return new timer info
+	DescribeUpdatableTimerExecution(ctx context.Context, in *DescribeUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*DescribeUpdatableTimerExecutionResponse, error)
+	// PollUpdatableTimerExecution long-polls for an updatable timer to complete and returns the
+	// outcome (fired or failure).
+	PollUpdatableTimerExecution(ctx context.Context, in *PollUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*PollUpdatableTimerExecutionResponse, error)
+	// TerminateUpdatableTimerExecution terminates an existing updatable timer immediately.
+	TerminateUpdatableTimerExecution(ctx context.Context, in *TerminateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*TerminateUpdatableTimerExecutionResponse, error)
+	// ListUpdatableTimerExecutions returns a list of updatable timer executions matching a query.
+	ListUpdatableTimerExecutions(ctx context.Context, in *ListUpdatableTimerExecutionsRequest, opts ...grpc.CallOption) (*ListUpdatableTimerExecutionsResponse, error)
 }
 
 type workflowServiceClient struct {
@@ -1894,6 +1919,66 @@ func (c *workflowServiceClient) DeleteActivityExecution(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *workflowServiceClient) StartUpdatableTimerExecution(ctx context.Context, in *StartUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*StartUpdatableTimerExecutionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StartUpdatableTimerExecutionResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_StartUpdatableTimerExecution_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) UpdateUpdatableTimerExecution(ctx context.Context, in *UpdateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*UpdateUpdatableTimerExecutionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateUpdatableTimerExecutionResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_UpdateUpdatableTimerExecution_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) DescribeUpdatableTimerExecution(ctx context.Context, in *DescribeUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*DescribeUpdatableTimerExecutionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DescribeUpdatableTimerExecutionResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_DescribeUpdatableTimerExecution_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) PollUpdatableTimerExecution(ctx context.Context, in *PollUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*PollUpdatableTimerExecutionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PollUpdatableTimerExecutionResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_PollUpdatableTimerExecution_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) TerminateUpdatableTimerExecution(ctx context.Context, in *TerminateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*TerminateUpdatableTimerExecutionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TerminateUpdatableTimerExecutionResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_TerminateUpdatableTimerExecution_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) ListUpdatableTimerExecutions(ctx context.Context, in *ListUpdatableTimerExecutionsRequest, opts ...grpc.CallOption) (*ListUpdatableTimerExecutionsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListUpdatableTimerExecutionsResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_ListUpdatableTimerExecutions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowServiceServer is the server API for WorkflowService service.
 // All implementations must embed UnimplementedWorkflowServiceServer
 // for forward compatibility.
@@ -2557,6 +2642,25 @@ type WorkflowServiceServer interface {
 	//
 	//	aip.dev/not-precedent: Activity deletion not exposed to HTTP, users should use cancel or terminate. --)
 	DeleteActivityExecution(context.Context, *DeleteActivityExecutionRequest) (*DeleteActivityExecutionResponse, error)
+	// StartUpdatableTimerExecution creates a new updatable timer with the given deadline.
+	//
+	// The timer will fire when the deadline is reached. The deadline can be updated via
+	// UpdateUpdatableTimerExecution.
+	StartUpdatableTimerExecution(context.Context, *StartUpdatableTimerExecutionRequest) (*StartUpdatableTimerExecutionResponse, error)
+	// UpdateUpdatableTimerExecution updates the deadline of a running updatable timer.
+	UpdateUpdatableTimerExecution(context.Context, *UpdateUpdatableTimerExecutionRequest) (*UpdateUpdatableTimerExecutionResponse, error)
+	// DescribeUpdatableTimerExecution returns information about an updatable timer execution.
+	// It can be used to:
+	// - Get current timer info without waiting
+	// - Long-poll for next state change and return new timer info
+	DescribeUpdatableTimerExecution(context.Context, *DescribeUpdatableTimerExecutionRequest) (*DescribeUpdatableTimerExecutionResponse, error)
+	// PollUpdatableTimerExecution long-polls for an updatable timer to complete and returns the
+	// outcome (fired or failure).
+	PollUpdatableTimerExecution(context.Context, *PollUpdatableTimerExecutionRequest) (*PollUpdatableTimerExecutionResponse, error)
+	// TerminateUpdatableTimerExecution terminates an existing updatable timer immediately.
+	TerminateUpdatableTimerExecution(context.Context, *TerminateUpdatableTimerExecutionRequest) (*TerminateUpdatableTimerExecutionResponse, error)
+	// ListUpdatableTimerExecutions returns a list of updatable timer executions matching a query.
+	ListUpdatableTimerExecutions(context.Context, *ListUpdatableTimerExecutionsRequest) (*ListUpdatableTimerExecutionsResponse, error)
 	mustEmbedUnimplementedWorkflowServiceServer()
 }
 
@@ -2893,6 +2997,24 @@ func (UnimplementedWorkflowServiceServer) TerminateActivityExecution(context.Con
 }
 func (UnimplementedWorkflowServiceServer) DeleteActivityExecution(context.Context, *DeleteActivityExecutionRequest) (*DeleteActivityExecutionResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteActivityExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) StartUpdatableTimerExecution(context.Context, *StartUpdatableTimerExecutionRequest) (*StartUpdatableTimerExecutionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method StartUpdatableTimerExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) UpdateUpdatableTimerExecution(context.Context, *UpdateUpdatableTimerExecutionRequest) (*UpdateUpdatableTimerExecutionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateUpdatableTimerExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) DescribeUpdatableTimerExecution(context.Context, *DescribeUpdatableTimerExecutionRequest) (*DescribeUpdatableTimerExecutionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DescribeUpdatableTimerExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) PollUpdatableTimerExecution(context.Context, *PollUpdatableTimerExecutionRequest) (*PollUpdatableTimerExecutionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method PollUpdatableTimerExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) TerminateUpdatableTimerExecution(context.Context, *TerminateUpdatableTimerExecutionRequest) (*TerminateUpdatableTimerExecutionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method TerminateUpdatableTimerExecution not implemented")
+}
+func (UnimplementedWorkflowServiceServer) ListUpdatableTimerExecutions(context.Context, *ListUpdatableTimerExecutionsRequest) (*ListUpdatableTimerExecutionsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListUpdatableTimerExecutions not implemented")
 }
 func (UnimplementedWorkflowServiceServer) mustEmbedUnimplementedWorkflowServiceServer() {}
 func (UnimplementedWorkflowServiceServer) testEmbeddedByValue()                         {}
@@ -4877,6 +4999,114 @@ func _WorkflowService_DeleteActivityExecution_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_StartUpdatableTimerExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartUpdatableTimerExecutionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).StartUpdatableTimerExecution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_StartUpdatableTimerExecution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).StartUpdatableTimerExecution(ctx, req.(*StartUpdatableTimerExecutionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_UpdateUpdatableTimerExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUpdatableTimerExecutionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).UpdateUpdatableTimerExecution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_UpdateUpdatableTimerExecution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).UpdateUpdatableTimerExecution(ctx, req.(*UpdateUpdatableTimerExecutionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_DescribeUpdatableTimerExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DescribeUpdatableTimerExecutionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).DescribeUpdatableTimerExecution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_DescribeUpdatableTimerExecution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).DescribeUpdatableTimerExecution(ctx, req.(*DescribeUpdatableTimerExecutionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_PollUpdatableTimerExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PollUpdatableTimerExecutionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).PollUpdatableTimerExecution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_PollUpdatableTimerExecution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).PollUpdatableTimerExecution(ctx, req.(*PollUpdatableTimerExecutionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_TerminateUpdatableTimerExecution_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TerminateUpdatableTimerExecutionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).TerminateUpdatableTimerExecution(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_TerminateUpdatableTimerExecution_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).TerminateUpdatableTimerExecution(ctx, req.(*TerminateUpdatableTimerExecutionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_ListUpdatableTimerExecutions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUpdatableTimerExecutionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).ListUpdatableTimerExecutions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_ListUpdatableTimerExecutions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).ListUpdatableTimerExecutions(ctx, req.(*ListUpdatableTimerExecutionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowService_ServiceDesc is the grpc.ServiceDesc for WorkflowService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -5319,6 +5549,30 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteActivityExecution",
 			Handler:    _WorkflowService_DeleteActivityExecution_Handler,
+		},
+		{
+			MethodName: "StartUpdatableTimerExecution",
+			Handler:    _WorkflowService_StartUpdatableTimerExecution_Handler,
+		},
+		{
+			MethodName: "UpdateUpdatableTimerExecution",
+			Handler:    _WorkflowService_UpdateUpdatableTimerExecution_Handler,
+		},
+		{
+			MethodName: "DescribeUpdatableTimerExecution",
+			Handler:    _WorkflowService_DescribeUpdatableTimerExecution_Handler,
+		},
+		{
+			MethodName: "PollUpdatableTimerExecution",
+			Handler:    _WorkflowService_PollUpdatableTimerExecution_Handler,
+		},
+		{
+			MethodName: "TerminateUpdatableTimerExecution",
+			Handler:    _WorkflowService_TerminateUpdatableTimerExecution_Handler,
+		},
+		{
+			MethodName: "ListUpdatableTimerExecutions",
+			Handler:    _WorkflowService_ListUpdatableTimerExecutions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -436,6 +436,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) DescribeTaskQueue(ctx, in inter
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTaskQueue", reflect.TypeOf((*MockWorkflowServiceClient)(nil).DescribeTaskQueue), varargs...)
 }
 
+// DescribeUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceClient) DescribeUpdatableTimerExecution(ctx context.Context, in *workflowservice.DescribeUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*workflowservice.DescribeUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeUpdatableTimerExecution", varargs...)
+	ret0, _ := ret[0].(*workflowservice.DescribeUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeUpdatableTimerExecution indicates an expected call of DescribeUpdatableTimerExecution.
+func (mr *MockWorkflowServiceClientMockRecorder) DescribeUpdatableTimerExecution(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).DescribeUpdatableTimerExecution), varargs...)
+}
+
 // DescribeWorker mocks base method.
 func (m *MockWorkflowServiceClient) DescribeWorker(ctx context.Context, in *workflowservice.DescribeWorkerRequest, opts ...grpc.CallOption) (*workflowservice.DescribeWorkerResponse, error) {
 	m.ctrl.T.Helper()
@@ -976,6 +996,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) ListTaskQueuePartitions(ctx, in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTaskQueuePartitions", reflect.TypeOf((*MockWorkflowServiceClient)(nil).ListTaskQueuePartitions), varargs...)
 }
 
+// ListUpdatableTimerExecutions mocks base method.
+func (m *MockWorkflowServiceClient) ListUpdatableTimerExecutions(ctx context.Context, in *workflowservice.ListUpdatableTimerExecutionsRequest, opts ...grpc.CallOption) (*workflowservice.ListUpdatableTimerExecutionsResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListUpdatableTimerExecutions", varargs...)
+	ret0, _ := ret[0].(*workflowservice.ListUpdatableTimerExecutionsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListUpdatableTimerExecutions indicates an expected call of ListUpdatableTimerExecutions.
+func (mr *MockWorkflowServiceClientMockRecorder) ListUpdatableTimerExecutions(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUpdatableTimerExecutions", reflect.TypeOf((*MockWorkflowServiceClient)(nil).ListUpdatableTimerExecutions), varargs...)
+}
+
 // ListWorkerDeployments mocks base method.
 func (m *MockWorkflowServiceClient) ListWorkerDeployments(ctx context.Context, in *workflowservice.ListWorkerDeploymentsRequest, opts ...grpc.CallOption) (*workflowservice.ListWorkerDeploymentsResponse, error) {
 	m.ctrl.T.Helper()
@@ -1174,6 +1214,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) PollNexusTaskQueue(ctx, in inte
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PollNexusTaskQueue", reflect.TypeOf((*MockWorkflowServiceClient)(nil).PollNexusTaskQueue), varargs...)
+}
+
+// PollUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceClient) PollUpdatableTimerExecution(ctx context.Context, in *workflowservice.PollUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*workflowservice.PollUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "PollUpdatableTimerExecution", varargs...)
+	ret0, _ := ret[0].(*workflowservice.PollUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// PollUpdatableTimerExecution indicates an expected call of PollUpdatableTimerExecution.
+func (mr *MockWorkflowServiceClientMockRecorder) PollUpdatableTimerExecution(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PollUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).PollUpdatableTimerExecution), varargs...)
 }
 
 // PollWorkflowExecutionUpdate mocks base method.
@@ -1836,6 +1896,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) StartBatchOperation(ctx, in int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StartBatchOperation", reflect.TypeOf((*MockWorkflowServiceClient)(nil).StartBatchOperation), varargs...)
 }
 
+// StartUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceClient) StartUpdatableTimerExecution(ctx context.Context, in *workflowservice.StartUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*workflowservice.StartUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "StartUpdatableTimerExecution", varargs...)
+	ret0, _ := ret[0].(*workflowservice.StartUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StartUpdatableTimerExecution indicates an expected call of StartUpdatableTimerExecution.
+func (mr *MockWorkflowServiceClientMockRecorder) StartUpdatableTimerExecution(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StartUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).StartUpdatableTimerExecution), varargs...)
+}
+
 // StartWorkflowExecution mocks base method.
 func (m *MockWorkflowServiceClient) StartWorkflowExecution(ctx context.Context, in *workflowservice.StartWorkflowExecutionRequest, opts ...grpc.CallOption) (*workflowservice.StartWorkflowExecutionResponse, error) {
 	m.ctrl.T.Helper()
@@ -1894,6 +1974,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) TerminateActivityExecution(ctx,
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateActivityExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).TerminateActivityExecution), varargs...)
+}
+
+// TerminateUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceClient) TerminateUpdatableTimerExecution(ctx context.Context, in *workflowservice.TerminateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*workflowservice.TerminateUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TerminateUpdatableTimerExecution", varargs...)
+	ret0, _ := ret[0].(*workflowservice.TerminateUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TerminateUpdatableTimerExecution indicates an expected call of TerminateUpdatableTimerExecution.
+func (mr *MockWorkflowServiceClientMockRecorder) TerminateUpdatableTimerExecution(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).TerminateUpdatableTimerExecution), varargs...)
 }
 
 // TerminateWorkflowExecution mocks base method.
@@ -2054,6 +2154,26 @@ func (mr *MockWorkflowServiceClientMockRecorder) UpdateTaskQueueConfig(ctx, in i
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskQueueConfig", reflect.TypeOf((*MockWorkflowServiceClient)(nil).UpdateTaskQueueConfig), varargs...)
+}
+
+// UpdateUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceClient) UpdateUpdatableTimerExecution(ctx context.Context, in *workflowservice.UpdateUpdatableTimerExecutionRequest, opts ...grpc.CallOption) (*workflowservice.UpdateUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UpdateUpdatableTimerExecution", varargs...)
+	ret0, _ := ret[0].(*workflowservice.UpdateUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUpdatableTimerExecution indicates an expected call of UpdateUpdatableTimerExecution.
+func (mr *MockWorkflowServiceClientMockRecorder) UpdateUpdatableTimerExecution(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceClient)(nil).UpdateUpdatableTimerExecution), varargs...)
 }
 
 // UpdateWorkerBuildIdCompatibility mocks base method.
@@ -2542,6 +2662,21 @@ func (mr *MockWorkflowServiceServerMockRecorder) DescribeTaskQueue(arg0, arg1 in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTaskQueue", reflect.TypeOf((*MockWorkflowServiceServer)(nil).DescribeTaskQueue), arg0, arg1)
 }
 
+// DescribeUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceServer) DescribeUpdatableTimerExecution(arg0 context.Context, arg1 *workflowservice.DescribeUpdatableTimerExecutionRequest) (*workflowservice.DescribeUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeUpdatableTimerExecution", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.DescribeUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeUpdatableTimerExecution indicates an expected call of DescribeUpdatableTimerExecution.
+func (mr *MockWorkflowServiceServerMockRecorder) DescribeUpdatableTimerExecution(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).DescribeUpdatableTimerExecution), arg0, arg1)
+}
+
 // DescribeWorker mocks base method.
 func (m *MockWorkflowServiceServer) DescribeWorker(arg0 context.Context, arg1 *workflowservice.DescribeWorkerRequest) (*workflowservice.DescribeWorkerResponse, error) {
 	m.ctrl.T.Helper()
@@ -2947,6 +3082,21 @@ func (mr *MockWorkflowServiceServerMockRecorder) ListTaskQueuePartitions(arg0, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTaskQueuePartitions", reflect.TypeOf((*MockWorkflowServiceServer)(nil).ListTaskQueuePartitions), arg0, arg1)
 }
 
+// ListUpdatableTimerExecutions mocks base method.
+func (m *MockWorkflowServiceServer) ListUpdatableTimerExecutions(arg0 context.Context, arg1 *workflowservice.ListUpdatableTimerExecutionsRequest) (*workflowservice.ListUpdatableTimerExecutionsResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListUpdatableTimerExecutions", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.ListUpdatableTimerExecutionsResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListUpdatableTimerExecutions indicates an expected call of ListUpdatableTimerExecutions.
+func (mr *MockWorkflowServiceServerMockRecorder) ListUpdatableTimerExecutions(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUpdatableTimerExecutions", reflect.TypeOf((*MockWorkflowServiceServer)(nil).ListUpdatableTimerExecutions), arg0, arg1)
+}
+
 // ListWorkerDeployments mocks base method.
 func (m *MockWorkflowServiceServer) ListWorkerDeployments(arg0 context.Context, arg1 *workflowservice.ListWorkerDeploymentsRequest) (*workflowservice.ListWorkerDeploymentsResponse, error) {
 	m.ctrl.T.Helper()
@@ -3095,6 +3245,21 @@ func (m *MockWorkflowServiceServer) PollNexusTaskQueue(arg0 context.Context, arg
 func (mr *MockWorkflowServiceServerMockRecorder) PollNexusTaskQueue(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PollNexusTaskQueue", reflect.TypeOf((*MockWorkflowServiceServer)(nil).PollNexusTaskQueue), arg0, arg1)
+}
+
+// PollUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceServer) PollUpdatableTimerExecution(arg0 context.Context, arg1 *workflowservice.PollUpdatableTimerExecutionRequest) (*workflowservice.PollUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "PollUpdatableTimerExecution", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.PollUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// PollUpdatableTimerExecution indicates an expected call of PollUpdatableTimerExecution.
+func (mr *MockWorkflowServiceServerMockRecorder) PollUpdatableTimerExecution(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PollUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).PollUpdatableTimerExecution), arg0, arg1)
 }
 
 // PollWorkflowExecutionUpdate mocks base method.
@@ -3592,6 +3757,21 @@ func (mr *MockWorkflowServiceServerMockRecorder) StartBatchOperation(arg0, arg1 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StartBatchOperation", reflect.TypeOf((*MockWorkflowServiceServer)(nil).StartBatchOperation), arg0, arg1)
 }
 
+// StartUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceServer) StartUpdatableTimerExecution(arg0 context.Context, arg1 *workflowservice.StartUpdatableTimerExecutionRequest) (*workflowservice.StartUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "StartUpdatableTimerExecution", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.StartUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StartUpdatableTimerExecution indicates an expected call of StartUpdatableTimerExecution.
+func (mr *MockWorkflowServiceServerMockRecorder) StartUpdatableTimerExecution(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StartUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).StartUpdatableTimerExecution), arg0, arg1)
+}
+
 // StartWorkflowExecution mocks base method.
 func (m *MockWorkflowServiceServer) StartWorkflowExecution(arg0 context.Context, arg1 *workflowservice.StartWorkflowExecutionRequest) (*workflowservice.StartWorkflowExecutionResponse, error) {
 	m.ctrl.T.Helper()
@@ -3635,6 +3815,21 @@ func (m *MockWorkflowServiceServer) TerminateActivityExecution(arg0 context.Cont
 func (mr *MockWorkflowServiceServerMockRecorder) TerminateActivityExecution(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateActivityExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).TerminateActivityExecution), arg0, arg1)
+}
+
+// TerminateUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceServer) TerminateUpdatableTimerExecution(arg0 context.Context, arg1 *workflowservice.TerminateUpdatableTimerExecutionRequest) (*workflowservice.TerminateUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TerminateUpdatableTimerExecution", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.TerminateUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TerminateUpdatableTimerExecution indicates an expected call of TerminateUpdatableTimerExecution.
+func (mr *MockWorkflowServiceServerMockRecorder) TerminateUpdatableTimerExecution(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).TerminateUpdatableTimerExecution), arg0, arg1)
 }
 
 // TerminateWorkflowExecution mocks base method.
@@ -3755,6 +3950,21 @@ func (m *MockWorkflowServiceServer) UpdateTaskQueueConfig(arg0 context.Context, 
 func (mr *MockWorkflowServiceServerMockRecorder) UpdateTaskQueueConfig(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskQueueConfig", reflect.TypeOf((*MockWorkflowServiceServer)(nil).UpdateTaskQueueConfig), arg0, arg1)
+}
+
+// UpdateUpdatableTimerExecution mocks base method.
+func (m *MockWorkflowServiceServer) UpdateUpdatableTimerExecution(arg0 context.Context, arg1 *workflowservice.UpdateUpdatableTimerExecutionRequest) (*workflowservice.UpdateUpdatableTimerExecutionResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateUpdatableTimerExecution", arg0, arg1)
+	ret0, _ := ret[0].(*workflowservice.UpdateUpdatableTimerExecutionResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateUpdatableTimerExecution indicates an expected call of UpdateUpdatableTimerExecution.
+func (mr *MockWorkflowServiceServerMockRecorder) UpdateUpdatableTimerExecution(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUpdatableTimerExecution", reflect.TypeOf((*MockWorkflowServiceServer)(nil).UpdateUpdatableTimerExecution), arg0, arg1)
 }
 
 // UpdateWorkerBuildIdCompatibility mocks base method.

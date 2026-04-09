@@ -112,6 +112,10 @@ func (s *workflowServiceProxyServer) DescribeTaskQueue(ctx context.Context, in0 
 	return s.client.DescribeTaskQueue(s.reqCtx(ctx), in0)
 }
 
+func (s *workflowServiceProxyServer) DescribeUpdatableTimerExecution(ctx context.Context, in0 *workflowservice.DescribeUpdatableTimerExecutionRequest) (*workflowservice.DescribeUpdatableTimerExecutionResponse, error) {
+	return s.client.DescribeUpdatableTimerExecution(s.reqCtx(ctx), in0)
+}
+
 func (s *workflowServiceProxyServer) DescribeWorker(ctx context.Context, in0 *workflowservice.DescribeWorkerRequest) (*workflowservice.DescribeWorkerResponse, error) {
 	return s.client.DescribeWorker(s.reqCtx(ctx), in0)
 }
@@ -220,6 +224,10 @@ func (s *workflowServiceProxyServer) ListTaskQueuePartitions(ctx context.Context
 	return s.client.ListTaskQueuePartitions(s.reqCtx(ctx), in0)
 }
 
+func (s *workflowServiceProxyServer) ListUpdatableTimerExecutions(ctx context.Context, in0 *workflowservice.ListUpdatableTimerExecutionsRequest) (*workflowservice.ListUpdatableTimerExecutionsResponse, error) {
+	return s.client.ListUpdatableTimerExecutions(s.reqCtx(ctx), in0)
+}
+
 func (s *workflowServiceProxyServer) ListWorkerDeployments(ctx context.Context, in0 *workflowservice.ListWorkerDeploymentsRequest) (*workflowservice.ListWorkerDeploymentsResponse, error) {
 	return s.client.ListWorkerDeployments(s.reqCtx(ctx), in0)
 }
@@ -258,6 +266,10 @@ func (s *workflowServiceProxyServer) PollActivityTaskQueue(ctx context.Context, 
 
 func (s *workflowServiceProxyServer) PollNexusTaskQueue(ctx context.Context, in0 *workflowservice.PollNexusTaskQueueRequest) (*workflowservice.PollNexusTaskQueueResponse, error) {
 	return s.client.PollNexusTaskQueue(s.reqCtx(ctx), in0)
+}
+
+func (s *workflowServiceProxyServer) PollUpdatableTimerExecution(ctx context.Context, in0 *workflowservice.PollUpdatableTimerExecutionRequest) (*workflowservice.PollUpdatableTimerExecutionResponse, error) {
+	return s.client.PollUpdatableTimerExecution(s.reqCtx(ctx), in0)
 }
 
 func (s *workflowServiceProxyServer) PollWorkflowExecutionUpdate(ctx context.Context, in0 *workflowservice.PollWorkflowExecutionUpdateRequest) (*workflowservice.PollWorkflowExecutionUpdateResponse, error) {
@@ -392,6 +404,10 @@ func (s *workflowServiceProxyServer) StartBatchOperation(ctx context.Context, in
 	return s.client.StartBatchOperation(s.reqCtx(ctx), in0)
 }
 
+func (s *workflowServiceProxyServer) StartUpdatableTimerExecution(ctx context.Context, in0 *workflowservice.StartUpdatableTimerExecutionRequest) (*workflowservice.StartUpdatableTimerExecutionResponse, error) {
+	return s.client.StartUpdatableTimerExecution(s.reqCtx(ctx), in0)
+}
+
 func (s *workflowServiceProxyServer) StartWorkflowExecution(ctx context.Context, in0 *workflowservice.StartWorkflowExecutionRequest) (*workflowservice.StartWorkflowExecutionResponse, error) {
 	return s.client.StartWorkflowExecution(s.reqCtx(ctx), in0)
 }
@@ -402,6 +418,10 @@ func (s *workflowServiceProxyServer) StopBatchOperation(ctx context.Context, in0
 
 func (s *workflowServiceProxyServer) TerminateActivityExecution(ctx context.Context, in0 *workflowservice.TerminateActivityExecutionRequest) (*workflowservice.TerminateActivityExecutionResponse, error) {
 	return s.client.TerminateActivityExecution(s.reqCtx(ctx), in0)
+}
+
+func (s *workflowServiceProxyServer) TerminateUpdatableTimerExecution(ctx context.Context, in0 *workflowservice.TerminateUpdatableTimerExecutionRequest) (*workflowservice.TerminateUpdatableTimerExecutionResponse, error) {
+	return s.client.TerminateUpdatableTimerExecution(s.reqCtx(ctx), in0)
 }
 
 func (s *workflowServiceProxyServer) TerminateWorkflowExecution(ctx context.Context, in0 *workflowservice.TerminateWorkflowExecutionRequest) (*workflowservice.TerminateWorkflowExecutionResponse, error) {
@@ -434,6 +454,10 @@ func (s *workflowServiceProxyServer) UpdateSchedule(ctx context.Context, in0 *wo
 
 func (s *workflowServiceProxyServer) UpdateTaskQueueConfig(ctx context.Context, in0 *workflowservice.UpdateTaskQueueConfigRequest) (*workflowservice.UpdateTaskQueueConfigResponse, error) {
 	return s.client.UpdateTaskQueueConfig(s.reqCtx(ctx), in0)
+}
+
+func (s *workflowServiceProxyServer) UpdateUpdatableTimerExecution(ctx context.Context, in0 *workflowservice.UpdateUpdatableTimerExecutionRequest) (*workflowservice.UpdateUpdatableTimerExecutionResponse, error) {
+	return s.client.UpdateUpdatableTimerExecution(s.reqCtx(ctx), in0)
 }
 
 func (s *workflowServiceProxyServer) UpdateWorkerBuildIdCompatibility(ctx context.Context, in0 *workflowservice.UpdateWorkerBuildIdCompatibilityRequest) (*workflowservice.UpdateWorkerBuildIdCompatibilityResponse, error) {

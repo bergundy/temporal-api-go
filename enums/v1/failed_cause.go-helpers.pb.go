@@ -48,6 +48,8 @@ var (
 		"ExternalStorageFailure":                              38,
 		"WorkflowPauseRequestedBeforeTaskStarted":             39,
 		"RequestTooLarge":                                     40,
+		"BadResolveOptimisticActivityAttributes":              41,
+		"BadFireOptimisticTimerAttributes":                    42,
 	}
 )
 

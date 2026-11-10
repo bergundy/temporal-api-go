@@ -78,9 +78,14 @@ type ScheduleActivityTaskCommandAttributes struct {
 	UseWorkflowBuildId bool `protobuf:"varint,13,opt,name=use_workflow_build_id,json=useWorkflowBuildId,proto3" json:"use_workflow_build_id,omitempty"`
 	// Priority metadata. If this message is not present, or any fields are not
 	// present, they inherit the values from the workflow.
-	Priority      *v1.Priority `protobuf:"bytes,14,opt,name=priority,proto3" json:"priority,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	Priority *v1.Priority `protobuf:"bytes,14,opt,name=priority,proto3" json:"priority,omitempty"`
+	// Set when the worker already started executing this activity inside a speculation window.
+	// The activity is recorded as started by this worker, like an eager activity. Only valid for
+	// activities on the workflow's task queue, when the namespace has the `optimistic_start`
+	// capability.
+	OptimisticStart *OptimisticStart `protobuf:"bytes,15,opt,name=optimistic_start,json=optimisticStart,proto3" json:"optimistic_start,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *ScheduleActivityTaskCommandAttributes) Reset() {
@@ -204,6 +209,70 @@ func (x *ScheduleActivityTaskCommandAttributes) GetPriority() *v1.Priority {
 	return nil
 }
 
+func (x *ScheduleActivityTaskCommandAttributes) GetOptimisticStart() *OptimisticStart {
+	if x != nil {
+		return x.OptimisticStart
+	}
+	return nil
+}
+
+// Marks a command the worker already started executing inside a speculation window, before the
+// server knew about it.
+type OptimisticStart struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Time between the worker receiving the current workflow task and starting this command,
+	// measured on the worker's monotonic clock.
+	StartOffset *durationpb.Duration `protobuf:"bytes,1,opt,name=start_offset,json=startOffset,proto3" json:"start_offset,omitempty"`
+	// ScheduleActivityTask only: details from the latest local heartbeat, if any.
+	HeartbeatDetails *v1.Payloads `protobuf:"bytes,2,opt,name=heartbeat_details,json=heartbeatDetails,proto3" json:"heartbeat_details,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *OptimisticStart) Reset() {
+	*x = OptimisticStart{}
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OptimisticStart) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OptimisticStart) ProtoMessage() {}
+
+func (x *OptimisticStart) ProtoReflect() protoreflect.Message {
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OptimisticStart.ProtoReflect.Descriptor instead.
+func (*OptimisticStart) Descriptor() ([]byte, []int) {
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *OptimisticStart) GetStartOffset() *durationpb.Duration {
+	if x != nil {
+		return x.StartOffset
+	}
+	return nil
+}
+
+func (x *OptimisticStart) GetHeartbeatDetails() *v1.Payloads {
+	if x != nil {
+		return x.HeartbeatDetails
+	}
+	return nil
+}
+
 type RequestCancelActivityTaskCommandAttributes struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The `ACTIVITY_TASK_SCHEDULED` event id for the activity being cancelled.
@@ -214,7 +283,7 @@ type RequestCancelActivityTaskCommandAttributes struct {
 
 func (x *RequestCancelActivityTaskCommandAttributes) Reset() {
 	*x = RequestCancelActivityTaskCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[1]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -226,7 +295,7 @@ func (x *RequestCancelActivityTaskCommandAttributes) String() string {
 func (*RequestCancelActivityTaskCommandAttributes) ProtoMessage() {}
 
 func (x *RequestCancelActivityTaskCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[1]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -239,7 +308,7 @@ func (x *RequestCancelActivityTaskCommandAttributes) ProtoReflect() protoreflect
 
 // Deprecated: Use RequestCancelActivityTaskCommandAttributes.ProtoReflect.Descriptor instead.
 func (*RequestCancelActivityTaskCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{1}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RequestCancelActivityTaskCommandAttributes) GetScheduledEventId() int64 {
@@ -260,13 +329,16 @@ type StartTimerCommandAttributes struct {
 	//
 	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
 	StartToFireTimeout *durationpb.Duration `protobuf:"bytes,2,opt,name=start_to_fire_timeout,json=startToFireTimeout,proto3" json:"start_to_fire_timeout,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	// Set when the worker already started this timer inside a speculation window. The timer
+	// expires at the backdated start time plus `start_to_fire_timeout`.
+	OptimisticStart *OptimisticStart `protobuf:"bytes,3,opt,name=optimistic_start,json=optimisticStart,proto3" json:"optimistic_start,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *StartTimerCommandAttributes) Reset() {
 	*x = StartTimerCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[2]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -278,7 +350,7 @@ func (x *StartTimerCommandAttributes) String() string {
 func (*StartTimerCommandAttributes) ProtoMessage() {}
 
 func (x *StartTimerCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[2]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +363,7 @@ func (x *StartTimerCommandAttributes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartTimerCommandAttributes.ProtoReflect.Descriptor instead.
 func (*StartTimerCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{2}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *StartTimerCommandAttributes) GetTimerId() string {
@@ -308,6 +380,174 @@ func (x *StartTimerCommandAttributes) GetStartToFireTimeout() *durationpb.Durati
 	return nil
 }
 
+func (x *StartTimerCommandAttributes) GetOptimisticStart() *OptimisticStart {
+	if x != nil {
+		return x.OptimisticStart
+	}
+	return nil
+}
+
+// Records an outcome the workflow observed for an activity started optimistically earlier in the
+// same command list. Produces `ACTIVITY_TASK_STARTED` followed by the outcome event.
+type ResolveOptimisticActivityCommandAttributes struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The `ACTIVITY_TASK_SCHEDULED` event id of the activity, predicted by the worker.
+	ScheduledEventId int64 `protobuf:"varint,1,opt,name=scheduled_event_id,json=scheduledEventId,proto3" json:"scheduled_event_id,omitempty"`
+	// Types that are valid to be assigned to Outcome:
+	//
+	//	*ResolveOptimisticActivityCommandAttributes_Completed_
+	//	*ResolveOptimisticActivityCommandAttributes_Canceled_
+	Outcome isResolveOptimisticActivityCommandAttributes_Outcome `protobuf_oneof:"outcome"`
+	// Time between the worker receiving the current workflow task and the workflow observing
+	// this outcome, measured on the worker's monotonic clock.
+	ResolveOffset *durationpb.Duration `protobuf:"bytes,4,opt,name=resolve_offset,json=resolveOffset,proto3" json:"resolve_offset,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) Reset() {
+	*x = ResolveOptimisticActivityCommandAttributes{}
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResolveOptimisticActivityCommandAttributes) ProtoMessage() {}
+
+func (x *ResolveOptimisticActivityCommandAttributes) ProtoReflect() protoreflect.Message {
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResolveOptimisticActivityCommandAttributes.ProtoReflect.Descriptor instead.
+func (*ResolveOptimisticActivityCommandAttributes) Descriptor() ([]byte, []int) {
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) GetScheduledEventId() int64 {
+	if x != nil {
+		return x.ScheduledEventId
+	}
+	return 0
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) GetOutcome() isResolveOptimisticActivityCommandAttributes_Outcome {
+	if x != nil {
+		return x.Outcome
+	}
+	return nil
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) GetCompleted() *ResolveOptimisticActivityCommandAttributes_Completed {
+	if x != nil {
+		if x, ok := x.Outcome.(*ResolveOptimisticActivityCommandAttributes_Completed_); ok {
+			return x.Completed
+		}
+	}
+	return nil
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) GetCanceled() *ResolveOptimisticActivityCommandAttributes_Canceled {
+	if x != nil {
+		if x, ok := x.Outcome.(*ResolveOptimisticActivityCommandAttributes_Canceled_); ok {
+			return x.Canceled
+		}
+	}
+	return nil
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes) GetResolveOffset() *durationpb.Duration {
+	if x != nil {
+		return x.ResolveOffset
+	}
+	return nil
+}
+
+type isResolveOptimisticActivityCommandAttributes_Outcome interface {
+	isResolveOptimisticActivityCommandAttributes_Outcome()
+}
+
+type ResolveOptimisticActivityCommandAttributes_Completed_ struct {
+	Completed *ResolveOptimisticActivityCommandAttributes_Completed `protobuf:"bytes,2,opt,name=completed,proto3,oneof"`
+}
+
+type ResolveOptimisticActivityCommandAttributes_Canceled_ struct {
+	Canceled *ResolveOptimisticActivityCommandAttributes_Canceled `protobuf:"bytes,3,opt,name=canceled,proto3,oneof"`
+}
+
+func (*ResolveOptimisticActivityCommandAttributes_Completed_) isResolveOptimisticActivityCommandAttributes_Outcome() {
+}
+
+func (*ResolveOptimisticActivityCommandAttributes_Canceled_) isResolveOptimisticActivityCommandAttributes_Outcome() {
+}
+
+// Records that a timer started optimistically earlier in the same command list fired, and that
+// the workflow observed it. Produces `TIMER_FIRED`.
+type FireOptimisticTimerCommandAttributes struct {
+	state   protoimpl.MessageState `protogen:"open.v1"`
+	TimerId string                 `protobuf:"bytes,1,opt,name=timer_id,json=timerId,proto3" json:"timer_id,omitempty"`
+	// Time between the worker receiving the current workflow task and the workflow observing the
+	// timer firing, measured on the worker's monotonic clock.
+	FireOffset    *durationpb.Duration `protobuf:"bytes,2,opt,name=fire_offset,json=fireOffset,proto3" json:"fire_offset,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FireOptimisticTimerCommandAttributes) Reset() {
+	*x = FireOptimisticTimerCommandAttributes{}
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FireOptimisticTimerCommandAttributes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FireOptimisticTimerCommandAttributes) ProtoMessage() {}
+
+func (x *FireOptimisticTimerCommandAttributes) ProtoReflect() protoreflect.Message {
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FireOptimisticTimerCommandAttributes.ProtoReflect.Descriptor instead.
+func (*FireOptimisticTimerCommandAttributes) Descriptor() ([]byte, []int) {
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *FireOptimisticTimerCommandAttributes) GetTimerId() string {
+	if x != nil {
+		return x.TimerId
+	}
+	return ""
+}
+
+func (x *FireOptimisticTimerCommandAttributes) GetFireOffset() *durationpb.Duration {
+	if x != nil {
+		return x.FireOffset
+	}
+	return nil
+}
+
 type CompleteWorkflowExecutionCommandAttributes struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        *v1.Payloads           `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
@@ -317,7 +557,7 @@ type CompleteWorkflowExecutionCommandAttributes struct {
 
 func (x *CompleteWorkflowExecutionCommandAttributes) Reset() {
 	*x = CompleteWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[3]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -329,7 +569,7 @@ func (x *CompleteWorkflowExecutionCommandAttributes) String() string {
 func (*CompleteWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *CompleteWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[3]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -342,7 +582,7 @@ func (x *CompleteWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect
 
 // Deprecated: Use CompleteWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*CompleteWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{3}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CompleteWorkflowExecutionCommandAttributes) GetResult() *v1.Payloads {
@@ -361,7 +601,7 @@ type FailWorkflowExecutionCommandAttributes struct {
 
 func (x *FailWorkflowExecutionCommandAttributes) Reset() {
 	*x = FailWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[4]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -373,7 +613,7 @@ func (x *FailWorkflowExecutionCommandAttributes) String() string {
 func (*FailWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *FailWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[4]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -386,7 +626,7 @@ func (x *FailWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Mes
 
 // Deprecated: Use FailWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*FailWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{4}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *FailWorkflowExecutionCommandAttributes) GetFailure() *v12.Failure {
@@ -406,7 +646,7 @@ type CancelTimerCommandAttributes struct {
 
 func (x *CancelTimerCommandAttributes) Reset() {
 	*x = CancelTimerCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[5]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -418,7 +658,7 @@ func (x *CancelTimerCommandAttributes) String() string {
 func (*CancelTimerCommandAttributes) ProtoMessage() {}
 
 func (x *CancelTimerCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[5]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -431,7 +671,7 @@ func (x *CancelTimerCommandAttributes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CancelTimerCommandAttributes.ProtoReflect.Descriptor instead.
 func (*CancelTimerCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{5}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *CancelTimerCommandAttributes) GetTimerId() string {
@@ -450,7 +690,7 @@ type CancelWorkflowExecutionCommandAttributes struct {
 
 func (x *CancelWorkflowExecutionCommandAttributes) Reset() {
 	*x = CancelWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[6]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -462,7 +702,7 @@ func (x *CancelWorkflowExecutionCommandAttributes) String() string {
 func (*CancelWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *CancelWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[6]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -475,7 +715,7 @@ func (x *CancelWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.M
 
 // Deprecated: Use CancelWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*CancelWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{6}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *CancelWorkflowExecutionCommandAttributes) GetDetails() *v1.Payloads {
@@ -509,7 +749,7 @@ type RequestCancelExternalWorkflowExecutionCommandAttributes struct {
 
 func (x *RequestCancelExternalWorkflowExecutionCommandAttributes) Reset() {
 	*x = RequestCancelExternalWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[7]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -521,7 +761,7 @@ func (x *RequestCancelExternalWorkflowExecutionCommandAttributes) String() strin
 func (*RequestCancelExternalWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *RequestCancelExternalWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[7]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -534,7 +774,7 @@ func (x *RequestCancelExternalWorkflowExecutionCommandAttributes) ProtoReflect()
 
 // Deprecated: Use RequestCancelExternalWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*RequestCancelExternalWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{7}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{10}
 }
 
 // Deprecated: Marked as deprecated in temporal/api/command/v1/message.proto.
@@ -609,7 +849,7 @@ type SignalExternalWorkflowExecutionCommandAttributes struct {
 
 func (x *SignalExternalWorkflowExecutionCommandAttributes) Reset() {
 	*x = SignalExternalWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[8]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -621,7 +861,7 @@ func (x *SignalExternalWorkflowExecutionCommandAttributes) String() string {
 func (*SignalExternalWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *SignalExternalWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[8]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -634,7 +874,7 @@ func (x *SignalExternalWorkflowExecutionCommandAttributes) ProtoReflect() protor
 
 // Deprecated: Use SignalExternalWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*SignalExternalWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{8}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{11}
 }
 
 // Deprecated: Marked as deprecated in temporal/api/command/v1/message.proto.
@@ -697,7 +937,7 @@ type UpsertWorkflowSearchAttributesCommandAttributes struct {
 
 func (x *UpsertWorkflowSearchAttributesCommandAttributes) Reset() {
 	*x = UpsertWorkflowSearchAttributesCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[9]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -709,7 +949,7 @@ func (x *UpsertWorkflowSearchAttributesCommandAttributes) String() string {
 func (*UpsertWorkflowSearchAttributesCommandAttributes) ProtoMessage() {}
 
 func (x *UpsertWorkflowSearchAttributesCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[9]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -722,7 +962,7 @@ func (x *UpsertWorkflowSearchAttributesCommandAttributes) ProtoReflect() protore
 
 // Deprecated: Use UpsertWorkflowSearchAttributesCommandAttributes.ProtoReflect.Descriptor instead.
 func (*UpsertWorkflowSearchAttributesCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{9}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *UpsertWorkflowSearchAttributesCommandAttributes) GetSearchAttributes() *v1.SearchAttributes {
@@ -744,7 +984,7 @@ type ModifyWorkflowPropertiesCommandAttributes struct {
 
 func (x *ModifyWorkflowPropertiesCommandAttributes) Reset() {
 	*x = ModifyWorkflowPropertiesCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[10]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -756,7 +996,7 @@ func (x *ModifyWorkflowPropertiesCommandAttributes) String() string {
 func (*ModifyWorkflowPropertiesCommandAttributes) ProtoMessage() {}
 
 func (x *ModifyWorkflowPropertiesCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[10]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -769,7 +1009,7 @@ func (x *ModifyWorkflowPropertiesCommandAttributes) ProtoReflect() protoreflect.
 
 // Deprecated: Use ModifyWorkflowPropertiesCommandAttributes.ProtoReflect.Descriptor instead.
 func (*ModifyWorkflowPropertiesCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{10}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ModifyWorkflowPropertiesCommandAttributes) GetUpsertedMemo() *v1.Memo {
@@ -791,7 +1031,7 @@ type RecordMarkerCommandAttributes struct {
 
 func (x *RecordMarkerCommandAttributes) Reset() {
 	*x = RecordMarkerCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[11]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -803,7 +1043,7 @@ func (x *RecordMarkerCommandAttributes) String() string {
 func (*RecordMarkerCommandAttributes) ProtoMessage() {}
 
 func (x *RecordMarkerCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[11]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -816,7 +1056,7 @@ func (x *RecordMarkerCommandAttributes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordMarkerCommandAttributes.ProtoReflect.Descriptor instead.
 func (*RecordMarkerCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{11}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *RecordMarkerCommandAttributes) GetMarkerName() string {
@@ -886,7 +1126,7 @@ type ContinueAsNewWorkflowExecutionCommandAttributes struct {
 
 func (x *ContinueAsNewWorkflowExecutionCommandAttributes) Reset() {
 	*x = ContinueAsNewWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[12]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -898,7 +1138,7 @@ func (x *ContinueAsNewWorkflowExecutionCommandAttributes) String() string {
 func (*ContinueAsNewWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *ContinueAsNewWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[12]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -911,7 +1151,7 @@ func (x *ContinueAsNewWorkflowExecutionCommandAttributes) ProtoReflect() protore
 
 // Deprecated: Use ContinueAsNewWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*ContinueAsNewWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{12}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ContinueAsNewWorkflowExecutionCommandAttributes) GetWorkflowType() *v1.WorkflowType {
@@ -1072,7 +1312,7 @@ type StartChildWorkflowExecutionCommandAttributes struct {
 
 func (x *StartChildWorkflowExecutionCommandAttributes) Reset() {
 	*x = StartChildWorkflowExecutionCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[13]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1084,7 +1324,7 @@ func (x *StartChildWorkflowExecutionCommandAttributes) String() string {
 func (*StartChildWorkflowExecutionCommandAttributes) ProtoMessage() {}
 
 func (x *StartChildWorkflowExecutionCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[13]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1097,7 +1337,7 @@ func (x *StartChildWorkflowExecutionCommandAttributes) ProtoReflect() protorefle
 
 // Deprecated: Use StartChildWorkflowExecutionCommandAttributes.ProtoReflect.Descriptor instead.
 func (*StartChildWorkflowExecutionCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{13}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{16}
 }
 
 // Deprecated: Marked as deprecated in temporal/api/command/v1/message.proto.
@@ -1245,7 +1485,7 @@ type ProtocolMessageCommandAttributes struct {
 
 func (x *ProtocolMessageCommandAttributes) Reset() {
 	*x = ProtocolMessageCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[14]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1257,7 +1497,7 @@ func (x *ProtocolMessageCommandAttributes) String() string {
 func (*ProtocolMessageCommandAttributes) ProtoMessage() {}
 
 func (x *ProtocolMessageCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[14]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1270,7 +1510,7 @@ func (x *ProtocolMessageCommandAttributes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ProtocolMessageCommandAttributes.ProtoReflect.Descriptor instead.
 func (*ProtocolMessageCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{14}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ProtocolMessageCommandAttributes) GetMessageId() string {
@@ -1335,7 +1575,7 @@ type ScheduleNexusOperationCommandAttributes struct {
 
 func (x *ScheduleNexusOperationCommandAttributes) Reset() {
 	*x = ScheduleNexusOperationCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[15]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1347,7 +1587,7 @@ func (x *ScheduleNexusOperationCommandAttributes) String() string {
 func (*ScheduleNexusOperationCommandAttributes) ProtoMessage() {}
 
 func (x *ScheduleNexusOperationCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[15]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1360,7 +1600,7 @@ func (x *ScheduleNexusOperationCommandAttributes) ProtoReflect() protoreflect.Me
 
 // Deprecated: Use ScheduleNexusOperationCommandAttributes.ProtoReflect.Descriptor instead.
 func (*ScheduleNexusOperationCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{15}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *ScheduleNexusOperationCommandAttributes) GetEndpoint() string {
@@ -1430,7 +1670,7 @@ type RequestCancelNexusOperationCommandAttributes struct {
 
 func (x *RequestCancelNexusOperationCommandAttributes) Reset() {
 	*x = RequestCancelNexusOperationCommandAttributes{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[16]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1442,7 +1682,7 @@ func (x *RequestCancelNexusOperationCommandAttributes) String() string {
 func (*RequestCancelNexusOperationCommandAttributes) ProtoMessage() {}
 
 func (x *RequestCancelNexusOperationCommandAttributes) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[16]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1455,7 +1695,7 @@ func (x *RequestCancelNexusOperationCommandAttributes) ProtoReflect() protorefle
 
 // Deprecated: Use RequestCancelNexusOperationCommandAttributes.ProtoReflect.Descriptor instead.
 func (*RequestCancelNexusOperationCommandAttributes) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{16}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *RequestCancelNexusOperationCommandAttributes) GetScheduledEventId() int64 {
@@ -1502,6 +1742,8 @@ type Command struct {
 	//	*Command_ModifyWorkflowPropertiesCommandAttributes
 	//	*Command_ScheduleNexusOperationCommandAttributes
 	//	*Command_RequestCancelNexusOperationCommandAttributes
+	//	*Command_ResolveOptimisticActivityCommandAttributes
+	//	*Command_FireOptimisticTimerCommandAttributes
 	Attributes    isCommand_Attributes `protobuf_oneof:"attributes"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -1509,7 +1751,7 @@ type Command struct {
 
 func (x *Command) Reset() {
 	*x = Command{}
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[17]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1521,7 +1763,7 @@ func (x *Command) String() string {
 func (*Command) ProtoMessage() {}
 
 func (x *Command) ProtoReflect() protoreflect.Message {
-	mi := &file_temporal_api_command_v1_message_proto_msgTypes[17]
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1534,7 +1776,7 @@ func (x *Command) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Command.ProtoReflect.Descriptor instead.
 func (*Command) Descriptor() ([]byte, []int) {
-	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{17}
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *Command) GetCommandType() v13.CommandType {
@@ -1718,6 +1960,24 @@ func (x *Command) GetRequestCancelNexusOperationCommandAttributes() *RequestCanc
 	return nil
 }
 
+func (x *Command) GetResolveOptimisticActivityCommandAttributes() *ResolveOptimisticActivityCommandAttributes {
+	if x != nil {
+		if x, ok := x.Attributes.(*Command_ResolveOptimisticActivityCommandAttributes); ok {
+			return x.ResolveOptimisticActivityCommandAttributes
+		}
+	}
+	return nil
+}
+
+func (x *Command) GetFireOptimisticTimerCommandAttributes() *FireOptimisticTimerCommandAttributes {
+	if x != nil {
+		if x, ok := x.Attributes.(*Command_FireOptimisticTimerCommandAttributes); ok {
+			return x.FireOptimisticTimerCommandAttributes
+		}
+	}
+	return nil
+}
+
 type isCommand_Attributes interface {
 	isCommand_Attributes()
 }
@@ -1791,6 +2051,14 @@ type Command_RequestCancelNexusOperationCommandAttributes struct {
 	RequestCancelNexusOperationCommandAttributes *RequestCancelNexusOperationCommandAttributes `protobuf:"bytes,19,opt,name=request_cancel_nexus_operation_command_attributes,json=requestCancelNexusOperationCommandAttributes,proto3,oneof"`
 }
 
+type Command_ResolveOptimisticActivityCommandAttributes struct {
+	ResolveOptimisticActivityCommandAttributes *ResolveOptimisticActivityCommandAttributes `protobuf:"bytes,20,opt,name=resolve_optimistic_activity_command_attributes,json=resolveOptimisticActivityCommandAttributes,proto3,oneof"`
+}
+
+type Command_FireOptimisticTimerCommandAttributes struct {
+	FireOptimisticTimerCommandAttributes *FireOptimisticTimerCommandAttributes `protobuf:"bytes,21,opt,name=fire_optimistic_timer_command_attributes,json=fireOptimisticTimerCommandAttributes,proto3,oneof"`
+}
+
 func (*Command_ScheduleActivityTaskCommandAttributes) isCommand_Attributes() {}
 
 func (*Command_StartTimerCommandAttributes) isCommand_Attributes() {}
@@ -1825,11 +2093,104 @@ func (*Command_ScheduleNexusOperationCommandAttributes) isCommand_Attributes() {
 
 func (*Command_RequestCancelNexusOperationCommandAttributes) isCommand_Attributes() {}
 
+func (*Command_ResolveOptimisticActivityCommandAttributes) isCommand_Attributes() {}
+
+func (*Command_FireOptimisticTimerCommandAttributes) isCommand_Attributes() {}
+
+type ResolveOptimisticActivityCommandAttributes_Completed struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        *v1.Payloads           `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Completed) Reset() {
+	*x = ResolveOptimisticActivityCommandAttributes_Completed{}
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Completed) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResolveOptimisticActivityCommandAttributes_Completed) ProtoMessage() {}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Completed) ProtoReflect() protoreflect.Message {
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResolveOptimisticActivityCommandAttributes_Completed.ProtoReflect.Descriptor instead.
+func (*ResolveOptimisticActivityCommandAttributes_Completed) Descriptor() ([]byte, []int) {
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{4, 0}
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Completed) GetResult() *v1.Payloads {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+// Only valid after a `RequestCancelActivityTask` command for the same activity.
+type ResolveOptimisticActivityCommandAttributes_Canceled struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Details       *v1.Payloads           `protobuf:"bytes,1,opt,name=details,proto3" json:"details,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Canceled) Reset() {
+	*x = ResolveOptimisticActivityCommandAttributes_Canceled{}
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Canceled) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResolveOptimisticActivityCommandAttributes_Canceled) ProtoMessage() {}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Canceled) ProtoReflect() protoreflect.Message {
+	mi := &file_temporal_api_command_v1_message_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResolveOptimisticActivityCommandAttributes_Canceled.ProtoReflect.Descriptor instead.
+func (*ResolveOptimisticActivityCommandAttributes_Canceled) Descriptor() ([]byte, []int) {
+	return file_temporal_api_command_v1_message_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *ResolveOptimisticActivityCommandAttributes_Canceled) GetDetails() *v1.Payloads {
+	if x != nil {
+		return x.Details
+	}
+	return nil
+}
+
 var File_temporal_api_command_v1_message_proto protoreflect.FileDescriptor
 
 const file_temporal_api_command_v1_message_proto_rawDesc = "" +
 	"\n" +
-	"%temporal/api/command/v1/message.proto\x12\x17temporal.api.command.v1\x1a\x1egoogle/protobuf/duration.proto\x1a$temporal/api/enums/v1/workflow.proto\x1a(temporal/api/enums/v1/command_type.proto\x1a$temporal/api/common/v1/message.proto\x1a%temporal/api/failure/v1/message.proto\x1a'temporal/api/taskqueue/v1/message.proto\x1a&temporal/api/workflow/v1/message.proto\x1a'temporal/api/sdk/v1/user_metadata.proto\x1a,temporal/api/sdk/v1/event_group_marker.proto\"\x83\a\n" +
+	"%temporal/api/command/v1/message.proto\x12\x17temporal.api.command.v1\x1a\x1egoogle/protobuf/duration.proto\x1a$temporal/api/enums/v1/workflow.proto\x1a(temporal/api/enums/v1/command_type.proto\x1a$temporal/api/common/v1/message.proto\x1a%temporal/api/failure/v1/message.proto\x1a'temporal/api/taskqueue/v1/message.proto\x1a&temporal/api/workflow/v1/message.proto\x1a'temporal/api/sdk/v1/user_metadata.proto\x1a,temporal/api/sdk/v1/event_group_marker.proto\"\xd8\a\n" +
 	"%ScheduleActivityTaskCommandAttributes\x12\x1f\n" +
 	"\vactivity_id\x18\x01 \x01(\tR\n" +
 	"activityId\x12I\n" +
@@ -1846,12 +2207,31 @@ const file_temporal_api_command_v1_message_proto_rawDesc = "" +
 	"\fretry_policy\x18\v \x01(\v2#.temporal.api.common.v1.RetryPolicyR\vretryPolicy\x126\n" +
 	"\x17request_eager_execution\x18\f \x01(\bR\x15requestEagerExecution\x121\n" +
 	"\x15use_workflow_build_id\x18\r \x01(\bR\x12useWorkflowBuildId\x12<\n" +
-	"\bpriority\x18\x0e \x01(\v2 .temporal.api.common.v1.PriorityR\bpriorityJ\x04\b\x03\x10\x04\"Z\n" +
+	"\bpriority\x18\x0e \x01(\v2 .temporal.api.common.v1.PriorityR\bpriority\x12S\n" +
+	"\x10optimistic_start\x18\x0f \x01(\v2(.temporal.api.command.v1.OptimisticStartR\x0foptimisticStartJ\x04\b\x03\x10\x04\"\x9e\x01\n" +
+	"\x0fOptimisticStart\x12<\n" +
+	"\fstart_offset\x18\x01 \x01(\v2\x19.google.protobuf.DurationR\vstartOffset\x12M\n" +
+	"\x11heartbeat_details\x18\x02 \x01(\v2 .temporal.api.common.v1.PayloadsR\x10heartbeatDetails\"Z\n" +
 	"*RequestCancelActivityTaskCommandAttributes\x12,\n" +
-	"\x12scheduled_event_id\x18\x01 \x01(\x03R\x10scheduledEventId\"\x86\x01\n" +
+	"\x12scheduled_event_id\x18\x01 \x01(\x03R\x10scheduledEventId\"\xdb\x01\n" +
 	"\x1bStartTimerCommandAttributes\x12\x19\n" +
 	"\btimer_id\x18\x01 \x01(\tR\atimerId\x12L\n" +
-	"\x15start_to_fire_timeout\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\x12startToFireTimeout\"f\n" +
+	"\x15start_to_fire_timeout\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\x12startToFireTimeout\x12S\n" +
+	"\x10optimistic_start\x18\x03 \x01(\v2(.temporal.api.command.v1.OptimisticStartR\x0foptimisticStart\"\x91\x04\n" +
+	"*ResolveOptimisticActivityCommandAttributes\x12,\n" +
+	"\x12scheduled_event_id\x18\x01 \x01(\x03R\x10scheduledEventId\x12m\n" +
+	"\tcompleted\x18\x02 \x01(\v2M.temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.CompletedH\x00R\tcompleted\x12j\n" +
+	"\bcanceled\x18\x03 \x01(\v2L.temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.CanceledH\x00R\bcanceled\x12@\n" +
+	"\x0eresolve_offset\x18\x04 \x01(\v2\x19.google.protobuf.DurationR\rresolveOffset\x1aE\n" +
+	"\tCompleted\x128\n" +
+	"\x06result\x18\x01 \x01(\v2 .temporal.api.common.v1.PayloadsR\x06result\x1aF\n" +
+	"\bCanceled\x12:\n" +
+	"\adetails\x18\x01 \x01(\v2 .temporal.api.common.v1.PayloadsR\adetailsB\t\n" +
+	"\aoutcome\"}\n" +
+	"$FireOptimisticTimerCommandAttributes\x12\x19\n" +
+	"\btimer_id\x18\x01 \x01(\tR\atimerId\x12:\n" +
+	"\vfire_offset\x18\x02 \x01(\v2\x19.google.protobuf.DurationR\n" +
+	"fireOffset\"f\n" +
 	"*CompleteWorkflowExecutionCommandAttributes\x128\n" +
 	"\x06result\x18\x01 \x01(\v2 .temporal.api.common.v1.PayloadsR\x06result\"d\n" +
 	"&FailWorkflowExecutionCommandAttributes\x12:\n" +
@@ -1949,7 +2329,7 @@ const file_temporal_api_command_v1_message_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\\\n" +
 	",RequestCancelNexusOperationCommandAttributes\x12,\n" +
-	"\x12scheduled_event_id\x18\x01 \x01(\x03R\x10scheduledEventId\"\x88\x18\n" +
+	"\x12scheduled_event_id\x18\x01 \x01(\x03R\x10scheduledEventId\"\xce\x1a\n" +
 	"\aCommand\x12E\n" +
 	"\fcommand_type\x18\x01 \x01(\x0e2\".temporal.api.enums.v1.CommandTypeR\vcommandType\x12G\n" +
 	"\ruser_metadata\x18\xad\x02 \x01(\v2!.temporal.api.sdk.v1.UserMetadataR\fuserMetadata\x12V\n" +
@@ -1971,7 +2351,9 @@ const file_temporal_api_command_v1_message_proto_rawDesc = "" +
 	"#protocol_message_command_attributes\x18\x0f \x01(\v29.temporal.api.command.v1.ProtocolMessageCommandAttributesH\x00R protocolMessageCommandAttributes\x12\xa6\x01\n" +
 	"-modify_workflow_properties_command_attributes\x18\x11 \x01(\v2B.temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributesH\x00R)modifyWorkflowPropertiesCommandAttributes\x12\xa0\x01\n" +
 	"+schedule_nexus_operation_command_attributes\x18\x12 \x01(\v2@.temporal.api.command.v1.ScheduleNexusOperationCommandAttributesH\x00R'scheduleNexusOperationCommandAttributes\x12\xb0\x01\n" +
-	"1request_cancel_nexus_operation_command_attributes\x18\x13 \x01(\v2E.temporal.api.command.v1.RequestCancelNexusOperationCommandAttributesH\x00R,requestCancelNexusOperationCommandAttributesB\f\n" +
+	"1request_cancel_nexus_operation_command_attributes\x18\x13 \x01(\v2E.temporal.api.command.v1.RequestCancelNexusOperationCommandAttributesH\x00R,requestCancelNexusOperationCommandAttributes\x12\xa9\x01\n" +
+	".resolve_optimistic_activity_command_attributes\x18\x14 \x01(\v2C.temporal.api.command.v1.ResolveOptimisticActivityCommandAttributesH\x00R*resolveOptimisticActivityCommandAttributes\x12\x97\x01\n" +
+	"(fire_optimistic_timer_command_attributes\x18\x15 \x01(\v2=.temporal.api.command.v1.FireOptimisticTimerCommandAttributesH\x00R$fireOptimisticTimerCommandAttributesB\f\n" +
 	"\n" +
 	"attributesB\x8e\x01\n" +
 	"\x1aio.temporal.api.command.v1B\fMessageProtoP\x01Z%go.temporal.io/api/command/v1;command\xaa\x02\x19Temporalio.Api.Command.V1\xea\x02\x1cTemporalio::Api::Command::V1b\x06proto3"
@@ -1988,132 +2370,149 @@ func file_temporal_api_command_v1_message_proto_rawDescGZIP() []byte {
 	return file_temporal_api_command_v1_message_proto_rawDescData
 }
 
-var file_temporal_api_command_v1_message_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_temporal_api_command_v1_message_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_temporal_api_command_v1_message_proto_goTypes = []any{
 	(*ScheduleActivityTaskCommandAttributes)(nil),                   // 0: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes
-	(*RequestCancelActivityTaskCommandAttributes)(nil),              // 1: temporal.api.command.v1.RequestCancelActivityTaskCommandAttributes
-	(*StartTimerCommandAttributes)(nil),                             // 2: temporal.api.command.v1.StartTimerCommandAttributes
-	(*CompleteWorkflowExecutionCommandAttributes)(nil),              // 3: temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes
-	(*FailWorkflowExecutionCommandAttributes)(nil),                  // 4: temporal.api.command.v1.FailWorkflowExecutionCommandAttributes
-	(*CancelTimerCommandAttributes)(nil),                            // 5: temporal.api.command.v1.CancelTimerCommandAttributes
-	(*CancelWorkflowExecutionCommandAttributes)(nil),                // 6: temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes
-	(*RequestCancelExternalWorkflowExecutionCommandAttributes)(nil), // 7: temporal.api.command.v1.RequestCancelExternalWorkflowExecutionCommandAttributes
-	(*SignalExternalWorkflowExecutionCommandAttributes)(nil),        // 8: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes
-	(*UpsertWorkflowSearchAttributesCommandAttributes)(nil),         // 9: temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes
-	(*ModifyWorkflowPropertiesCommandAttributes)(nil),               // 10: temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes
-	(*RecordMarkerCommandAttributes)(nil),                           // 11: temporal.api.command.v1.RecordMarkerCommandAttributes
-	(*ContinueAsNewWorkflowExecutionCommandAttributes)(nil),         // 12: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes
-	(*StartChildWorkflowExecutionCommandAttributes)(nil),            // 13: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes
-	(*ProtocolMessageCommandAttributes)(nil),                        // 14: temporal.api.command.v1.ProtocolMessageCommandAttributes
-	(*ScheduleNexusOperationCommandAttributes)(nil),                 // 15: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes
-	(*RequestCancelNexusOperationCommandAttributes)(nil),            // 16: temporal.api.command.v1.RequestCancelNexusOperationCommandAttributes
-	(*Command)(nil),                          // 17: temporal.api.command.v1.Command
-	nil,                                      // 18: temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry
-	nil,                                      // 19: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.NexusHeaderEntry
-	(*v1.ActivityType)(nil),                  // 20: temporal.api.common.v1.ActivityType
-	(*v11.TaskQueue)(nil),                    // 21: temporal.api.taskqueue.v1.TaskQueue
-	(*v1.Header)(nil),                        // 22: temporal.api.common.v1.Header
-	(*v1.Payloads)(nil),                      // 23: temporal.api.common.v1.Payloads
-	(*durationpb.Duration)(nil),              // 24: google.protobuf.Duration
-	(*v1.RetryPolicy)(nil),                   // 25: temporal.api.common.v1.RetryPolicy
-	(*v1.Priority)(nil),                      // 26: temporal.api.common.v1.Priority
-	(*v12.Failure)(nil),                      // 27: temporal.api.failure.v1.Failure
-	(*v1.WorkflowExecution)(nil),             // 28: temporal.api.common.v1.WorkflowExecution
-	(*v1.SearchAttributes)(nil),              // 29: temporal.api.common.v1.SearchAttributes
-	(*v1.Memo)(nil),                          // 30: temporal.api.common.v1.Memo
-	(*v1.WorkflowType)(nil),                  // 31: temporal.api.common.v1.WorkflowType
-	(v13.ContinueAsNewInitiator)(0),          // 32: temporal.api.enums.v1.ContinueAsNewInitiator
-	(v13.ContinueAsNewVersioningBehavior)(0), // 33: temporal.api.enums.v1.ContinueAsNewVersioningBehavior
-	(v13.ParentClosePolicy)(0),               // 34: temporal.api.enums.v1.ParentClosePolicy
-	(v13.WorkflowIdReusePolicy)(0),           // 35: temporal.api.enums.v1.WorkflowIdReusePolicy
-	(*v14.VersioningOverride)(nil),           // 36: temporal.api.workflow.v1.VersioningOverride
-	(*v1.Payload)(nil),                       // 37: temporal.api.common.v1.Payload
-	(v13.CommandType)(0),                     // 38: temporal.api.enums.v1.CommandType
-	(*v15.UserMetadata)(nil),                 // 39: temporal.api.sdk.v1.UserMetadata
-	(*v15.EventGroupMarker)(nil),             // 40: temporal.api.sdk.v1.EventGroupMarker
+	(*OptimisticStart)(nil),                                         // 1: temporal.api.command.v1.OptimisticStart
+	(*RequestCancelActivityTaskCommandAttributes)(nil),              // 2: temporal.api.command.v1.RequestCancelActivityTaskCommandAttributes
+	(*StartTimerCommandAttributes)(nil),                             // 3: temporal.api.command.v1.StartTimerCommandAttributes
+	(*ResolveOptimisticActivityCommandAttributes)(nil),              // 4: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes
+	(*FireOptimisticTimerCommandAttributes)(nil),                    // 5: temporal.api.command.v1.FireOptimisticTimerCommandAttributes
+	(*CompleteWorkflowExecutionCommandAttributes)(nil),              // 6: temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes
+	(*FailWorkflowExecutionCommandAttributes)(nil),                  // 7: temporal.api.command.v1.FailWorkflowExecutionCommandAttributes
+	(*CancelTimerCommandAttributes)(nil),                            // 8: temporal.api.command.v1.CancelTimerCommandAttributes
+	(*CancelWorkflowExecutionCommandAttributes)(nil),                // 9: temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes
+	(*RequestCancelExternalWorkflowExecutionCommandAttributes)(nil), // 10: temporal.api.command.v1.RequestCancelExternalWorkflowExecutionCommandAttributes
+	(*SignalExternalWorkflowExecutionCommandAttributes)(nil),        // 11: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes
+	(*UpsertWorkflowSearchAttributesCommandAttributes)(nil),         // 12: temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes
+	(*ModifyWorkflowPropertiesCommandAttributes)(nil),               // 13: temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes
+	(*RecordMarkerCommandAttributes)(nil),                           // 14: temporal.api.command.v1.RecordMarkerCommandAttributes
+	(*ContinueAsNewWorkflowExecutionCommandAttributes)(nil),         // 15: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes
+	(*StartChildWorkflowExecutionCommandAttributes)(nil),            // 16: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes
+	(*ProtocolMessageCommandAttributes)(nil),                        // 17: temporal.api.command.v1.ProtocolMessageCommandAttributes
+	(*ScheduleNexusOperationCommandAttributes)(nil),                 // 18: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes
+	(*RequestCancelNexusOperationCommandAttributes)(nil),            // 19: temporal.api.command.v1.RequestCancelNexusOperationCommandAttributes
+	(*Command)(nil), // 20: temporal.api.command.v1.Command
+	(*ResolveOptimisticActivityCommandAttributes_Completed)(nil), // 21: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Completed
+	(*ResolveOptimisticActivityCommandAttributes_Canceled)(nil),  // 22: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Canceled
+	nil,                                      // 23: temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry
+	nil,                                      // 24: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.NexusHeaderEntry
+	(*v1.ActivityType)(nil),                  // 25: temporal.api.common.v1.ActivityType
+	(*v11.TaskQueue)(nil),                    // 26: temporal.api.taskqueue.v1.TaskQueue
+	(*v1.Header)(nil),                        // 27: temporal.api.common.v1.Header
+	(*v1.Payloads)(nil),                      // 28: temporal.api.common.v1.Payloads
+	(*durationpb.Duration)(nil),              // 29: google.protobuf.Duration
+	(*v1.RetryPolicy)(nil),                   // 30: temporal.api.common.v1.RetryPolicy
+	(*v1.Priority)(nil),                      // 31: temporal.api.common.v1.Priority
+	(*v12.Failure)(nil),                      // 32: temporal.api.failure.v1.Failure
+	(*v1.WorkflowExecution)(nil),             // 33: temporal.api.common.v1.WorkflowExecution
+	(*v1.SearchAttributes)(nil),              // 34: temporal.api.common.v1.SearchAttributes
+	(*v1.Memo)(nil),                          // 35: temporal.api.common.v1.Memo
+	(*v1.WorkflowType)(nil),                  // 36: temporal.api.common.v1.WorkflowType
+	(v13.ContinueAsNewInitiator)(0),          // 37: temporal.api.enums.v1.ContinueAsNewInitiator
+	(v13.ContinueAsNewVersioningBehavior)(0), // 38: temporal.api.enums.v1.ContinueAsNewVersioningBehavior
+	(v13.ParentClosePolicy)(0),               // 39: temporal.api.enums.v1.ParentClosePolicy
+	(v13.WorkflowIdReusePolicy)(0),           // 40: temporal.api.enums.v1.WorkflowIdReusePolicy
+	(*v14.VersioningOverride)(nil),           // 41: temporal.api.workflow.v1.VersioningOverride
+	(*v1.Payload)(nil),                       // 42: temporal.api.common.v1.Payload
+	(v13.CommandType)(0),                     // 43: temporal.api.enums.v1.CommandType
+	(*v15.UserMetadata)(nil),                 // 44: temporal.api.sdk.v1.UserMetadata
+	(*v15.EventGroupMarker)(nil),             // 45: temporal.api.sdk.v1.EventGroupMarker
 }
 var file_temporal_api_command_v1_message_proto_depIdxs = []int32{
-	20, // 0: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.activity_type:type_name -> temporal.api.common.v1.ActivityType
-	21, // 1: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
-	22, // 2: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.header:type_name -> temporal.api.common.v1.Header
-	23, // 3: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
-	24, // 4: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.schedule_to_close_timeout:type_name -> google.protobuf.Duration
-	24, // 5: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.schedule_to_start_timeout:type_name -> google.protobuf.Duration
-	24, // 6: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.start_to_close_timeout:type_name -> google.protobuf.Duration
-	24, // 7: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.heartbeat_timeout:type_name -> google.protobuf.Duration
-	25, // 8: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
-	26, // 9: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.priority:type_name -> temporal.api.common.v1.Priority
-	24, // 10: temporal.api.command.v1.StartTimerCommandAttributes.start_to_fire_timeout:type_name -> google.protobuf.Duration
-	23, // 11: temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes.result:type_name -> temporal.api.common.v1.Payloads
-	27, // 12: temporal.api.command.v1.FailWorkflowExecutionCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
-	23, // 13: temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes.details:type_name -> temporal.api.common.v1.Payloads
-	28, // 14: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.execution:type_name -> temporal.api.common.v1.WorkflowExecution
-	23, // 15: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
-	22, // 16: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
-	29, // 17: temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
-	30, // 18: temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes.upserted_memo:type_name -> temporal.api.common.v1.Memo
-	18, // 19: temporal.api.command.v1.RecordMarkerCommandAttributes.details:type_name -> temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry
-	22, // 20: temporal.api.command.v1.RecordMarkerCommandAttributes.header:type_name -> temporal.api.common.v1.Header
-	27, // 21: temporal.api.command.v1.RecordMarkerCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
-	31, // 22: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_type:type_name -> temporal.api.common.v1.WorkflowType
-	21, // 23: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
-	23, // 24: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
-	24, // 25: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_run_timeout:type_name -> google.protobuf.Duration
-	24, // 26: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_task_timeout:type_name -> google.protobuf.Duration
-	24, // 27: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.backoff_start_interval:type_name -> google.protobuf.Duration
-	25, // 28: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
-	32, // 29: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.initiator:type_name -> temporal.api.enums.v1.ContinueAsNewInitiator
-	27, // 30: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
-	23, // 31: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.last_completion_result:type_name -> temporal.api.common.v1.Payloads
-	22, // 32: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
-	30, // 33: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.memo:type_name -> temporal.api.common.v1.Memo
-	29, // 34: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
-	33, // 35: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.initial_versioning_behavior:type_name -> temporal.api.enums.v1.ContinueAsNewVersioningBehavior
-	31, // 36: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_type:type_name -> temporal.api.common.v1.WorkflowType
-	21, // 37: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
-	23, // 38: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
-	24, // 39: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_execution_timeout:type_name -> google.protobuf.Duration
-	24, // 40: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_run_timeout:type_name -> google.protobuf.Duration
-	24, // 41: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_task_timeout:type_name -> google.protobuf.Duration
-	34, // 42: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.parent_close_policy:type_name -> temporal.api.enums.v1.ParentClosePolicy
-	35, // 43: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_id_reuse_policy:type_name -> temporal.api.enums.v1.WorkflowIdReusePolicy
-	25, // 44: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
-	22, // 45: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
-	30, // 46: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.memo:type_name -> temporal.api.common.v1.Memo
-	29, // 47: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
-	26, // 48: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.priority:type_name -> temporal.api.common.v1.Priority
-	36, // 49: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.versioning_override:type_name -> temporal.api.workflow.v1.VersioningOverride
-	37, // 50: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.input:type_name -> temporal.api.common.v1.Payload
-	24, // 51: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.schedule_to_close_timeout:type_name -> google.protobuf.Duration
-	19, // 52: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.nexus_header:type_name -> temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.NexusHeaderEntry
-	24, // 53: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.schedule_to_start_timeout:type_name -> google.protobuf.Duration
-	24, // 54: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.start_to_close_timeout:type_name -> google.protobuf.Duration
-	38, // 55: temporal.api.command.v1.Command.command_type:type_name -> temporal.api.enums.v1.CommandType
-	39, // 56: temporal.api.command.v1.Command.user_metadata:type_name -> temporal.api.sdk.v1.UserMetadata
-	40, // 57: temporal.api.command.v1.Command.event_group_markers:type_name -> temporal.api.sdk.v1.EventGroupMarker
-	0,  // 58: temporal.api.command.v1.Command.schedule_activity_task_command_attributes:type_name -> temporal.api.command.v1.ScheduleActivityTaskCommandAttributes
-	2,  // 59: temporal.api.command.v1.Command.start_timer_command_attributes:type_name -> temporal.api.command.v1.StartTimerCommandAttributes
-	3,  // 60: temporal.api.command.v1.Command.complete_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes
-	4,  // 61: temporal.api.command.v1.Command.fail_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.FailWorkflowExecutionCommandAttributes
-	1,  // 62: temporal.api.command.v1.Command.request_cancel_activity_task_command_attributes:type_name -> temporal.api.command.v1.RequestCancelActivityTaskCommandAttributes
-	5,  // 63: temporal.api.command.v1.Command.cancel_timer_command_attributes:type_name -> temporal.api.command.v1.CancelTimerCommandAttributes
-	6,  // 64: temporal.api.command.v1.Command.cancel_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes
-	7,  // 65: temporal.api.command.v1.Command.request_cancel_external_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.RequestCancelExternalWorkflowExecutionCommandAttributes
-	11, // 66: temporal.api.command.v1.Command.record_marker_command_attributes:type_name -> temporal.api.command.v1.RecordMarkerCommandAttributes
-	12, // 67: temporal.api.command.v1.Command.continue_as_new_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes
-	13, // 68: temporal.api.command.v1.Command.start_child_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes
-	8,  // 69: temporal.api.command.v1.Command.signal_external_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes
-	9,  // 70: temporal.api.command.v1.Command.upsert_workflow_search_attributes_command_attributes:type_name -> temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes
-	14, // 71: temporal.api.command.v1.Command.protocol_message_command_attributes:type_name -> temporal.api.command.v1.ProtocolMessageCommandAttributes
-	10, // 72: temporal.api.command.v1.Command.modify_workflow_properties_command_attributes:type_name -> temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes
-	15, // 73: temporal.api.command.v1.Command.schedule_nexus_operation_command_attributes:type_name -> temporal.api.command.v1.ScheduleNexusOperationCommandAttributes
-	16, // 74: temporal.api.command.v1.Command.request_cancel_nexus_operation_command_attributes:type_name -> temporal.api.command.v1.RequestCancelNexusOperationCommandAttributes
-	23, // 75: temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry.value:type_name -> temporal.api.common.v1.Payloads
-	76, // [76:76] is the sub-list for method output_type
-	76, // [76:76] is the sub-list for method input_type
-	76, // [76:76] is the sub-list for extension type_name
-	76, // [76:76] is the sub-list for extension extendee
-	0,  // [0:76] is the sub-list for field type_name
+	25, // 0: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.activity_type:type_name -> temporal.api.common.v1.ActivityType
+	26, // 1: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
+	27, // 2: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.header:type_name -> temporal.api.common.v1.Header
+	28, // 3: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
+	29, // 4: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.schedule_to_close_timeout:type_name -> google.protobuf.Duration
+	29, // 5: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.schedule_to_start_timeout:type_name -> google.protobuf.Duration
+	29, // 6: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.start_to_close_timeout:type_name -> google.protobuf.Duration
+	29, // 7: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.heartbeat_timeout:type_name -> google.protobuf.Duration
+	30, // 8: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
+	31, // 9: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.priority:type_name -> temporal.api.common.v1.Priority
+	1,  // 10: temporal.api.command.v1.ScheduleActivityTaskCommandAttributes.optimistic_start:type_name -> temporal.api.command.v1.OptimisticStart
+	29, // 11: temporal.api.command.v1.OptimisticStart.start_offset:type_name -> google.protobuf.Duration
+	28, // 12: temporal.api.command.v1.OptimisticStart.heartbeat_details:type_name -> temporal.api.common.v1.Payloads
+	29, // 13: temporal.api.command.v1.StartTimerCommandAttributes.start_to_fire_timeout:type_name -> google.protobuf.Duration
+	1,  // 14: temporal.api.command.v1.StartTimerCommandAttributes.optimistic_start:type_name -> temporal.api.command.v1.OptimisticStart
+	21, // 15: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.completed:type_name -> temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Completed
+	22, // 16: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.canceled:type_name -> temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Canceled
+	29, // 17: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.resolve_offset:type_name -> google.protobuf.Duration
+	29, // 18: temporal.api.command.v1.FireOptimisticTimerCommandAttributes.fire_offset:type_name -> google.protobuf.Duration
+	28, // 19: temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes.result:type_name -> temporal.api.common.v1.Payloads
+	32, // 20: temporal.api.command.v1.FailWorkflowExecutionCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
+	28, // 21: temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes.details:type_name -> temporal.api.common.v1.Payloads
+	33, // 22: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.execution:type_name -> temporal.api.common.v1.WorkflowExecution
+	28, // 23: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
+	27, // 24: temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
+	34, // 25: temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
+	35, // 26: temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes.upserted_memo:type_name -> temporal.api.common.v1.Memo
+	23, // 27: temporal.api.command.v1.RecordMarkerCommandAttributes.details:type_name -> temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry
+	27, // 28: temporal.api.command.v1.RecordMarkerCommandAttributes.header:type_name -> temporal.api.common.v1.Header
+	32, // 29: temporal.api.command.v1.RecordMarkerCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
+	36, // 30: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_type:type_name -> temporal.api.common.v1.WorkflowType
+	26, // 31: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
+	28, // 32: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
+	29, // 33: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_run_timeout:type_name -> google.protobuf.Duration
+	29, // 34: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.workflow_task_timeout:type_name -> google.protobuf.Duration
+	29, // 35: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.backoff_start_interval:type_name -> google.protobuf.Duration
+	30, // 36: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
+	37, // 37: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.initiator:type_name -> temporal.api.enums.v1.ContinueAsNewInitiator
+	32, // 38: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.failure:type_name -> temporal.api.failure.v1.Failure
+	28, // 39: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.last_completion_result:type_name -> temporal.api.common.v1.Payloads
+	27, // 40: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
+	35, // 41: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.memo:type_name -> temporal.api.common.v1.Memo
+	34, // 42: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
+	38, // 43: temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes.initial_versioning_behavior:type_name -> temporal.api.enums.v1.ContinueAsNewVersioningBehavior
+	36, // 44: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_type:type_name -> temporal.api.common.v1.WorkflowType
+	26, // 45: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.task_queue:type_name -> temporal.api.taskqueue.v1.TaskQueue
+	28, // 46: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.input:type_name -> temporal.api.common.v1.Payloads
+	29, // 47: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_execution_timeout:type_name -> google.protobuf.Duration
+	29, // 48: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_run_timeout:type_name -> google.protobuf.Duration
+	29, // 49: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_task_timeout:type_name -> google.protobuf.Duration
+	39, // 50: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.parent_close_policy:type_name -> temporal.api.enums.v1.ParentClosePolicy
+	40, // 51: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.workflow_id_reuse_policy:type_name -> temporal.api.enums.v1.WorkflowIdReusePolicy
+	30, // 52: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.retry_policy:type_name -> temporal.api.common.v1.RetryPolicy
+	27, // 53: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.header:type_name -> temporal.api.common.v1.Header
+	35, // 54: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.memo:type_name -> temporal.api.common.v1.Memo
+	34, // 55: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.search_attributes:type_name -> temporal.api.common.v1.SearchAttributes
+	31, // 56: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.priority:type_name -> temporal.api.common.v1.Priority
+	41, // 57: temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes.versioning_override:type_name -> temporal.api.workflow.v1.VersioningOverride
+	42, // 58: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.input:type_name -> temporal.api.common.v1.Payload
+	29, // 59: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.schedule_to_close_timeout:type_name -> google.protobuf.Duration
+	24, // 60: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.nexus_header:type_name -> temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.NexusHeaderEntry
+	29, // 61: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.schedule_to_start_timeout:type_name -> google.protobuf.Duration
+	29, // 62: temporal.api.command.v1.ScheduleNexusOperationCommandAttributes.start_to_close_timeout:type_name -> google.protobuf.Duration
+	43, // 63: temporal.api.command.v1.Command.command_type:type_name -> temporal.api.enums.v1.CommandType
+	44, // 64: temporal.api.command.v1.Command.user_metadata:type_name -> temporal.api.sdk.v1.UserMetadata
+	45, // 65: temporal.api.command.v1.Command.event_group_markers:type_name -> temporal.api.sdk.v1.EventGroupMarker
+	0,  // 66: temporal.api.command.v1.Command.schedule_activity_task_command_attributes:type_name -> temporal.api.command.v1.ScheduleActivityTaskCommandAttributes
+	3,  // 67: temporal.api.command.v1.Command.start_timer_command_attributes:type_name -> temporal.api.command.v1.StartTimerCommandAttributes
+	6,  // 68: temporal.api.command.v1.Command.complete_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.CompleteWorkflowExecutionCommandAttributes
+	7,  // 69: temporal.api.command.v1.Command.fail_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.FailWorkflowExecutionCommandAttributes
+	2,  // 70: temporal.api.command.v1.Command.request_cancel_activity_task_command_attributes:type_name -> temporal.api.command.v1.RequestCancelActivityTaskCommandAttributes
+	8,  // 71: temporal.api.command.v1.Command.cancel_timer_command_attributes:type_name -> temporal.api.command.v1.CancelTimerCommandAttributes
+	9,  // 72: temporal.api.command.v1.Command.cancel_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.CancelWorkflowExecutionCommandAttributes
+	10, // 73: temporal.api.command.v1.Command.request_cancel_external_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.RequestCancelExternalWorkflowExecutionCommandAttributes
+	14, // 74: temporal.api.command.v1.Command.record_marker_command_attributes:type_name -> temporal.api.command.v1.RecordMarkerCommandAttributes
+	15, // 75: temporal.api.command.v1.Command.continue_as_new_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.ContinueAsNewWorkflowExecutionCommandAttributes
+	16, // 76: temporal.api.command.v1.Command.start_child_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.StartChildWorkflowExecutionCommandAttributes
+	11, // 77: temporal.api.command.v1.Command.signal_external_workflow_execution_command_attributes:type_name -> temporal.api.command.v1.SignalExternalWorkflowExecutionCommandAttributes
+	12, // 78: temporal.api.command.v1.Command.upsert_workflow_search_attributes_command_attributes:type_name -> temporal.api.command.v1.UpsertWorkflowSearchAttributesCommandAttributes
+	17, // 79: temporal.api.command.v1.Command.protocol_message_command_attributes:type_name -> temporal.api.command.v1.ProtocolMessageCommandAttributes
+	13, // 80: temporal.api.command.v1.Command.modify_workflow_properties_command_attributes:type_name -> temporal.api.command.v1.ModifyWorkflowPropertiesCommandAttributes
+	18, // 81: temporal.api.command.v1.Command.schedule_nexus_operation_command_attributes:type_name -> temporal.api.command.v1.ScheduleNexusOperationCommandAttributes
+	19, // 82: temporal.api.command.v1.Command.request_cancel_nexus_operation_command_attributes:type_name -> temporal.api.command.v1.RequestCancelNexusOperationCommandAttributes
+	4,  // 83: temporal.api.command.v1.Command.resolve_optimistic_activity_command_attributes:type_name -> temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes
+	5,  // 84: temporal.api.command.v1.Command.fire_optimistic_timer_command_attributes:type_name -> temporal.api.command.v1.FireOptimisticTimerCommandAttributes
+	28, // 85: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Completed.result:type_name -> temporal.api.common.v1.Payloads
+	28, // 86: temporal.api.command.v1.ResolveOptimisticActivityCommandAttributes.Canceled.details:type_name -> temporal.api.common.v1.Payloads
+	28, // 87: temporal.api.command.v1.RecordMarkerCommandAttributes.DetailsEntry.value:type_name -> temporal.api.common.v1.Payloads
+	88, // [88:88] is the sub-list for method output_type
+	88, // [88:88] is the sub-list for method input_type
+	88, // [88:88] is the sub-list for extension type_name
+	88, // [88:88] is the sub-list for extension extendee
+	0,  // [0:88] is the sub-list for field type_name
 }
 
 func init() { file_temporal_api_command_v1_message_proto_init() }
@@ -2121,7 +2520,11 @@ func file_temporal_api_command_v1_message_proto_init() {
 	if File_temporal_api_command_v1_message_proto != nil {
 		return
 	}
-	file_temporal_api_command_v1_message_proto_msgTypes[17].OneofWrappers = []any{
+	file_temporal_api_command_v1_message_proto_msgTypes[4].OneofWrappers = []any{
+		(*ResolveOptimisticActivityCommandAttributes_Completed_)(nil),
+		(*ResolveOptimisticActivityCommandAttributes_Canceled_)(nil),
+	}
+	file_temporal_api_command_v1_message_proto_msgTypes[20].OneofWrappers = []any{
 		(*Command_ScheduleActivityTaskCommandAttributes)(nil),
 		(*Command_StartTimerCommandAttributes)(nil),
 		(*Command_CompleteWorkflowExecutionCommandAttributes)(nil),
@@ -2139,6 +2542,8 @@ func file_temporal_api_command_v1_message_proto_init() {
 		(*Command_ModifyWorkflowPropertiesCommandAttributes)(nil),
 		(*Command_ScheduleNexusOperationCommandAttributes)(nil),
 		(*Command_RequestCancelNexusOperationCommandAttributes)(nil),
+		(*Command_ResolveOptimisticActivityCommandAttributes)(nil),
+		(*Command_FireOptimisticTimerCommandAttributes)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -2146,7 +2551,7 @@ func file_temporal_api_command_v1_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_temporal_api_command_v1_message_proto_rawDesc), len(file_temporal_api_command_v1_message_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

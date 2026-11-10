@@ -42,6 +42,43 @@ func (this *ScheduleActivityTaskCommandAttributes) Equal(that interface{}) bool 
 	return proto.Equal(this, that1)
 }
 
+// Marshal an object of type OptimisticStart to the protobuf v3 wire format
+func (val *OptimisticStart) Marshal() ([]byte, error) {
+	return proto.Marshal(val)
+}
+
+// Unmarshal an object of type OptimisticStart from the protobuf v3 wire format
+func (val *OptimisticStart) Unmarshal(buf []byte) error {
+	return proto.Unmarshal(buf, val)
+}
+
+// Size returns the size of the object, in bytes, once serialized
+func (val *OptimisticStart) Size() int {
+	return proto.Size(val)
+}
+
+// Equal returns whether two OptimisticStart values are equivalent by recursively
+// comparing the message's fields.
+// For more information see the documentation for
+// https://pkg.go.dev/google.golang.org/protobuf/proto#Equal
+func (this *OptimisticStart) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	var that1 *OptimisticStart
+	switch t := that.(type) {
+	case *OptimisticStart:
+		that1 = t
+	case OptimisticStart:
+		that1 = &t
+	default:
+		return false
+	}
+
+	return proto.Equal(this, that1)
+}
+
 // Marshal an object of type RequestCancelActivityTaskCommandAttributes to the protobuf v3 wire format
 func (val *RequestCancelActivityTaskCommandAttributes) Marshal() ([]byte, error) {
 	return proto.Marshal(val)
@@ -108,6 +145,80 @@ func (this *StartTimerCommandAttributes) Equal(that interface{}) bool {
 	case *StartTimerCommandAttributes:
 		that1 = t
 	case StartTimerCommandAttributes:
+		that1 = &t
+	default:
+		return false
+	}
+
+	return proto.Equal(this, that1)
+}
+
+// Marshal an object of type ResolveOptimisticActivityCommandAttributes to the protobuf v3 wire format
+func (val *ResolveOptimisticActivityCommandAttributes) Marshal() ([]byte, error) {
+	return proto.Marshal(val)
+}
+
+// Unmarshal an object of type ResolveOptimisticActivityCommandAttributes from the protobuf v3 wire format
+func (val *ResolveOptimisticActivityCommandAttributes) Unmarshal(buf []byte) error {
+	return proto.Unmarshal(buf, val)
+}
+
+// Size returns the size of the object, in bytes, once serialized
+func (val *ResolveOptimisticActivityCommandAttributes) Size() int {
+	return proto.Size(val)
+}
+
+// Equal returns whether two ResolveOptimisticActivityCommandAttributes values are equivalent by recursively
+// comparing the message's fields.
+// For more information see the documentation for
+// https://pkg.go.dev/google.golang.org/protobuf/proto#Equal
+func (this *ResolveOptimisticActivityCommandAttributes) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	var that1 *ResolveOptimisticActivityCommandAttributes
+	switch t := that.(type) {
+	case *ResolveOptimisticActivityCommandAttributes:
+		that1 = t
+	case ResolveOptimisticActivityCommandAttributes:
+		that1 = &t
+	default:
+		return false
+	}
+
+	return proto.Equal(this, that1)
+}
+
+// Marshal an object of type FireOptimisticTimerCommandAttributes to the protobuf v3 wire format
+func (val *FireOptimisticTimerCommandAttributes) Marshal() ([]byte, error) {
+	return proto.Marshal(val)
+}
+
+// Unmarshal an object of type FireOptimisticTimerCommandAttributes from the protobuf v3 wire format
+func (val *FireOptimisticTimerCommandAttributes) Unmarshal(buf []byte) error {
+	return proto.Unmarshal(buf, val)
+}
+
+// Size returns the size of the object, in bytes, once serialized
+func (val *FireOptimisticTimerCommandAttributes) Size() int {
+	return proto.Size(val)
+}
+
+// Equal returns whether two FireOptimisticTimerCommandAttributes values are equivalent by recursively
+// comparing the message's fields.
+// For more information see the documentation for
+// https://pkg.go.dev/google.golang.org/protobuf/proto#Equal
+func (this *FireOptimisticTimerCommandAttributes) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	var that1 *FireOptimisticTimerCommandAttributes
+	switch t := that.(type) {
+	case *FireOptimisticTimerCommandAttributes:
+		that1 = t
+	case FireOptimisticTimerCommandAttributes:
 		that1 = &t
 	default:
 		return false

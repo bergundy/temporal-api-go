@@ -813,10 +813,12 @@ func visitPayloads(
 				o.GetFailWorkflowExecutionCommandAttributes(),
 				o.GetModifyWorkflowPropertiesCommandAttributes(),
 				o.GetRecordMarkerCommandAttributes(),
+				o.GetResolveOptimisticActivityCommandAttributes(),
 				o.GetScheduleActivityTaskCommandAttributes(),
 				o.GetScheduleNexusOperationCommandAttributes(),
 				o.GetSignalExternalWorkflowExecutionCommandAttributes(),
 				o.GetStartChildWorkflowExecutionCommandAttributes(),
+				o.GetStartTimerCommandAttributes(),
 				o.GetUpsertWorkflowSearchAttributesCommandAttributes(),
 				o.GetUserMetadata(),
 			); err != nil {
@@ -934,6 +936,32 @@ func visitPayloads(
 
 			ctx.Context = prevCtx
 
+		case *command.OptimisticStart:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetHeartbeatDetails(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
 		case *command.RecordMarkerCommandAttributes:
 
 			if o == nil {
@@ -962,6 +990,85 @@ func visitPayloads(
 
 			ctx.Context = prevCtx
 
+		case *command.ResolveOptimisticActivityCommandAttributes:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetCanceled(),
+				o.GetCompleted(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *command.ResolveOptimisticActivityCommandAttributes_Canceled:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetDetails(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *command.ResolveOptimisticActivityCommandAttributes_Completed:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetResult(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
 		case *command.ScheduleActivityTaskCommandAttributes:
 
 			if o == nil {
@@ -983,6 +1090,7 @@ func visitPayloads(
 				concState,
 				o.GetHeader(),
 				o.GetInput(),
+				o.GetOptimisticStart(),
 			); err != nil {
 				return err
 			}
@@ -1061,6 +1169,32 @@ func visitPayloads(
 				o.GetInput(),
 				o.GetMemo(),
 				o.GetSearchAttributes(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *command.StartTimerCommandAttributes:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetOptimisticStart(),
 			); err != nil {
 				return err
 			}
@@ -5597,6 +5731,7 @@ func visitPayloads(
 				o,
 				concState,
 				o.GetActivityTasks(),
+				o.GetOptimisticActivityTasks(),
 				o.GetWorkflowTask(),
 			); err != nil {
 				return err

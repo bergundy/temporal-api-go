@@ -104,6 +104,12 @@ const (
 	WORKFLOW_TASK_FAILED_CAUSE_WORKFLOW_PAUSE_REQUESTED_BEFORE_TASK_STARTED WorkflowTaskFailedCause = 39
 	// A workflow task failed because the request exceeded a size limit.
 	WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE WorkflowTaskFailedCause = 40
+	// A workflow task failed because a `ResolveOptimisticActivity` command was invalid, for example
+	// because it didn't reference an activity started optimistically earlier in the same task.
+	WORKFLOW_TASK_FAILED_CAUSE_BAD_RESOLVE_OPTIMISTIC_ACTIVITY_ATTRIBUTES WorkflowTaskFailedCause = 41
+	// A workflow task failed because a `FireOptimisticTimer` command was invalid, for example
+	// because it didn't reference a timer started optimistically earlier in the same task.
+	WORKFLOW_TASK_FAILED_CAUSE_BAD_FIRE_OPTIMISTIC_TIMER_ATTRIBUTES WorkflowTaskFailedCause = 42
 )
 
 // Enum value maps for WorkflowTaskFailedCause.
@@ -150,6 +156,8 @@ var (
 		38: "WORKFLOW_TASK_FAILED_CAUSE_EXTERNAL_STORAGE_FAILURE",
 		39: "WORKFLOW_TASK_FAILED_CAUSE_WORKFLOW_PAUSE_REQUESTED_BEFORE_TASK_STARTED",
 		40: "WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE",
+		41: "WORKFLOW_TASK_FAILED_CAUSE_BAD_RESOLVE_OPTIMISTIC_ACTIVITY_ATTRIBUTES",
+		42: "WORKFLOW_TASK_FAILED_CAUSE_BAD_FIRE_OPTIMISTIC_TIMER_ATTRIBUTES",
 	}
 	WorkflowTaskFailedCause_value = map[string]int32{
 		"WORKFLOW_TASK_FAILED_CAUSE_UNSPECIFIED":                                               0,
@@ -193,6 +201,8 @@ var (
 		"WORKFLOW_TASK_FAILED_CAUSE_EXTERNAL_STORAGE_FAILURE":                                  38,
 		"WORKFLOW_TASK_FAILED_CAUSE_WORKFLOW_PAUSE_REQUESTED_BEFORE_TASK_STARTED":              39,
 		"WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE":                                         40,
+		"WORKFLOW_TASK_FAILED_CAUSE_BAD_RESOLVE_OPTIMISTIC_ACTIVITY_ATTRIBUTES":                41,
+		"WORKFLOW_TASK_FAILED_CAUSE_BAD_FIRE_OPTIMISTIC_TIMER_ATTRIBUTES":                      42,
 	}
 )
 
@@ -307,8 +317,15 @@ func (x WorkflowTaskFailedCause) String() string {
 		return "WorkflowPauseRequestedBeforeTaskStarted"
 	case WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE:
 		return "RequestTooLarge"
+	case WORKFLOW_TASK_FAILED_CAUSE_BAD_RESOLVE_OPTIMISTIC_ACTIVITY_ATTRIBUTES:
+		return "BadResolveOptimisticActivityAttributes"
+	case WORKFLOW_TASK_FAILED_CAUSE_BAD_FIRE_OPTIMISTIC_TIMER_ATTRIBUTES:
+		return "BadFireOptimisticTimerAttributes"
 	default:
-		return strconv.Itoa(int(x))
+		return strconv.Itoa(
+
+			// Enum value maps for StartChildWorkflowExecutionFailedCause.
+			int(x))
 	}
 
 }
@@ -403,7 +420,6 @@ const (
 	START_CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID_VERSIONING_OVERRIDE StartChildWorkflowExecutionFailedCause = 3
 )
 
-// Enum value maps for StartChildWorkflowExecutionFailedCause.
 var (
 	StartChildWorkflowExecutionFailedCause_name = map[int32]string{
 		0: "START_CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_UNSPECIFIED",
@@ -771,7 +787,7 @@ var File_temporal_api_enums_v1_failed_cause_proto protoreflect.FileDescriptor
 
 const file_temporal_api_enums_v1_failed_cause_proto_rawDesc = "" +
 	"\n" +
-	"(temporal/api/enums/v1/failed_cause.proto\x12\x15temporal.api.enums.v1*\x90\x14\n" +
+	"(temporal/api/enums/v1/failed_cause.proto\x12\x15temporal.api.enums.v1*\xa0\x15\n" +
 	"\x17WorkflowTaskFailedCause\x12*\n" +
 	"&WORKFLOW_TASK_FAILED_CAUSE_UNSPECIFIED\x10\x00\x120\n" +
 	",WORKFLOW_TASK_FAILED_CAUSE_UNHANDLED_COMMAND\x10\x01\x12?\n" +
@@ -814,7 +830,9 @@ const file_temporal_api_enums_v1_failed_cause_proto_rawDesc = "" +
 	"-WORKFLOW_TASK_FAILED_CAUSE_PAYLOADS_TOO_LARGE\x10%\x127\n" +
 	"3WORKFLOW_TASK_FAILED_CAUSE_EXTERNAL_STORAGE_FAILURE\x10&\x12K\n" +
 	"GWORKFLOW_TASK_FAILED_CAUSE_WORKFLOW_PAUSE_REQUESTED_BEFORE_TASK_STARTED\x10'\x120\n" +
-	",WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE\x10(*\xf3\x01\n" +
+	",WORKFLOW_TASK_FAILED_CAUSE_REQUEST_TOO_LARGE\x10(\x12I\n" +
+	"EWORKFLOW_TASK_FAILED_CAUSE_BAD_RESOLVE_OPTIMISTIC_ACTIVITY_ATTRIBUTES\x10)\x12C\n" +
+	"?WORKFLOW_TASK_FAILED_CAUSE_BAD_FIRE_OPTIMISTIC_TIMER_ATTRIBUTES\x10**\xf3\x01\n" +
 	"\x17ActivityTaskFailedCause\x12*\n" +
 	"&ACTIVITY_TASK_FAILED_CAUSE_UNSPECIFIED\x10\x00\x121\n" +
 	"-ACTIVITY_TASK_FAILED_CAUSE_PAYLOADS_TOO_LARGE\x10\x01\x127\n" +

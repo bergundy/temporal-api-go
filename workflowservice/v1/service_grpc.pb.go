@@ -143,6 +143,8 @@ const (
 	WorkflowService_TerminateNexusOperationExecution_FullMethodName             = "/temporal.api.workflowservice.v1.WorkflowService/TerminateNexusOperationExecution"
 	WorkflowService_DeleteNexusOperationExecution_FullMethodName                = "/temporal.api.workflowservice.v1.WorkflowService/DeleteNexusOperationExecution"
 	WorkflowService_PollWorkflowExecutionTimeSkipping_FullMethodName            = "/temporal.api.workflowservice.v1.WorkflowService/PollWorkflowExecutionTimeSkipping"
+	WorkflowService_StartNexusOperation_FullMethodName                          = "/temporal.api.workflowservice.v1.WorkflowService/StartNexusOperation"
+	WorkflowService_CancelNexusOperation_FullMethodName                         = "/temporal.api.workflowservice.v1.WorkflowService/CancelNexusOperation"
 )
 
 // WorkflowServiceClient is the client API for WorkflowService service.
@@ -784,6 +786,9 @@ type WorkflowServiceClient interface {
 	DescribeNexusOperationExecution(ctx context.Context, in *DescribeNexusOperationExecutionRequest, opts ...grpc.CallOption) (*DescribeNexusOperationExecutionResponse, error)
 	// PollActivityExecution long-polls for an activity execution to complete and returns the
 	// outcome (result or failure).
+	//
+	// Also exposed as an asynchronous operation on the system Nexus endpoint. When invoked via Nexus, the request's
+	// namespace must be empty; the caller's namespace is used.
 	PollActivityExecution(ctx context.Context, in *PollActivityExecutionRequest, opts ...grpc.CallOption) (*PollActivityExecutionResponse, error)
 	// PollNexusOperationExecution long-polls for a Nexus operation for a given wait stage to complete and returns
 	// the outcome (result or failure).
@@ -880,6 +885,21 @@ type WorkflowServiceClient interface {
 	//
 	// Experimental. Might change in the future.
 	PollWorkflowExecutionTimeSkipping(ctx context.Context, in *PollWorkflowExecutionTimeSkippingRequest, opts ...grpc.CallOption) (*PollWorkflowExecutionTimeSkippingResponse, error)
+	// StartNexusOperation starts a Nexus operation on an endpoint, communicating directly with the endpoint using the
+	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
+	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
+	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors.
+	//
+	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
+	// completes or the long-poll deadline is reached.
+	//
+	// Currently only supported for the system Nexus endpoint.
+	StartNexusOperation(ctx context.Context, in *StartNexusOperationRequest, opts ...grpc.CallOption) (*StartNexusOperationResponse, error)
+	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
+	// StartNexusOperation.
+	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
+	// transition to canceled if the handler processes it.
+	CancelNexusOperation(ctx context.Context, in *CancelNexusOperationRequest, opts ...grpc.CallOption) (*CancelNexusOperationResponse, error)
 }
 
 type workflowServiceClient struct {
@@ -2120,6 +2140,26 @@ func (c *workflowServiceClient) PollWorkflowExecutionTimeSkipping(ctx context.Co
 	return out, nil
 }
 
+func (c *workflowServiceClient) StartNexusOperation(ctx context.Context, in *StartNexusOperationRequest, opts ...grpc.CallOption) (*StartNexusOperationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(StartNexusOperationResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_StartNexusOperation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowServiceClient) CancelNexusOperation(ctx context.Context, in *CancelNexusOperationRequest, opts ...grpc.CallOption) (*CancelNexusOperationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CancelNexusOperationResponse)
+	err := c.cc.Invoke(ctx, WorkflowService_CancelNexusOperation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowServiceServer is the server API for WorkflowService service.
 // All implementations must embed UnimplementedWorkflowServiceServer
 // for forward compatibility.
@@ -2759,6 +2799,9 @@ type WorkflowServiceServer interface {
 	DescribeNexusOperationExecution(context.Context, *DescribeNexusOperationExecutionRequest) (*DescribeNexusOperationExecutionResponse, error)
 	// PollActivityExecution long-polls for an activity execution to complete and returns the
 	// outcome (result or failure).
+	//
+	// Also exposed as an asynchronous operation on the system Nexus endpoint. When invoked via Nexus, the request's
+	// namespace must be empty; the caller's namespace is used.
 	PollActivityExecution(context.Context, *PollActivityExecutionRequest) (*PollActivityExecutionResponse, error)
 	// PollNexusOperationExecution long-polls for a Nexus operation for a given wait stage to complete and returns
 	// the outcome (result or failure).
@@ -2855,6 +2898,21 @@ type WorkflowServiceServer interface {
 	//
 	// Experimental. Might change in the future.
 	PollWorkflowExecutionTimeSkipping(context.Context, *PollWorkflowExecutionTimeSkippingRequest) (*PollWorkflowExecutionTimeSkippingResponse, error)
+	// StartNexusOperation starts a Nexus operation on an endpoint, communicating directly with the endpoint using the
+	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
+	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
+	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors.
+	//
+	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
+	// completes or the long-poll deadline is reached.
+	//
+	// Currently only supported for the system Nexus endpoint.
+	StartNexusOperation(context.Context, *StartNexusOperationRequest) (*StartNexusOperationResponse, error)
+	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
+	// StartNexusOperation.
+	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
+	// transition to canceled if the handler processes it.
+	CancelNexusOperation(context.Context, *CancelNexusOperationRequest) (*CancelNexusOperationResponse, error)
 	mustEmbedUnimplementedWorkflowServiceServer()
 }
 
@@ -3233,6 +3291,12 @@ func (UnimplementedWorkflowServiceServer) DeleteNexusOperationExecution(context.
 }
 func (UnimplementedWorkflowServiceServer) PollWorkflowExecutionTimeSkipping(context.Context, *PollWorkflowExecutionTimeSkippingRequest) (*PollWorkflowExecutionTimeSkippingResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method PollWorkflowExecutionTimeSkipping not implemented")
+}
+func (UnimplementedWorkflowServiceServer) StartNexusOperation(context.Context, *StartNexusOperationRequest) (*StartNexusOperationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method StartNexusOperation not implemented")
+}
+func (UnimplementedWorkflowServiceServer) CancelNexusOperation(context.Context, *CancelNexusOperationRequest) (*CancelNexusOperationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CancelNexusOperation not implemented")
 }
 func (UnimplementedWorkflowServiceServer) mustEmbedUnimplementedWorkflowServiceServer() {}
 func (UnimplementedWorkflowServiceServer) testEmbeddedByValue()                         {}
@@ -5469,6 +5533,42 @@ func _WorkflowService_PollWorkflowExecutionTimeSkipping_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowService_StartNexusOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartNexusOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).StartNexusOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_StartNexusOperation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).StartNexusOperation(ctx, req.(*StartNexusOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WorkflowService_CancelNexusOperation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelNexusOperationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowServiceServer).CancelNexusOperation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WorkflowService_CancelNexusOperation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowServiceServer).CancelNexusOperation(ctx, req.(*CancelNexusOperationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WorkflowService_ServiceDesc is the grpc.ServiceDesc for WorkflowService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -5967,6 +6067,14 @@ var WorkflowService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PollWorkflowExecutionTimeSkipping",
 			Handler:    _WorkflowService_PollWorkflowExecutionTimeSkipping_Handler,
+		},
+		{
+			MethodName: "StartNexusOperation",
+			Handler:    _WorkflowService_StartNexusOperation_Handler,
+		},
+		{
+			MethodName: "CancelNexusOperation",
+			Handler:    _WorkflowService_CancelNexusOperation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

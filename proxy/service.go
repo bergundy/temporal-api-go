@@ -32,6 +32,10 @@ func NewWorkflowServiceProxyServer(options WorkflowServiceProxyOptions) (workflo
 	}, nil
 }
 
+func (s *workflowServiceProxyServer) CancelNexusOperation(ctx context.Context, in0 *workflowservice.CancelNexusOperationRequest) (*workflowservice.CancelNexusOperationResponse, error) {
+	return s.client.CancelNexusOperation(s.reqCtx(ctx), in0)
+}
+
 func (s *workflowServiceProxyServer) CountActivityExecutions(ctx context.Context, in0 *workflowservice.CountActivityExecutionsRequest) (*workflowservice.CountActivityExecutionsResponse, error) {
 	return s.client.CountActivityExecutions(s.reqCtx(ctx), in0)
 }
@@ -430,6 +434,10 @@ func (s *workflowServiceProxyServer) StartActivityExecution(ctx context.Context,
 
 func (s *workflowServiceProxyServer) StartBatchOperation(ctx context.Context, in0 *workflowservice.StartBatchOperationRequest) (*workflowservice.StartBatchOperationResponse, error) {
 	return s.client.StartBatchOperation(s.reqCtx(ctx), in0)
+}
+
+func (s *workflowServiceProxyServer) StartNexusOperation(ctx context.Context, in0 *workflowservice.StartNexusOperationRequest) (*workflowservice.StartNexusOperationResponse, error) {
+	return s.client.StartNexusOperation(s.reqCtx(ctx), in0)
 }
 
 func (s *workflowServiceProxyServer) StartNexusOperationExecution(ctx context.Context, in0 *workflowservice.StartNexusOperationExecutionRequest) (*workflowservice.StartNexusOperationExecutionResponse, error) {

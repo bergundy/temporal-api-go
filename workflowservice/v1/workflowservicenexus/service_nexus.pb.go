@@ -9,8 +9,10 @@ import (
 
 var TemporalAPIWorkflowserviceV1WorkflowService = struct {
 	ServiceName                      string
+	PollActivityExecution            nexus.OperationReference[workflowservicev1.PollActivityExecutionRequest, workflowservicev1.PollActivityExecutionResponse]
 	SignalWithStartWorkflowExecution nexus.OperationReference[workflowservicev1.SignalWithStartWorkflowExecutionRequest, workflowservicev1.SignalWithStartWorkflowExecutionResponse]
 }{
 	ServiceName:                      "temporal.api.workflowservice.v1.WorkflowService",
+	PollActivityExecution:            nexus.NewOperationReference[workflowservicev1.PollActivityExecutionRequest, workflowservicev1.PollActivityExecutionResponse]("PollActivityExecution"),
 	SignalWithStartWorkflowExecution: nexus.NewOperationReference[workflowservicev1.SignalWithStartWorkflowExecutionRequest, workflowservicev1.SignalWithStartWorkflowExecutionResponse]("SignalWithStartWorkflowExecution"),
 }

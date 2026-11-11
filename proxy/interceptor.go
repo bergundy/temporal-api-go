@@ -5880,6 +5880,87 @@ func visitPayloads(
 
 			ctx.Context = prevCtx
 
+		case *workflowservice.StartNexusOperationRequest:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if o.Input != nil {
+				if err := visitPayload(ctx, options, o, concState, &o.Input); err != nil {
+					return err
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetCompletionCallback(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *workflowservice.StartNexusOperationResponse:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetFailure(),
+				o.GetSyncSuccess(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *workflowservice.StartNexusOperationResponse_Sync:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if o.Payload != nil {
+				if err := visitPayload(ctx, options, o, concState, &o.Payload); err != nil {
+					return err
+				}
+			}
+
+			ctx.Context = prevCtx
+
 		case *workflowservice.StartWorkflowExecutionRequest:
 
 			if o == nil {
@@ -7223,6 +7304,19 @@ func visitFailures(ctx *VisitFailuresContext, options *VisitFailuresOptions, obj
 				options,
 				o.GetFailure(),
 				o.GetMessages(),
+			); err != nil {
+				return err
+			}
+
+		case *workflowservice.StartNexusOperationResponse:
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitFailures(
+				ctx,
+				options,
+				o.GetFailure(),
 			); err != nil {
 				return err
 			}

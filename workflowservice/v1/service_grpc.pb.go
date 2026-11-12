@@ -888,7 +888,8 @@ type WorkflowServiceClient interface {
 	// StartNexusOperation starts a Nexus operation on an endpoint, communicating directly with the endpoint using the
 	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
 	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
-	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors.
+	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors whose status code is derived
+	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error.
 	//
 	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
 	// completes or the long-poll deadline is reached.
@@ -898,7 +899,8 @@ type WorkflowServiceClient interface {
 	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
 	// StartNexusOperation.
 	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
-	// transition to canceled if the handler processes it.
+	// transition to canceled if the handler processes it. Handler errors are returned the same way as in
+	// StartNexusOperation.
 	CancelNexusOperation(ctx context.Context, in *CancelNexusOperationRequest, opts ...grpc.CallOption) (*CancelNexusOperationResponse, error)
 }
 
@@ -2901,7 +2903,8 @@ type WorkflowServiceServer interface {
 	// StartNexusOperation starts a Nexus operation on an endpoint, communicating directly with the endpoint using the
 	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
 	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
-	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors.
+	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors whose status code is derived
+	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error.
 	//
 	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
 	// completes or the long-poll deadline is reached.
@@ -2911,7 +2914,8 @@ type WorkflowServiceServer interface {
 	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
 	// StartNexusOperation.
 	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
-	// transition to canceled if the handler processes it.
+	// transition to canceled if the handler processes it. Handler errors are returned the same way as in
+	// StartNexusOperation.
 	CancelNexusOperation(context.Context, *CancelNexusOperationRequest) (*CancelNexusOperationResponse, error)
 	mustEmbedUnimplementedWorkflowServiceServer()
 }

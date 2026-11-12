@@ -19367,7 +19367,8 @@ func (x *PollWorkflowExecutionTimeSkippingResponse) GetFastForwardInfo() *v14.Ti
 
 type StartNexusOperationRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// The namespace to authenticate to. This may be different from the target namespace of the specified endpoint.
+	// The namespace the operation runs in. Only applicable to the system Nexus endpoint, must be empty for other
+	// endpoints, whose target namespace is resolved from the endpoint registry.
 	Namespace string `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
 	// The identity of the client who initiated this request.
 	Identity string `protobuf:"bytes,2,opt,name=identity,proto3" json:"identity,omitempty"`
@@ -19603,7 +19604,8 @@ func (*StartNexusOperationResponse_Failure) isStartNexusOperationResponse_Varian
 
 type CancelNexusOperationRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// The namespace to authenticate to. This may be different from the target namespace of the specified endpoint.
+	// The namespace the operation runs in. Only applicable to the system Nexus endpoint, must be empty for other
+	// endpoints, whose target namespace is resolved from the endpoint registry.
 	Namespace string `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
 	// The identity of the client who initiated this request.
 	Identity string `protobuf:"bytes,2,opt,name=identity,proto3" json:"identity,omitempty"`

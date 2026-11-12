@@ -121,8 +121,8 @@ type PayloadVisitorInterceptorOptions struct {
 	Inbound *VisitPayloadsOptions
 }
 
-var payloadTypes = []string{"temporal.api.errordetails.v1.QueryFailedFailure", "temporal.api.errordetails.v1.MultiOperationExecutionFailure"}
-var failureTypes = []string{"temporal.api.errordetails.v1.QueryFailedFailure", "temporal.api.errordetails.v1.MultiOperationExecutionFailure"}
+var payloadTypes = []string{"temporal.api.errordetails.v1.QueryFailedFailure", "temporal.api.errordetails.v1.MultiOperationExecutionFailure", "temporal.api.errordetails.v1.NexusHandlerFailure"}
+var failureTypes = []string{"temporal.api.errordetails.v1.QueryFailedFailure", "temporal.api.errordetails.v1.MultiOperationExecutionFailure", "temporal.api.errordetails.v1.NexusHandlerFailure"}
 
 // NewPayloadVisitorInterceptor creates a new gRPC interceptor for workflowservice messages.
 //
@@ -1525,6 +1525,32 @@ func visitPayloads(
 				o,
 				concState,
 				o.GetDetails(),
+			); err != nil {
+				return err
+			}
+
+			ctx.Context = prevCtx
+
+		case *errordetails.NexusHandlerFailure:
+
+			if o == nil {
+				continue
+			}
+
+			prevCtx := ctx.Context
+			if options.ContextHook != nil {
+				var hookErr error
+				if ctx.Context, hookErr = options.ContextHook(prevCtx, o); hookErr != nil {
+					return hookErr
+				}
+			}
+
+			if err := visitPayloads(
+				ctx,
+				options,
+				o,
+				concState,
+				o.GetFailure(),
 			); err != nil {
 				return err
 			}
@@ -6419,6 +6445,19 @@ func visitFailures(ctx *VisitFailuresContext, options *VisitFailuresOptions, obj
 				ctx,
 				options,
 				o.GetDetails(),
+			); err != nil {
+				return err
+			}
+
+		case *errordetails.NexusHandlerFailure:
+			if o == nil {
+				continue
+			}
+			ctx.Parent = o
+			if err := visitFailures(
+				ctx,
+				options,
+				o.GetFailure(),
 			); err != nil {
 				return err
 			}

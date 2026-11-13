@@ -786,9 +786,6 @@ type WorkflowServiceClient interface {
 	DescribeNexusOperationExecution(ctx context.Context, in *DescribeNexusOperationExecutionRequest, opts ...grpc.CallOption) (*DescribeNexusOperationExecutionResponse, error)
 	// PollActivityExecution long-polls for an activity execution to complete and returns the
 	// outcome (result or failure).
-	//
-	// Also exposed as an asynchronous operation on the system Nexus endpoint. When invoked via Nexus, the request's
-	// namespace must be empty; the caller's namespace is used.
 	PollActivityExecution(ctx context.Context, in *PollActivityExecutionRequest, opts ...grpc.CallOption) (*PollActivityExecutionResponse, error)
 	// PollNexusOperationExecution long-polls for a Nexus operation for a given wait stage to complete and returns
 	// the outcome (result or failure).
@@ -2801,9 +2798,6 @@ type WorkflowServiceServer interface {
 	DescribeNexusOperationExecution(context.Context, *DescribeNexusOperationExecutionRequest) (*DescribeNexusOperationExecutionResponse, error)
 	// PollActivityExecution long-polls for an activity execution to complete and returns the
 	// outcome (result or failure).
-	//
-	// Also exposed as an asynchronous operation on the system Nexus endpoint. When invoked via Nexus, the request's
-	// namespace must be empty; the caller's namespace is used.
 	PollActivityExecution(context.Context, *PollActivityExecutionRequest) (*PollActivityExecutionResponse, error)
 	// PollNexusOperationExecution long-polls for a Nexus operation for a given wait stage to complete and returns
 	// the outcome (result or failure).

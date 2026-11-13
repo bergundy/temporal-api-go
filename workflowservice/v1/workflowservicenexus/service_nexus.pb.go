@@ -4,15 +4,25 @@ package workflowservicenexus
 
 import (
 	"github.com/nexus-rpc/sdk-go/nexus"
+	activityservicev1 "go.temporal.io/api/activityservice/v1"
+
+	commonv1 "go.temporal.io/api/common/v1"
+
 	workflowservicev1 "go.temporal.io/api/workflowservice/v1"
 )
 
 var TemporalAPIWorkflowserviceV1WorkflowService = struct {
 	ServiceName                      string
-	PollActivityExecution            nexus.OperationReference[workflowservicev1.PollActivityExecutionRequest, workflowservicev1.PollActivityExecutionResponse]
 	SignalWithStartWorkflowExecution nexus.OperationReference[workflowservicev1.SignalWithStartWorkflowExecutionRequest, workflowservicev1.SignalWithStartWorkflowExecutionResponse]
 }{
 	ServiceName:                      "temporal.api.workflowservice.v1.WorkflowService",
-	PollActivityExecution:            nexus.NewOperationReference[workflowservicev1.PollActivityExecutionRequest, workflowservicev1.PollActivityExecutionResponse]("PollActivityExecution"),
 	SignalWithStartWorkflowExecution: nexus.NewOperationReference[workflowservicev1.SignalWithStartWorkflowExecutionRequest, workflowservicev1.SignalWithStartWorkflowExecutionResponse]("SignalWithStartWorkflowExecution"),
+}
+
+var TemporalAPIActivityserviceV1ActivityService = struct {
+	ServiceName string
+	GetResult   nexus.OperationReference[activityservicev1.GetResultRequest, commonv1.Payload]
+}{
+	ServiceName: "temporal.api.activityservice.v1.ActivityService",
+	GetResult:   nexus.NewOperationReference[activityservicev1.GetResultRequest, commonv1.Payload]("GetResult"),
 }

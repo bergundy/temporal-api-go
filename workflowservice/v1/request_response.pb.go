@@ -17221,10 +17221,9 @@ func (x *DescribeActivityExecutionResponse) GetCallbacks() []*v120.CallbackInfo 
 }
 
 type PollActivityExecutionRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Must be empty when invoked as a system Nexus operation. The caller's namespace is used instead.
-	Namespace  string `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
-	ActivityId string `protobuf:"bytes,2,opt,name=activity_id,json=activityId,proto3" json:"activity_id,omitempty"`
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	Namespace  string                 `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	ActivityId string                 `protobuf:"bytes,2,opt,name=activity_id,json=activityId,proto3" json:"activity_id,omitempty"`
 	// Activity run ID. If empty the request targets the latest run.
 	RunId         string `protobuf:"bytes,3,opt,name=run_id,json=runId,proto3" json:"run_id,omitempty"`
 	unknownFields protoimpl.UnknownFields

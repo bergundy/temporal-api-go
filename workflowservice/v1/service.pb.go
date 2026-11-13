@@ -28,7 +28,7 @@ var File_temporal_api_workflowservice_v1_service_proto protoreflect.FileDescript
 
 const file_temporal_api_workflowservice_v1_service_proto_rawDesc = "" +
 	"\n" +
-	"-temporal/api/workflowservice/v1/service.proto\x12\x1ftemporal.api.workflowservice.v1\x1a\x1cgoogle/api/annotations.proto\x1a!nexusannotations/v1/options.proto\x1a+temporal/api/protometa/v1/annotations.proto\x1a6temporal/api/workflowservice/v1/request_response.proto2\x90\xbf\x02\n" +
+	"-temporal/api/workflowservice/v1/service.proto\x12\x1ftemporal.api.workflowservice.v1\x1a\x1cgoogle/api/annotations.proto\x1a!nexusannotations/v1/options.proto\x1a+temporal/api/protometa/v1/annotations.proto\x1a6temporal/api/workflowservice/v1/request_response.proto2\x83\xbf\x02\n" +
 	"\x0fWorkflowService\x12\xc3\x01\n" +
 	"\x11RegisterNamespace\x129.temporal.api.workflowservice.v1.RegisterNamespaceRequest\x1a:.temporal.api.workflowservice.v1.RegisterNamespaceResponse\"7\x82\xd3\xe4\x93\x021:\x01*Z\x17:\x01*\"\x12/api/v1/namespaces\"\x13/cluster/namespaces\x12\xd5\x01\n" +
 	"\x11DescribeNamespace\x129.temporal.api.workflowservice.v1.DescribeNamespaceRequest\x1a:.temporal.api.workflowservice.v1.DescribeNamespaceResponse\"I\x82\xd3\xe4\x93\x02CZ \x12\x1e/api/v1/namespaces/{namespace}\x12\x1f/cluster/namespaces/{namespace}\x12\xb4\x01\n" +
@@ -210,8 +210,8 @@ const file_temporal_api_workflowservice_v1_service_proto_rawDesc = "" +
 	"\x19DescribeActivityExecution\x12A.temporal.api.workflowservice.v1.DescribeActivityExecutionRequest\x1aB.temporal.api.workflowservice.v1.DescribeActivityExecutionResponse\"\xa6\x01\x8a\x9d\xcc\x1b.\n" +
 	"\x14temporal-resource-id\x12\x16activity:{activity_id}\x82\xd3\xe4\x93\x02mZ9\x127/api/v1/namespaces/{namespace}/activities/{activity_id}\x120/namespaces/{namespace}/activities/{activity_id}\x12\xf3\x02\n" +
 	"\x1fDescribeNexusOperationExecution\x12G.temporal.api.workflowservice.v1.DescribeNexusOperationExecutionRequest\x1aH.temporal.api.workflowservice.v1.DescribeNexusOperationExecutionResponse\"\xbc\x01\x8a\x9d\xcc\x1b6\n" +
-	"\x14temporal-resource-id\x12\x1enexus-operation:{operation_id}\x82\xd3\xe4\x93\x02{Z@\x12>/api/v1/namespaces/{namespace}/nexus-operations/{operation_id}\x127/namespaces/{namespace}/nexus-operations/{operation_id}\x12\xdc\x02\n" +
-	"\x15PollActivityExecution\x12=.temporal.api.workflowservice.v1.PollActivityExecutionRequest\x1a>.temporal.api.workflowservice.v1.PollActivityExecutionResponse\"\xc3\x01҂\x04\t\x12\aexposed\x8a\x9d\xcc\x1b.\n" +
+	"\x14temporal-resource-id\x12\x1enexus-operation:{operation_id}\x82\xd3\xe4\x93\x02{Z@\x12>/api/v1/namespaces/{namespace}/nexus-operations/{operation_id}\x127/namespaces/{namespace}/nexus-operations/{operation_id}\x12\xcf\x02\n" +
+	"\x15PollActivityExecution\x12=.temporal.api.workflowservice.v1.PollActivityExecutionRequest\x1a>.temporal.api.workflowservice.v1.PollActivityExecutionResponse\"\xb6\x01\x8a\x9d\xcc\x1b.\n" +
 	"\x14temporal-resource-id\x12\x16activity:{activity_id}\x82\xd3\xe4\x93\x02}ZA\x12?/api/v1/namespaces/{namespace}/activities/{activity_id}/outcome\x128/namespaces/{namespace}/activities/{activity_id}/outcome\x12\xf2\x02\n" +
 	"\x1bPollNexusOperationExecution\x12C.temporal.api.workflowservice.v1.PollNexusOperationExecutionRequest\x1aD.temporal.api.workflowservice.v1.PollNexusOperationExecutionResponse\"\xc7\x01\x8a\x9d\xcc\x1b6\n" +
 	"\x14temporal-resource-id\x12\x1enexus-operation:{operation_id}\x82\xd3\xe4\x93\x02\x85\x01ZE\x12C/api/v1/namespaces/{namespace}/nexus-operations/{operation_id}/poll\x12</namespaces/{namespace}/nexus-operations/{operation_id}/poll\x12\xf2\x01\n" +

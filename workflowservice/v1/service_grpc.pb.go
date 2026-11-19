@@ -886,18 +886,26 @@ type WorkflowServiceClient interface {
 	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
 	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
 	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors whose status code is derived
-	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error.
+	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error. Handler errors
+	// also carry these trailers:
+	//   - `temporal-nexus-retryable`: "true" or "false", whether the request may be retried according to the handler
+	//     error's retry behavior, which the status code doesn't reflect.
+	//   - `temporal-nexus-failure-source`: "worker" if the handler error originated outside the server, e.g. in a Nexus
+	//     worker's handler. Absent for errors that originated in the server.
+	//
+	// Operation failures are part of the response, not errors.
 	//
 	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
 	// completes or the long-poll deadline is reached.
 	//
-	// Currently only supported for the system Nexus endpoint.
+	// Currently only supported for the system Nexus endpoint. The namespace-scoped HTTP route targets the system Nexus
+	// endpoint, leaving `endpoint` empty.
 	StartNexusOperation(ctx context.Context, in *StartNexusOperationRequest, opts ...grpc.CallOption) (*StartNexusOperationResponse, error)
 	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
 	// StartNexusOperation.
 	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
 	// transition to canceled if the handler processes it. Handler errors are returned the same way as in
-	// StartNexusOperation.
+	// StartNexusOperation. The namespace-scoped HTTP route targets the system Nexus endpoint, leaving `endpoint` empty.
 	CancelNexusOperation(ctx context.Context, in *CancelNexusOperationRequest, opts ...grpc.CallOption) (*CancelNexusOperationResponse, error)
 }
 
@@ -2898,18 +2906,26 @@ type WorkflowServiceServer interface {
 	// caller's namespace credentials. Unlike StartNexusOperationExecution, no durable caller-side operation is created.
 	// The response follows the Nexus RPC spec semantics: synchronous completion, asynchronous start, or operation
 	// failure. Handler errors (e.g. NOT_FOUND, BAD_REQUEST) are returned as gRPC errors whose status code is derived
-	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error.
+	// from the handler error type, with a `NexusHandlerFailure` error detail carrying the handler error. Handler errors
+	// also carry these trailers:
+	//   - `temporal-nexus-retryable`: "true" or "false", whether the request may be retried according to the handler
+	//     error's retry behavior, which the status code doesn't reflect.
+	//   - `temporal-nexus-failure-source`: "worker" if the handler error originated outside the server, e.g. in a Nexus
+	//     worker's handler. Absent for errors that originated in the server.
+	//
+	// Operation failures are part of the response, not errors.
 	//
 	// A request carrying an ephemeral completion callback may be held open as a long poll until the operation
 	// completes or the long-poll deadline is reached.
 	//
-	// Currently only supported for the system Nexus endpoint.
+	// Currently only supported for the system Nexus endpoint. The namespace-scoped HTTP route targets the system Nexus
+	// endpoint, leaving `endpoint` empty.
 	StartNexusOperation(context.Context, *StartNexusOperationRequest) (*StartNexusOperationResponse, error)
 	// CancelNexusOperation requests cancellation of an asynchronous Nexus operation previously started via
 	// StartNexusOperation.
 	// Cancellation is cooperative: this forwards a cancel request to the handler, but the operation will only
 	// transition to canceled if the handler processes it. Handler errors are returned the same way as in
-	// StartNexusOperation.
+	// StartNexusOperation. The namespace-scoped HTTP route targets the system Nexus endpoint, leaving `endpoint` empty.
 	CancelNexusOperation(context.Context, *CancelNexusOperationRequest) (*CancelNexusOperationResponse, error)
 	mustEmbedUnimplementedWorkflowServiceServer()
 }

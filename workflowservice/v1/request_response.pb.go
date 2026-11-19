@@ -19375,7 +19375,8 @@ type StartNexusOperationRequest struct {
 	// When waiting with an ephemeral completion callback, re-issue the request with the same request ID to continue
 	// waiting.
 	RequestId string `protobuf:"bytes,3,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
-	// Endpoint name, resolved via the Temporal service's endpoint registry.
+	// Endpoint name, resolved via the Temporal service's endpoint registry. Defaults to the system Nexus endpoint
+	// (`__temporal_system`) if empty.
 	Endpoint string `protobuf:"bytes,4,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
 	// Nexus service name.
 	Service string `protobuf:"bytes,5,opt,name=service,proto3" json:"service,omitempty"`
@@ -19608,7 +19609,8 @@ type CancelNexusOperationRequest struct {
 	Namespace string `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
 	// The identity of the client who initiated this request.
 	Identity string `protobuf:"bytes,2,opt,name=identity,proto3" json:"identity,omitempty"`
-	// Endpoint name, resolved via the Temporal service's endpoint registry.
+	// Endpoint name, resolved via the Temporal service's endpoint registry. Defaults to the system Nexus endpoint
+	// (`__temporal_system`) if empty.
 	Endpoint string `protobuf:"bytes,3,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
 	// Nexus service name.
 	Service string `protobuf:"bytes,4,opt,name=service,proto3" json:"service,omitempty"`
